@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="outline-width: 0px !important; -webkit-user-select: text !important;">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/iphone-style-checkboxes.js"></script>
+    <script type="text/javascript" src="js/panel.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/tureng.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>{app.title}</title>
+</head>
+<body>
+    <div id="mainPage">
+        <div id="mainPageTop">
+            <h1>
+                <a href="javascript:;" onclick="openMore();" title="{app.more}">Tureng - Turkish English Dictionary</a>
+            </h1>
+            <div id="navigation">
+                <div class="navigationBack" style="cursor: default; -webkit-filter: grayscale(1);" title="">
+                </div>
+                <div class="navigationForward" style="cursor: default; -webkit-filter: grayscale(1);" title="">
+                </div>
+            </div>
+            <div id="settings">
+                <div class="setDblClick">
+                    <span>{app.dblclick}</span>
+                    <input type="checkbox" id="onOffDblClick" />
+                </div>
+                <div class="setSelection">
+                    <span>{app.selection}</span>
+                    <input type="checkbox" id="onOffSelection" />
+                </div>
+                <div class="settingsIcon" title="{app.settings}"></div>
+            </div>
+        </div>
+        <div id="mainPageTopMiddle">
+            <input type="text" id="searchWord" name="SearchTerm" value="">
+            <input type="button" id="searchButton" class="searchButton" value="{app.translate}">
+        </div>
+        <div id="searchPage">
+            <h1>{app.loading}</h1>
+        </div>
+    </div>
+</body>
+</html>
