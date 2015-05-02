@@ -13,23 +13,31 @@ var badgeNumber = 0;
 var lastSelected = "";
 var culture = "";
 var turengAbbrv = {
-    "v." : "verb",
-    "f." : "yüklem",
-    "n." : "noun",
-    "i." : "isim",
-    "adv." : "adverb",
-    "zf." : "belirteç",
-    "adj." : "adjective",
-    "s." : "sıfat",
-    "prep." : "preposition",
-    "ed." : "ilgeç",
-    "interj." : "interjection",
-    "ünl." : "ünlem",
-    "conj." : "conjunction",
-    "bağ." : "bağlaç",
-    "" : null,
-    "undefined" : null
-}
+    "v.": "verb",
+    "f.": "yüklem",
+    "n.": "noun",
+    "i.": "isim",
+    "adv.": "adverb",
+    "zf.": "belirteç",
+    "adj.": "adjective",
+    "s.": "sıfat",
+    "prep.": "preposition",
+    "ed.": "ilgeç",
+    "interj.": "interjection",
+    "ünl.": "ünlem",
+    "conj.": "conjunction",
+    "bağ.": "bağlaç",
+    "": null,
+    "undefined": null
+};
+
+var urls = {
+    "turengTab": "http://tureng.com/search/",
+    "wordReferenceTab": "http://www.wordreference.com/entr/",
+    "dictionaryTab": "http://dictionary.reference.com/browse/",
+    "yandexTab": "https://ceviri.yandex.com.tr/?text="
+};
+
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
 
 rt.onAppEvent = function (obj) {
@@ -91,7 +99,7 @@ function sendResults() {
 }
 
 function sendSettings() {
-    var obj = {"dblClick": dblclicked, "mouseSelect": mouseSelected};    
+    var obj = {"dblClick": dblclicked, "mouseSelect": mouseSelected};
     rt.post("getSettings", obj);
 }
 
@@ -146,10 +154,25 @@ function checkCulture() {
 }
 
 $(document).ready(function () {
+    $(".tabs .tab-links a").on("click", function (e) {
+        var currentAttrValue = $(this).attr("href");
+
+        // Show/Hide Tabs
+        $(".tabs " + currentAttrValue).fadeIn(400).siblings().hide();
+
+        // Change/remove current tab to active
+        $(this).parent("li").addClass("active").siblings().removeClass("active");
+        $(currentAttrValue).addClass("activeContent").siblings().removeClass("activeContent");
+
+        e.preventDefault();
+    });
+
     // Handler for .ready() called.
     $("#searchPage").html("<h1>" + lang("app.loading") + "</h1>");
+    // Hide main page bottom.
+    $("#mainPageBottom").hide();
     // check culture for websites.
-    checkCulture();
+    //checkCulture();
     // prevent right click on panel.
     //$(document).bind("contextmenu", function (e) { return false; });
 
@@ -262,7 +285,7 @@ function addToSearchPage(html, results) {
     $(".searchResultsTable").find("tr").slice(results).remove();
 }
 
-function loadSearchResults(url) {
+function loadTurengSearchResults(url) {
     var timeout = null;
     var enableCallbacks = true;
 
@@ -287,12 +310,27 @@ function loadSearchResults(url) {
             var $tables = $(data).find(".searchResultsTable");
             if ($tables.length) {
                 for (var i = 0; i < $tables.length; i++) {
-                    if ($tables[i].id.indexOf("englishFull") > -1) { englishFullResultIndex = i; }
-                    else if ($tables[i].id.indexOf("english") > -1) { englishResultIndex = i; }
-                    else if ($tables[i].id.indexOf("turkishFull") > -1) { turkishFullResultIndex = i; }
-                    else if ($tables[i].id.indexOf("turkish") > -1) { turkishResultIndex = i; }
-                    else { console.log("unknown result type: ", $tables[i].id); }
+                    if ($($tables[i]).find(".c2:contains('English')").length > 0) {
+                        if (englishResultIndex == -1) {
+                            englishResultIndex = i;
+                            continue;
+                        }
+                        englishFullResultIndex = i;
+                    }
+                    else if ($($tables[i]).find(".c2:contains('Turkish')").length > 0) {
+                        if (turkishResultIndex == -1) {
+                            turkishResultIndex = i;
+                            continue;
+                        }
+                        turkishFullResultIndex = i;
+                    }
                 }
+
+                // remove un-desired tr-columns.
+                $tables.find(".visible-xs").each(function (index) {
+                    $($(this)[0].nextElementSibling).remove();
+                    $(this).remove();
+                });
 
                 var addedEng = false, addedTur = false;
                 var twoSided = ((englishResultIndex > -1 || englishFullResultIndex > -1) &&
@@ -317,7 +355,7 @@ function loadSearchResults(url) {
                         replaceTurEng($($tables[englishFullResultIndex]).find("tr").slice(1, fullResults));
                     } else if (addedEng) {
                         var slices = $($tables[englishFullResultIndex]).find("tr").slice(1, fullResults);
-                        $("table tbody").append(slices);
+                        $("#englishResultsTable tbody").append(slices);
                     } else {
                         addedEng = true;
                         addToSearchPage($tables[englishFullResultIndex].outerHTML, fullResults);
@@ -329,7 +367,7 @@ function loadSearchResults(url) {
                         replaceTurEng($($tables[turkishFullResultIndex]).find("tr").slice(1, fullResults));
                     } else if (addedTur) {
                         var slices = $($tables[turkishFullResultIndex]).find("tr").slice(1, fullResults);
-                        $(".searchResultsTable").find("table tbody").append(slices);
+                        $("#englishResultsTable tbody").append(slices);
                     } else {
                         addedTur = true;
                         addToSearchPage($tables[turkishFullResultIndex].outerHTML, fullResults);
@@ -337,8 +375,8 @@ function loadSearchResults(url) {
                 }
                 // change class name properly.
                 $(".searchResultsTable tr:not(:first-child)").each(function(index) {
-                    var tr = $(this)[0];
-                    tr.children[1].title = turengAbbrv[tr.children[2].innerHTML];
+                    //var tr = $(this)[0];
+                    //tr.children[1].title = turengAbbrv[tr.children[2].innerHTML];
 
                     if (index % 2 == 0) {
                         $(this).attr("class", "odd");
@@ -363,6 +401,10 @@ function loadSearchResults(url) {
             } else {
                 $("#searchPage").html("<h1>" + lang("app.notFound") + "</h1>");
             }
+            // add titles into the abbrevations.
+            $(".visible-xs-inline").each(function() {
+                $(this).attr("title", turengAbbrv[$(this).html()]);
+            });
             // re-organize all results for panel application.
             $(".searchResultsTable td a[href^='/search/']").attr({href: "javascript:;", target: null}).each(function(index) {
                 //console.log($(this).text());
@@ -444,10 +486,11 @@ function turengTranslate(word) {
 
     //yandexTranslate(word);
     navHistory.add(word);
-    loadSearchResults("http://tureng.com/search/" + word.replace(/\s/g, "%20"));
+    loadTurengSearchResults("http://tureng.com/search/" + word.replace(/\s/g, "%20"));
     $("#searchWord").val(word.toLowerCase());
     $("#searchWord").attr("title", $("#searchWord").val());
     $("#searchWord").focus();
+    $("#mainPageBottom").show();
 }
 
 var navHistory = {
@@ -507,12 +550,12 @@ var navHistory = {
 
 function openMore() {
     var tabs = rt.create("mx.browser.tabs");
-    var newUrl = "http://tureng.com/";
+    var newUrl = urls[$(".activeContent").attr("id")];
     var word = $("#searchWord").val();
 
     if (word) {
-        var queryWord = word.replace(/\s/g, "%20");
-        newUrl = newUrl + "search/" + queryWord;
+        var queryWord = encodeURIComponent(word); //word.replace(/\s/g, "%20");
+        newUrl = newUrl + queryWord;
     }
 
     tabs.newTab({ url: newUrl });
