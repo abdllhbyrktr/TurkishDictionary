@@ -478,7 +478,7 @@ function loadWordReferenceSearchResults(url) {
 function replaceTurEng($trs) {
     for (var i = 0; i < $trs.length; i++) {
         var tr = $trs[i];
-        $("table tbody").append("<tr>" +
+        $("#englishResultsTable tbody").append("<tr>" +
         tr.children[0].outerHTML +
         tr.children[1].outerHTML +
         tr.children[2].outerHTML +
