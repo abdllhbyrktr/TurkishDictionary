@@ -1,0 +1,127 @@
+
+#articleWRD {
+    font-family: sans-serif;
+    color: #222;
+    font-size: 12px;
+    line-height: 1.231;
+    width: 352px;
+}
+    #articleWRD h1 {
+        text-align: center;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        margin: 4px 0 10px 0;
+    }
+
+.WRD {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: solid 1px #dcdcdc;
+    border-bottom: solid 1px #dcdcdc;
+    cursor: default;
+}
+
+    .WRD td {
+        padding: 2px;
+    }
+
+        .WRD td.FrWrd {
+            padding-left: 2px;
+        }
+
+        .WRD td.ToWrd {
+            color: black;
+            padding-right: 12px;
+        }
+
+.POS2 {
+    color: #0645ad;
+}
+
+.wrEven {
+    background-color: #ebebf2;
+    vertical-align: top;
+}
+
+.wrOdd {
+    vertical-align: top;
+}
+
+:not(.wrEven) + .wrEven, :not(.wrOdd) + .wrOdd {
+    border-top: 1px solid #dcdcdc;
+}
+
+#search {
+    height: 40px;
+    background: #ebebf2;
+    position: static;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px #dcdcdc solid;
+    margin-bottom: 10px;
+    padding-top: 5px;
+}
+
+    #search input {
+        background: #fff;
+        border: 1px solid #d3d3d3;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        height: 30px;
+        width: 280px;
+        font-size: 16px;
+        padding-right: 2px;
+    }
+
+        #search input.button {
+            border: 0;
+            width: 12px;
+            height: 12px;
+            background-color: #d7d7d7;
+            cursor: pointer;
+            background-position: 5px;
+            line-height: 31px;
+            vertical-align: bottom;
+            background-image: none;
+            position: relative;
+            bottom: 1px;
+            padding: 8px 7px 8px 7px;
+        }
+
+.inputcontainer {
+    border: solid 1px #b7b7b7;
+    background-color: #d7d7d7;
+    cursor: pointer;
+    background-position: 5px;
+    line-height: 31px;
+    vertical-align: bottom;
+    background-image: none;
+    padding-right: 2px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    width: 25px;
+    display: inline-block;
+    zoom: 1;
+}
+
+#myAutoComplete {
+    width: 150px;
+    padding: 2px 2px 2px 2px;
+    display: inline;
+    text-align: left;
+}
+
+.yui-skin-sam .yui-ac {
+    position: relative;
+    font-family: arial;
+    font-size: 100%;
+}
+
+.yui-skin-sam .yui-ac-input {
+    position: relative;
+    width: 150px;
+}

@@ -65,7 +65,7 @@ li.active a, li.active a:hover {
 .tab-content {
     padding: 3px;
     border-radius: 3px;
-    box-shadow: -1px 1px 1px rgba(0,0,0,0.15);
+    /*box-shadow: -1px 1px 1px rgba(0,0,0,0.15);*/
     background: #fff;
 }
 

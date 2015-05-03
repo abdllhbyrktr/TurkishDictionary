@@ -8,6 +8,9 @@
     <script type="text/javascript" src="js/panel.js"></script>
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/tureng.css">
+    <link rel="stylesheet" type="text/css" href="css/wordreference.css">
+    <link rel="stylesheet" type="text/css" href="css/dictionary.css">
+    <link rel="stylesheet" type="text/css" href="css/yandex.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>{app.title}</title>
 </head>
@@ -34,28 +37,27 @@
                 <ul class="tab-links">
                     <li class="active">
                         <a href="#turengTab">
-                            <img src="css/tureng32.png" style="display: inline" alt="" />
+                            <img src="css/tureng32.png" style="display: inline" alt="Tureng {app.translate}" title="Tureng {app.translate}"/>
                         </a>
                     </li>
                     <li>
                         <a href="#wordReferenceTab">
-                            <img src="css/wr32.png" style="display: inline" alt="" />
+                            <img src="css/wr32.png" style="display: inline" alt="Word Reference" title="Word Reference"/>
                         </a>
                     </li>
                     <li>
                         <a href="#dictionaryTab">
-                            <img src="css/dictionary32.png" style="display: inline" alt="" />
+                            <img src="css/dictionary32.png" style="display: inline" alt="Dictionary Reference" title="Dictionary Reference" />
                         </a>
                     </li>
                     <li>
                         <a href="#yandexTab">
-                            <img src="css/yandex32.png" style="display: inline" alt="" />
+                            <img src="css/yandex32.png" style="display: inline" alt="Yandex {app.translate}" title="Yandex {app.translate}"/>
                         </a>
                     </li>
                 </ul>
-
                 <div class="tab-content">
-                    <div id="turengTab" class="tab activeContent">
+                    <div id="turengTab" class="tab activeContent" tab-index="0">
                         <!--<div id="mainPageTop">
                                 <h1>
                                     <a href="javascript:;" onclick="openMore();" title="{app.more}">Tureng - Turkish English Dictionary</a>
@@ -70,23 +72,66 @@
                         </div>
                     </div>
 
-                    <div id="wordReferenceTab" class="tab">
-                        <p>Word Reference</p>
+                    <div id="wordReferenceTab" class="tab" tab-index="1">
+                        <div id="search" name="sbox">
+                            <div id="myAutoComplete" style="display:inline" class="yui-ac">
+                                <input type="text" name="w" id="si" size="20" maxlength="200" class="yui-ac-input"/>
+                            </div>
+                            <div class="inputcontainer">
+                                <input type="image" src="css/magnifying_glass_dark_flipped.png" height="12" width="12" alt="{app.translate}" title="{app.translate}" class="button" />
+                            </div>
+                        </div>
+                        <div id="articleWRD">
+                            <h1>{app.loading}</h1>
+                        </div>
                     </div>
 
-                    <div id="dictionaryTab" class="tab">
-                        <p>Dictionary</p>
+                    <div id="dictionaryTab" class="tab" tab-index="2">
+                        <div class="search-input">
+                            <input type="text" id="search-input" class="form-control input-lg" id="q">
+                            <input type="submit" id="search-submit" class="search-submit" value="Search">
+                        </div>
+                        <div class="source-data">
+                            <h1>{app.loading}</h1>
+                        </div>
                     </div>
 
-                    <div id="yandexTab" class="tab">
-                        <p>Yandex Translate</p>
+                    <div id="yandexTab" class="tab" tab-index="3">
+                        <div id="dvPageContent">
+                            <table id="LangSelectMenuTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="{app.tr}">{app.tr}</span>
+                                        </td>
+                                        <td>
+                                            <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
+                                        </td>
+                                        <td>
+                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="{app.eng}">{app.eng}</span>
+                                        </td>
+                                        <td>
+                                            <input type="button" id="DictControl" value="{app.translate}">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="TransPreview" style="padding-left: 4px;">
+                                <span id="SpanTargetText">
+                                    <textarea name="TargetText" id="TargetText"></textarea>
+                                </span>
+                                <div id="DictionaryOutput">
+                                    <h1>{app.loading}</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="mainPageBottom">
-                <h3>
-                    <a href="javascript:;" onclick="openMore();" style="color: darkcyan">{app.more}</a>
-                </h3>
+                <div id="mainPageBottom">
+                    <h3>
+                        <a href="javascript:;" onclick="openMore();" style="color: darkcyan">{app.more}</a>
+                    </h3>
+                </div>
             </div>
         </div>
     </body>

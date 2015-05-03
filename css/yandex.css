@@ -1,0 +1,79 @@
+
+#dvPageContent {
+    width: 352px;
+    font-family: Arial;
+    font-size: 11px;
+    color: #000;
+}
+
+.DDStyle {
+    border: 1px solid rgb(212, 212, 212);
+    padding: 3px;
+    background: rgb(255, 255, 255) url(drop_down.gif) no-repeat scroll 95% center;
+    display: block;
+    white-space: nowrap;
+    cursor: pointer;
+    color: black !important;
+    -moz-background-clip: -moz-initial;
+    -moz-background-origin: -moz-initial;
+    -moz-background-inline-policy: -moz-initial;
+}
+
+#TargetText {
+    overflow: hidden;
+    height: 70px;
+    width: 308px;
+    border: 1px;
+    border-style: solid;
+    border-color: #C4C4C4;
+    margin-bottom: 6px;
+    resize: vertical
+}
+
+#DictionaryOutput {
+    width: 294px;
+    height: 70px;
+    padding: 8px;
+    border: solid 1px #7F9DB9;
+    font-size: 11px;
+    margin-bottom: 6px;
+    overflow: auto;
+}
+
+    #DictionaryOutput h1 {
+        text-align: center;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        margin: 4px 0 10px 0;
+    }
+
+#DictControl {
+    border-radius: 6px;
+    background-color: #7ac54d;
+    font-size: 18px;
+    color: #fff;
+    padding: 4px 9px 6px;
+    box-shadow: none;
+    -webkit-appearance: button;
+    cursor: pointer;
+    display: block;
+    height: 34px;
+    line-height: 1.42857143;
+    background-image: none;
+    border: 1px solid #ccc;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.Invisible {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+}

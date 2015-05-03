@@ -38,6 +38,44 @@ var urls = {
     "yandexTab": "https://ceviri.yandex.com.tr/?text="
 };
 
+var PanelTab = (function () {
+    // variables.
+    var currentIndex = "0";
+    // constructor.
+    function PanelTab() {
+        //this.currentIndex = 0;
+    };
+
+    PanelTab.prototype.getCurrentIndex = function () {
+        return currentIndex;
+    };
+
+    PanelTab.prototype.setCurrentIndex = function(index) {
+        currentIndex = index;
+    };
+
+    PanelTab.prototype.translate = function(word) {
+        switch (currentIndex) {
+            case "0":
+                turengTranslate(word);
+                break;
+            case "1":
+                wordReferenceTranslate(word);
+                break;
+            case "2":
+                dictionaryTranslate(word);
+                break;
+            case "3":
+                yandexTranslate(word, "");
+                break;
+            default:
+        }
+    };
+
+    return PanelTab;
+})();
+
+var panelTab = new PanelTab();
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
 
 rt.onAppEvent = function (obj) {
@@ -90,7 +128,7 @@ rt.listen("retrieveMessage", function (msg) {
 });
 
 rt.listen("translate", function (searchKey) {
-    turengTranslate(searchKey);
+    panelTab.translate(searchKey);
     //setTimeout(sendResults, 100);
 });
 
@@ -155,6 +193,7 @@ function checkCulture() {
 
 $(document).ready(function () {
     $(".tabs .tab-links a").on("click", function (e) {
+        $("#mainPageBottom").hide();
         var currentAttrValue = $(this).attr("href");
 
         // Show/Hide Tabs
@@ -163,6 +202,11 @@ $(document).ready(function () {
         // Change/remove current tab to active
         $(this).parent("li").addClass("active").siblings().removeClass("active");
         $(currentAttrValue).addClass("activeContent").siblings().removeClass("activeContent");
+        // set current tab index
+        panelTab.setCurrentIndex($(".activeContent").attr("tab-index"));
+        // translate
+        var currentWord = rt.storage.getConfig("lastSearched");
+        panelTab.translate(currentWord);
 
         e.preventDefault();
     });
@@ -187,12 +231,75 @@ $(document).ready(function () {
         }
     });
 
+    $("#si").keypress(function (event) {
+        // return key(enter).
+        if (event.which == 13) {
+            var searchTerm = $("#si").val();
+
+            if (searchTerm.length) {
+                wordReferenceTranslate(searchTerm);
+            }
+        }
+    });
+
+    $("#search-input").keypress(function (event) {
+        // return key(enter).
+        if (event.which == 13) {
+            var searchTerm = $("#search-input").val();
+
+            if (searchTerm.length) {
+                dictionaryTranslate(searchTerm);
+            }
+        }
+    });
+
     $("#searchButton").click(function () {
         var searchTerm = $("#searchWord").val();
 
         if (searchTerm.length) {
             turengTranslate(searchTerm);
         }
+    });
+
+    $("#search input.button").click(function () {
+        var searchTerm = $("#si").val();
+
+        if (searchTerm.length) {
+            wordReferenceTranslate(searchTerm);
+        }
+    });
+
+    $("#search-submit").click(function () {
+        var searchTerm = $("#search-input").val();
+
+        if (searchTerm.length) {
+            dictionaryTranslate(searchTerm);
+        }
+    });
+
+    $("#DictControl").click(function () {
+        var dataLang = "";
+        var searchTerm = $("#TargetText").val();
+        if ($("#DictFirst").html().indexOf("English") > -1) {
+            dataLang = "&lang=en-tr";
+        } else {
+            dataLang = "&lang=tr-en";
+        }
+
+        if (searchTerm.length) {
+            yandexTranslate(searchTerm, dataLang);
+        }
+    });
+
+    $("#DictSwap").attr({ "title": lang("app.swap"), "alt": lang("app.swap") });
+    $("#DictSwap").click(function() {
+        var first = $("#DictFirst").html();
+        var second = $("#DictSecond").html();
+        $("#DictFirst").html(second);
+        $("#DictFirst").attr("title", second);
+        $("#DictSecond").html(first);
+        $("#DictSecond").attr("title", first);
+        $("#TargetText").focus();
     });
 
     $(document).on("keydown", function() {
@@ -263,8 +370,109 @@ $(document).ready(function () {
     sendSettings();
     var lastSearched = rt.storage.getConfig("lastSearched");
     if (!lastSearched) { lastSearched = "gezi parkı"; }
-    setTimeout(turengTranslate(lastSearched), 100);
+    //setTimeout(turengTranslate(lastSearched), 100);
+    panelTab.translate(lastSearched);
 });
+
+function loadDictionaryReferenceSearchResults(url) {
+    var timeout = null;
+    var enableCallbacks = true;
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: url,
+        beforeSend: function (xhr) {
+            $(".source-data").html("<h1>" + lang("app.loading") + "</h1>");
+            timeout = setTimeout(function () {
+                xhr.abort();
+                enableCallbacks = false;
+                // Handle the timeout
+                $(".source-data").html("<h1>" + lang("app.timeout") + "</h1>");
+            }, 4000);
+        },
+        success: function(data, textStatus, xhr) {
+            clearTimeout(timeout);
+            if (!enableCallbacks) return;
+            
+            var $defList = $(data).find(".def-list");
+            if ($defList.length) {
+                $(".source-data").html($defList[0].outerHTML);
+                // remove links.
+                $(".def-content").find("a").each(function () {
+                    var linkContent = "<span>" + $(this).html() + "</span>";
+                    $(this).replaceWith(linkContent);
+                });
+
+            } else {
+                $(".source-data").html("<h1>" + lang("app.notFound") + "</h1>");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            clearTimeout(timeout);
+            if (!enableCallbacks) return;
+            console.log("error: ", xhr.status, " ", textStatus);
+        }
+    });
+}
+
+function loadWordReferenceSearchResults(url) {
+    var timeout = null;
+    var enableCallbacks = true;
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: url,
+        beforeSend: function (xhr) {
+            $("#articleWRD").html("<h1>" + lang("app.loading") + "</h1>");
+            timeout = setTimeout(function () {
+                xhr.abort();
+                enableCallbacks = false;
+                // Handle the timeout
+                $("#articleWRD").html("<h1>" + lang("app.timeout") + "</h1>");
+            }, 4000);
+        },
+        success: function (data, textStatus, xhr) {
+            clearTimeout(timeout);
+            if (!enableCallbacks) return;
+
+            var $tables = $(data).find(".WRD");
+            if ($tables.length) {
+                $("#articleWRD").html($tables[0].outerHTML);
+
+                // remove un-desired sections.
+                $(".wrtopsection").remove();
+                var results = 0, maxResultBlock = 5;
+                $(".WRD").find("tr").each(function() {
+                    if ($(this).attr("id")) {
+                        maxResultBlock = maxResultBlock - 1;
+                    }
+
+                    if (maxResultBlock <= 0) {
+                        return false;
+                    }
+
+                    results = results + 1;
+                });
+                // remove another results.
+                $(".WRD").find("tr").slice(results).remove();
+
+                // replace odd and even classes.
+                $("#articleWRD .even").removeClass("even").addClass("wrEven");
+                $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
+            } else {
+                $("#articleWRD").html("<h1>" + lang("app.notFound") + "</h1>");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            clearTimeout(timeout);
+            if (!enableCallbacks) return;
+            console.log("error: ", xhr.status, " ", textStatus);
+        }
+    });
+
+}
 
 function replaceTurEng($trs) {
     for (var i = 0; i < $trs.length; i++) {
@@ -452,23 +660,47 @@ function loadTurengSearchResults(url) {
     });
 }
 
-function yandexTranslate(word) {
-    word = word.replace(/\s/g, "+");
-    var detectUrl = "https://translate.yandex.net/api/v1.5/tr.json/detect?key=" + yandexApiKey + "&text=" + word;
+function yandexTranslate(word, detectLang) {
+    $("#DictionaryOutput").html("<h1>" + lang("app.loading") + "</h1>");
+    var queryword = word.replace(/\s/g, "+");
+    var detectUrl = "https://translate.yandex.net/api/v1.5/tr.json/detect?key=" + yandexApiKey + "&text=" + queryword;
     var translateUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + yandexApiKey;
-    $.get(detectUrl, function (data) {
-        console.log("yandex-detect error code: ", data.code);
-        console.log("yandex detect result: ", data.lang);
-        if (data.lang == "en") {
-            translateUrl = translateUrl + "&lang=en-tr&text=" + word;
-        } else {
-            translateUrl = translateUrl + "&lang=tr-en&text=" + word;
-        }
-        $.get(translateUrl, function (data) {
-            console.log("yandex-translate error code: ", data.code);
-            console.log("yandex translate result: ", data.text.join(" "));
+
+    if (detectLang == "") {
+        $.get(detectUrl, function(data) {
+            //console.log("yandex-detect error code: ", data.code);
+            //console.log("yandex detect result: ", data.lang);
+            if (data.lang == "en") {
+                translateUrl = translateUrl + "&lang=en-tr&text=" + queryword;
+                $("#DictFirst").html(lang("app.eng"));
+                $("#DictFirst").attr("title", lang("app.eng"));
+                $("#DictSecond").html(lang("app.tr"));
+                $("#DictSecond").attr("title", lang("app.tr"));
+            } else {
+                translateUrl = translateUrl + "&lang=tr-en&text=" + queryword;
+                $("#DictFirst").html(lang("app.tr"));
+                $("#DictFirst").attr("title", lang("app.tr"));
+                $("#DictSecond").html(lang("app.eng"));
+                $("#DictSecond").attr("title", lang("app.eng"));
+            }
+            $.get(translateUrl, function(data) {
+                //console.log("yandex-translate error code: ", data.code);
+                //console.log("yandex translate result: ", data.text.join(" "));
+                $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
+            }, "json");
         }, "json");
-    }, "json");
+    } else {
+        translateUrl = translateUrl + detectLang + "&text=" + queryword;
+        $.get(translateUrl, function (data) {
+            //console.log("yandex-translate error code: ", data.code);
+            //console.log("yandex translate result: ", data.text.join(" "));
+            $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
+        }, "json");
+    }
+
+    $("#TargetText").val(word.toLowerCase());
+    $("#TargetText").focus();
+    //$("#mainPageBottom").show();
 }
 
 // get only search results container.
@@ -486,10 +718,28 @@ function turengTranslate(word) {
 
     //yandexTranslate(word);
     navHistory.add(word);
-    loadTurengSearchResults("http://tureng.com/search/" + word.replace(/\s/g, "%20"));
+    loadTurengSearchResults(urls["turengTab"] + encodeURIComponent(word));
     $("#searchWord").val(word.toLowerCase());
     $("#searchWord").attr("title", $("#searchWord").val());
     $("#searchWord").focus();
+    $("#mainPageBottom").show();
+}
+
+function wordReferenceTranslate(word) {
+    navHistory.add(word);
+    loadWordReferenceSearchResults(urls["wordReferenceTab"] + encodeURIComponent(word));
+    $("#si").val(word.toLowerCase());
+    $("#si").attr("title", $("#si").val());
+    $("#si").focus();
+    $("#mainPageBottom").show();
+}
+
+function dictionaryTranslate(word) {
+    navHistory.add(word);
+    loadDictionaryReferenceSearchResults(urls["dictionaryTab"] + encodeURIComponent(word));
+    $("#search-input").val(word.toLowerCase());
+    $("#search-input").attr("title", $("#search-input").val());
+    $("#search-input").focus();
     $("#mainPageBottom").show();
 }
 
@@ -498,7 +748,10 @@ var navHistory = {
     forwardArr: [],
     navigating: false,
     add: function(word) {
-        if (!this.navigating) { this.backArr.push(word); }
+        if (!this.navigating) {
+            this.backArr.push(word);
+            rt.storage.setConfig("lastSearched", word);
+        }
         if (this.backArr.length > 10) { this.backArr.shift(); }
         if (this.backArr.length > 1) { this.cssBack(true); }
         // reset forward.
@@ -518,7 +771,8 @@ var navHistory = {
         this.navigating = true;
         var word = this.forwardArr.pop();
         this.backArr.push(word);
-        turengTranslate(word);
+        //turengTranslate(word);
+        panelTab.translate(word);
     },
     prev: function() {
         if (!this.backArr.length) { return; }
@@ -526,7 +780,8 @@ var navHistory = {
         this.navigating = true;
         var toForward = this.backArr.pop();
         this.forwardArr.push(toForward);
-        turengTranslate(this.backArr[this.backArr.length - 1]);
+        //turengTranslate(this.backArr[this.backArr.length - 1]);
+        panelTab.translate(this.backArr[this.backArr.length - 1]);
     },
     cssBack: function(active) {
         if (active) {
