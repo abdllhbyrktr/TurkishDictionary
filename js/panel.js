@@ -171,7 +171,7 @@ function checkCulture() {
                         // set tureng culture.
                         var tabs = rt.create("mx.browser.tabs");
                         var newUrl = "http://tureng.com/setculture?culture=" + culture;
-                        tabs.newTab({ url: newUrl, activate: false });
+                        //tabs.newTab({ url: newUrl, activate: false });
                     } else {
                         culture = locale.split("-")[0];
                     }
@@ -216,9 +216,9 @@ $(document).ready(function () {
     // Hide main page bottom.
     $("#mainPageBottom").hide();
     // check culture for websites.
-    //checkCulture();
+    checkCulture();
     // prevent right click on panel.
-    //$(document).bind("contextmenu", function (e) { return false; });
+    $(document).bind("contextmenu", function (e) { return false; });
 
     $("#searchWord").keypress(function (event) {
         // return key(enter).
@@ -443,6 +443,7 @@ function loadWordReferenceSearchResults(url) {
 
                 // remove un-desired sections.
                 $(".wrtopsection").remove();
+                $(".POS2").find("span").remove();
                 var results = 0, maxResultBlock = 5;
                 $(".WRD").find("tr").each(function() {
                     if ($(this).attr("id")) {
@@ -716,7 +717,6 @@ function turengTranslate(word) {
         $hoveredSpan = null;
     }
 
-    //yandexTranslate(word);
     navHistory.add(word);
     loadTurengSearchResults(urls["turengTab"] + encodeURIComponent(word));
     $("#searchWord").val(word.toLowerCase());
@@ -749,7 +749,7 @@ var navHistory = {
     navigating: false,
     add: function(word) {
         if (!this.navigating) {
-            this.backArr.push(word);
+            if ($.inArray(word, this.backArr) === -1) this.backArr.push(word);
             rt.storage.setConfig("lastSearched", word);
         }
         if (this.backArr.length > 10) { this.backArr.shift(); }

@@ -27,12 +27,20 @@
     }
 
         .WRD td.FrWrd {
-            padding-left: 2px;
+            padding-left: 20px;
         }
 
         .WRD td.ToWrd {
             color: black;
-            padding-right: 12px;
+            padding-right: 10px;
+        }
+
+        .WRD td.ToEx {
+            color: gray;
+        }
+
+        .WRD td.FrEx {
+            color: gray;
         }
 
 .POS2 {
