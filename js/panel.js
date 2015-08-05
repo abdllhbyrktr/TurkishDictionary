@@ -218,7 +218,7 @@ $(document).ready(function () {
     // check culture for websites.
     checkCulture();
     // prevent right click on panel.
-    $(document).bind("contextmenu", function (e) { return false; });
+    //$(document).bind("contextmenu", function (e) { return false; });
 
     $("#searchWord").keypress(function (event) {
         // return key(enter).
@@ -599,7 +599,7 @@ function loadTurengSearchResults(url) {
                 $(".c5").remove();
                 $(".rc0").remove();
                 $(".rc4").remove();
-                $(".searchResultsTable").find("tr td:nth-child(2)").remove();
+                //$(".searchResultsTable").find("tr td:nth-child(2)").remove();
                 // add white space for break-word in css.
                 $(".even, .odd").each(function(index) {
                    var $td = $(this).find("td:first");
