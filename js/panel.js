@@ -218,7 +218,7 @@ $(document).ready(function () {
     // check culture for websites.
     checkCulture();
     // prevent right click on panel.
-    //$(document).bind("contextmenu", function (e) { return false; });
+    $(document).bind("contextmenu", function (e) { return false; });
 
     $("#searchWord").keypress(function (event) {
         // return key(enter).
@@ -519,14 +519,14 @@ function loadTurengSearchResults(url) {
             var $tables = $(data).find(".searchResultsTable");
             if ($tables.length) {
                 for (var i = 0; i < $tables.length; i++) {
-                    if ($($tables[i]).find(".c2:contains('English')").length > 0) {
+                    if ($($tables[i]).find(".c2:contains('ng')").length > 0) {
                         if (englishResultIndex == -1) {
                             englishResultIndex = i;
                             continue;
                         }
                         englishFullResultIndex = i;
                     }
-                    else if ($($tables[i]).find(".c2:contains('Turkish')").length > 0) {
+                    else if ($($tables[i]).find(".c2:contains('rk')").length > 0) {
                         if (turkishResultIndex == -1) {
                             turkishResultIndex = i;
                             continue;
