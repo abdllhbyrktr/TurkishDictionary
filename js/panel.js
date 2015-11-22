@@ -412,6 +412,7 @@ function loadDictionaryReferenceSearchResults(url) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
+            $(".source-data").html("<h1>" + lang("app.notFound") + "</h1>");
         }
     });
 }
@@ -470,6 +471,7 @@ function loadWordReferenceSearchResults(url) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
+            $("#articleWRD").html("<h1>" + lang("app.notFound") + "</h1>");
         }
     });
 
@@ -615,7 +617,7 @@ function loadTurengSearchResults(url) {
                 $(this).attr("title", turengAbbrv[$(this).html()]);
             });
             // re-organize all results for panel application.
-            $(".searchResultsTable td a[href^='/search/']").attr({href: "javascript:;", target: null}).each(function(index) {
+            $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(function(index) {
                 //console.log($(this).text());
                 var text = $(this).text();
                 text = text.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
@@ -657,6 +659,7 @@ function loadTurengSearchResults(url) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
+            $("#searchPage").html("<h1>" + lang("app.notFound") + "</h1>");
         }
     });
 }
