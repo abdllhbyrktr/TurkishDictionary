@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>{app.title} {app.settings}</title>
+        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/options.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/options.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img src="icons/icon_32.png" alt="logo">
+                <hgroup>
+                    <h1>{app.title}<sup>2.0.0</sup></h1>
+                    <h4>{app.description}</h4>
+                </hgroup>
+            </header>
+            <section>
+                <h3>{app.settings}</h3>
+                <div>
+                    <p>
+                        <label>
+                            <span>{app.dblclick}:</span>
+                            <input type="checkbox" id="onOffDblClick" />
+                        </label>&nbsp;
+                        <label>
+                            <span>{app.selection}:</span>
+                            <input type="checkbox" id="onOffSelection" />
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <footer>
+                <a target="_blank" href="http://extension.maxthon.com/detail/index.php?view_id=2818">{app.feedback}</a>
+            </footer>
+        </div>
+    </body>
+</html>

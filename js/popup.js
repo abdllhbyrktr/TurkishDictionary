@@ -59,7 +59,7 @@
     var maxSamples = 10;
     function mouseMoving(evt) {
         if (mouseEvt.grab) {
-            console.log("X: ", evt.pageX, ", Y: ", evt.pageY);
+            //console.log("X: ", evt.pageX, ", Y: ", evt.pageY);
             mouseEvt.x = evt.pageX;
             mouseEvt.y = evt.pageY;
             var deltaX = 0;
