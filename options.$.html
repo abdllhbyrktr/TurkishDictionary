@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="outline-width: 0px !important; -webkit-user-select: text !important;">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <title>{app.title} {app.settings}</title>
         <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/underscore-min.js"></script>
+        <script type="text/javascript" src="js/libs.js"></script>
         <script type="text/javascript" src="js/options.js"></script>
         <link rel="stylesheet" type="text/css" href="css/options.css">
     </head>
@@ -20,6 +22,26 @@
             <section>
                 <h3>{app.settings}</h3>
                 <div>
+                    <p>
+                        {app.options1}
+                    </p>
+                    <p>
+                        <label>
+                            <input type="radio" id="trRadio" name="languageGroup" value="tr" checked="checked"> <strong>{app.tr}</strong> ({app.eng}-{app.tr}, {app.tr}-{app.eng}, {app.eng}-{app.eng}, {app.tr}-{app.tr})<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="deRadio" name="languageGroup" value="de"> <strong>{app.de}</strong> ({app.de}-{app.eng}, {app.eng}-{app.de}, {app.eng}-{app.eng})<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="esRadio" name="languageGroup" value="es"> <strong>{app.es}</strong> ({app.es}-{app.eng}, {app.eng}-{app.es}, {app.eng}-{app.eng})<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="frRadio" name="languageGroup" value="fr"> <strong>{app.fr}</strong> ({app.fr}-{app.eng}, {app.eng}-{app.fr}, {app.eng}-{app.eng})<br>
+                        </label>
+                    </p>
+                    <p>
+                        {app.options2}
+                    </p>
                     <p>
                         <label>
                             <span>{app.dblclick}:</span>

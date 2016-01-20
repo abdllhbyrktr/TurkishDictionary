@@ -1,9 +1,3 @@
-// Get the runtime object
-var rt = window.external.mxGetRuntime();
-var browser = rt.create("mx.browser");
-var lang = rt.locale.t;
-//console.log(rt.version);
-//console.log(rt.locale.getSystemLocale()); // en, tr-tr
 var dblclicked = false;
 var mouseSelected = false;
 var highlighted = false;
@@ -11,74 +5,10 @@ var highlightedText = "";
 var $hoveredSpan;
 var badgeNumber = 0;
 var lastSelected = "";
-var culture = "";
-var turengAbbrv = {
-    "v.": "verb",
-    "f.": "yüklem",
-    "n.": "noun",
-    "i.": "isim",
-    "adv.": "adverb",
-    "zf.": "belirteç",
-    "adj.": "adjective",
-    "s.": "sıfat",
-    "prep.": "preposition",
-    "ed.": "ilgeç",
-    "interj.": "interjection",
-    "ünl.": "ünlem",
-    "conj.": "conjunction",
-    "bağ.": "bağlaç",
-    "": null,
-    "undefined": null
-};
-
-var urls = {
-    "turengTab": "http://tureng.com/search/",
-    "wordReferenceTab": "http://www.wordreference.com/entr/",
-    "dictionaryTab": "http://dictionary.reference.com/browse/",
-    "yandexTab": "https://ceviri.yandex.com.tr/?text="
-};
-
-var PanelTab = (function () {
-    // variables.
-    var currentIndex = "0";
-    // constructor.
-    function PanelTab() {
-        //this.currentIndex = 0;
-    };
-
-    PanelTab.prototype.getCurrentIndex = function () {
-        return currentIndex;
-    };
-
-    PanelTab.prototype.setCurrentIndex = function(index) {
-        currentIndex = index;
-    };
-
-    PanelTab.prototype.translate = function(word) {
-        switch (currentIndex) {
-            case "0":
-                turengTranslate(word);
-                break;
-            case "1":
-                wordReferenceTranslate(word);
-                break;
-            case "2":
-                dictionaryTranslate(word);
-                break;
-            case "3":
-                yandexTranslate(word, "");
-                break;
-            default:
-        }
-    };
-
-    return PanelTab;
-})();
-
-var panelTab = new PanelTab();
+var handleTimeout = 6000;
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
 
-rt.onAppEvent = function (obj) {
+mxRuntime.onAppEvent = function (obj) {
 	//console.log(obj.type);
     switch (obj.type) {
         case "ACTION_START":
@@ -90,7 +20,7 @@ rt.onAppEvent = function (obj) {
         case "ACTION_SHOW":
             //console.log("Action is shown.");
             badgeNumber = 0;
-            //rt.icon.showBadge(badgeNumber);
+            //mxRuntime.icon.showBadge(badgeNumber);
             if (lastSelected != "") {
                 turengTranslate(lastSelected);
                 lastSelected = "";
@@ -101,14 +31,14 @@ rt.onAppEvent = function (obj) {
         case "ACTION_HIDE":
             //console.log("Action is hidden.");
             if (navHistory.backArr.length) {
-                rt.storage.setConfig("lastSearched", navHistory.backArr[navHistory.backArr.length - 1]);
+                userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
             }
             break;
         case "ERROR":
             console.log(obj.errorMessage);
             break;
         case "LOCALE_CHANGED":
-            rt.locale.setDisplayLocale(rt.locale.getSystemLocale());
+            mxRuntime.locale.setDisplayLocale(mxRuntime.locale.getSystemLocale());
             location.reload();
             break;
         default:
@@ -116,79 +46,29 @@ rt.onAppEvent = function (obj) {
     }
 };
 
-rt.listen("showBadge", function (selected) {
+mxRuntime.listen("showBadge", function (selected) {
     //lastSelected = selected;
     badgeNumber = badgeNumber + 1;
-    //rt.icon.showBadge(badgeNumber);
+    //mxRuntime.icon.showBadge(badgeNumber);
 });
 
-rt.listen("retrieveMessage", function (msg) {
+mxRuntime.listen("retrieveMessage", function (msg) {
     //console.log("I got message from script action: ", msg);
     setTimeout(sendSettings, 100);
 });
 
-rt.listen("translate", function (searchKey) {
+mxRuntime.listen("translate", function (searchKey) {
     panelTab.translate(searchKey);
     //setTimeout(sendResults, 100);
 });
 
 function sendResults() {
-    rt.post("results", $("#searchPage").html());
+    mxRuntime.post("results", $("#searchPage").html());
 }
 
 function sendSettings() {
     var obj = {"dblClick": dblclicked, "mouseSelect": mouseSelected};
-    rt.post("getSettings", obj);
-}
-
-function checkCulture() {
-    var locale = rt.locale.getSystemLocale();
-    if (culture == "") {
-        var timeout = null;
-        var enableCallbacks = true;
-        $.ajax({
-            type: "GET",
-            dataType: "html",
-            url: "http://tureng.com/",
-            beforeSend: function (xhr) {
-                timeout = setTimeout(function() {
-                  xhr.abort();
-                  enableCallbacks = false;
-                  // Handle the timeout
-                  culture = "";
-                  setTimeout(checkCulture, 5000);
-                }, 2000);
-            },
-            success: function (data, textStatus, xhr) {
-                clearTimeout(timeout);
-                if (!enableCallbacks) return;
-                var $culture = $(data).find("#topBarRight a[href^='/setculture']");
-                if ($culture.length) {
-                    var href = $culture.attr("href");
-                    var arr = href.split("=");
-                    culture = arr[1];
-                    if (locale.indexOf(culture) > -1) {
-                        // set tureng culture.
-                        var tabs = rt.create("mx.browser.tabs");
-                        var newUrl = "http://tureng.com/setculture?culture=" + culture;
-                        //tabs.newTab({ url: newUrl, activate: false });
-                    } else {
-                        culture = locale.split("-")[0];
-                    }
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                clearTimeout(timeout);
-                if (!enableCallbacks) return;
-                console.log("error: ", xhr.status, " ", textStatus);
-            }
-        });
-    } else if (locale.indexOf(culture) < 0) {
-        // set tureng culture.
-        var tabs = rt.create("mx.browser.tabs");
-        var newUrl = "http://tureng.com/setculture?culture=" + culture;
-        tabs.newTab({ url: newUrl, activate: false });
-    }
+    mxRuntime.post("getSettings", obj);
 }
 
 $(document).ready(function () {
@@ -203,22 +83,22 @@ $(document).ready(function () {
         $(this).parent("li").addClass("active").siblings().removeClass("active");
         $(currentAttrValue).addClass("activeContent").siblings().removeClass("activeContent");
         // set current tab index
-        panelTab.setCurrentIndex($(".activeContent").attr("tab-index"));
+        panelTab.setCurrentTab($(".activeContent").attr("id"));
         // translate
-        var currentWord = rt.storage.getConfig("lastSearched");
+        var currentWord = userConfig.lastSearchTerm;
         panelTab.translate(currentWord);
 
         e.preventDefault();
     });
 
     // Handler for .ready() called.
-    $("#searchPage").html("<h1>" + lang("app.loading") + "</h1>");
+    $("#searchPage").html("<h1>" + mxLang("app.loading") + "</h1>");
     // Hide main page bottom.
     $("#mainPageBottom").hide();
     // check culture for websites.
-    checkCulture();
+    //checkCulture();
     // prevent right click on panel.
-    //$(document).bind("contextmenu", function (e) { return false; });
+    $(document).bind("contextmenu", function (e) { return false; });
 
     $("#searchWord").keypress(function (event) {
         // return key(enter).
@@ -280,10 +160,12 @@ $(document).ready(function () {
     $("#DictControl").click(function () {
         var dataLang = "";
         var searchTerm = $("#TargetText").val();
+        var currentLang = AvailableLangs.getCurrentLanguage();
+
         if ($("#DictFirst").html().indexOf("English") > -1) {
-            dataLang = "&lang=en-tr";
+            dataLang = "&lang=en-" + currentLang;
         } else {
-            dataLang = "&lang=tr-en";
+            dataLang = "&lang=" + currentLang + "-en";
         }
 
         if (searchTerm.length) {
@@ -291,7 +173,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#DictSwap").attr({ "title": lang("app.swap"), "alt": lang("app.swap") });
+    $("#DictSwap").attr({ "title": mxLang("app.swap"), "alt": mxLang("app.swap") });
     $("#DictSwap").click(function() {
         var first = $("#DictFirst").html();
         var second = $("#DictSecond").html();
@@ -325,27 +207,28 @@ $(document).ready(function () {
     });
     
     // restore settings from config.
-    if (rt.storage.getConfig("dblclicked")) {
-        dblclicked = (rt.storage.getConfig("dblclicked") == "true") ? true : false;
+    if (userConfig.doubleClicked) {
+        dblclicked = userConfig.doubleClicked == "true" || false;
     }
-    if (rt.storage.getConfig("mouseSelected")) {
-        mouseSelected = (rt.storage.getConfig("mouseSelected") == "true") ? true : false;
+
+    if (userConfig.mouseSelected) {
+        mouseSelected = userConfig.mouseSelected == "true" || false;
     }
 
     var checkedClick = dblclicked ? ' checked="checked"' : '';
     var checkedSelect = mouseSelected ? ' checked="checked"' : '';
 
-    $("#settings").html('<div class="setDblClick"><span>' + lang("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + lang("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + lang("app.settings") + '"></div>');
+    $("#settings").html('<div class="setDblClick"><span>' + mxLang("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + mxLang("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + mxLang("app.settings") + '"></div>');
 
-    $(".setDblClick :checkbox").iphoneStyle({checkedLabel: lang("app.on"), uncheckedLabel: lang("app.off"), onChange: function (e, checked) {
+    $(".setDblClick :checkbox").iphoneStyle({checkedLabel: mxLang("app.on"), uncheckedLabel: mxLang("app.off"), onChange: function (e, checked) {
         dblclicked = checked;
-        rt.storage.setConfig("dblclicked", dblclicked);
+        userConfig.doubleClicked = dblclicked;
         sendSettings();
     }});
 
-    $(".setSelection :checkbox").iphoneStyle({checkedLabel: lang("app.on"), uncheckedLabel: lang("app.off"), onChange: function (e, checked) {
+    $(".setSelection :checkbox").iphoneStyle({checkedLabel: mxLang("app.on"), uncheckedLabel: mxLang("app.off"), onChange: function (e, checked) {
         mouseSelected = checked;
-        rt.storage.setConfig("mouseSelected", mouseSelected);
+        userConfig.mouseSelected = mouseSelected;
         sendSettings();
     }});
 
@@ -368,8 +251,11 @@ $(document).ready(function () {
     });
 
     sendSettings();
-    var lastSearched = rt.storage.getConfig("lastSearched");
-    if (!lastSearched) { lastSearched = "gezi parkı"; }
+    var lastSearched = "gezi parkı";
+    if (userConfig.lastSearchTerm) {
+        lastSearched = userConfig.lastSearchTerm;
+    }
+
     //setTimeout(turengTranslate(lastSearched), 100);
     panelTab.translate(lastSearched);
 });
@@ -383,13 +269,13 @@ function loadDictionaryReferenceSearchResults(url) {
         dataType: "html",
         url: url,
         beforeSend: function (xhr) {
-            $(".source-data").html("<h1>" + lang("app.loading") + "</h1>");
+            $(".source-data").html("<h1>" + mxLang("app.loading") + "</h1>");
             timeout = setTimeout(function () {
                 xhr.abort();
                 enableCallbacks = false;
                 // Handle the timeout
-                $(".source-data").html("<h1>" + lang("app.timeout") + "</h1>");
-            }, 4000);
+                $(".source-data").html("<h1>" + mxLang("app.timeout") + "</h1>");
+            }, handleTimeout);
         },
         success: function(data, textStatus, xhr) {
             clearTimeout(timeout);
@@ -405,14 +291,14 @@ function loadDictionaryReferenceSearchResults(url) {
                 });
 
             } else {
-                $(".source-data").html("<h1>" + lang("app.notFound") + "</h1>");
+                $(".source-data").html("<h1>" + mxLang("app.notFound") + "</h1>");
             }
         },
         error: function (xhr, textStatus, errorThrown) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
-            $(".source-data").html("<h1>" + lang("app.notFound") + "</h1>");
+            $(".source-data").html("<h1>" + mxLang("app.notFound") + "</h1>");
         }
     });
 }
@@ -426,13 +312,13 @@ function loadWordReferenceSearchResults(url) {
         dataType: "html",
         url: url,
         beforeSend: function (xhr) {
-            $("#articleWRD").html("<h1>" + lang("app.loading") + "</h1>");
+            $("#articleWRD").html("<h1>" + mxLang("app.loading") + "</h1>");
             timeout = setTimeout(function () {
                 xhr.abort();
                 enableCallbacks = false;
                 // Handle the timeout
-                $("#articleWRD").html("<h1>" + lang("app.timeout") + "</h1>");
-            }, 4000);
+                $("#articleWRD").html("<h1>" + mxLang("app.timeout") + "</h1>");
+            }, handleTimeout);
         },
         success: function (data, textStatus, xhr) {
             clearTimeout(timeout);
@@ -464,14 +350,14 @@ function loadWordReferenceSearchResults(url) {
                 $("#articleWRD .even").removeClass("even").addClass("wrEven");
                 $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
             } else {
-                $("#articleWRD").html("<h1>" + lang("app.notFound") + "</h1>");
+                $("#articleWRD").html("<h1>" + mxLang("app.notFound") + "</h1>");
             }
         },
         error: function (xhr, textStatus, errorThrown) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
-            $("#articleWRD").html("<h1>" + lang("app.notFound") + "</h1>");
+            $("#articleWRD").html("<h1>" + mxLang("app.notFound") + "</h1>");
         }
     });
 
@@ -483,10 +369,9 @@ function replaceTurEng($trs) {
         $("#englishResultsTable tbody").append("<tr>" +
         tr.children[0].outerHTML +
         tr.children[1].outerHTML +
+        tr.children[3].outerHTML +
         tr.children[2].outerHTML +
         tr.children[4].outerHTML +
-        tr.children[3].outerHTML +
-        tr.children[5].outerHTML +
         "</tr>");
     }
 }
@@ -505,13 +390,13 @@ function loadTurengSearchResults(url) {
         dataType: "html",
         url: url,
         beforeSend: function (xhr) {
-            $("#searchPage").html("<h1>" + lang("app.loading") + "</h1>");
+            $("#searchPage").html("<h1>" + mxLang("app.loading") + "</h1>");
             timeout = setTimeout(function() {
               xhr.abort();
               enableCallbacks = false;
               // Handle the timeout
-              $("#searchPage").html("<h1>" + lang("app.timeout") + "</h1>");
-            }, 4000);
+              $("#searchPage").html("<h1>" + mxLang("app.timeout") + "</h1>");
+            }, handleTimeout);
         },
         success: function (data, textStatus, xhr) {
             clearTimeout(timeout);
@@ -528,7 +413,7 @@ function loadTurengSearchResults(url) {
                         }
                         englishFullResultIndex = i;
                     }
-                    else if ($($tables[i]).find(".c2:contains('rk')").length > 0) {
+                    else if ($($tables[i]).find(".c2:contains('" + Tureng.containsTerm() + "')").length > 0) {
                         if (turkishResultIndex == -1) {
                             turkishResultIndex = i;
                             continue;
@@ -610,11 +495,11 @@ function loadTurengSearchResults(url) {
                    $td.html(text);
                 });
             } else {
-                $("#searchPage").html("<h1>" + lang("app.notFound") + "</h1>");
+                $("#searchPage").html("<h1>" + mxLang("app.notFound") + "</h1>");
             }
             // add titles into the abbrevations.
             $(".visible-xs-inline").each(function() {
-                $(this).attr("title", turengAbbrv[$(this).html()]);
+                $(this).attr("title", Tureng.abbrv[$(this).html()]);
             });
             // re-organize all results for panel application.
             $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(function(index) {
@@ -659,33 +544,35 @@ function loadTurengSearchResults(url) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
-            $("#searchPage").html("<h1>" + lang("app.notFound") + "</h1>");
+            $("#searchPage").html("<h1>" + mxLang("app.notFound") + "</h1>");
         }
     });
 }
 
 function yandexTranslate(word, detectLang) {
-    $("#DictionaryOutput").html("<h1>" + lang("app.loading") + "</h1>");
+    $("#DictionaryOutput").html("<h1>" + mxLang("app.loading") + "</h1>");
     var queryword = word.replace(/\s/g, "+");
     var detectUrl = "https://translate.yandex.net/api/v1.5/tr.json/detect?key=" + yandexApiKey + "&text=" + queryword;
     var translateUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + yandexApiKey;
 
     if (detectLang == "") {
         $.get(detectUrl, function(data) {
+            var currentLang = AvailableLangs.getCurrentLanguage();
+            var currentLangText = mxLang("app." + currentLang);
             //console.log("yandex-detect error code: ", data.code);
             //console.log("yandex detect result: ", data.lang);
             if (data.lang == "en") {
-                translateUrl = translateUrl + "&lang=en-tr&text=" + queryword;
-                $("#DictFirst").html(lang("app.eng"));
-                $("#DictFirst").attr("title", lang("app.eng"));
-                $("#DictSecond").html(lang("app.tr"));
-                $("#DictSecond").attr("title", lang("app.tr"));
+                translateUrl = translateUrl + "&lang=en-" + currentLang + "&text=" + queryword;
+                $("#DictFirst").html(mxLang("app.eng"));
+                $("#DictFirst").attr("title", mxLang("app.eng"));
+                $("#DictSecond").html(currentLangText);
+                $("#DictSecond").attr("title", currentLangText);
             } else {
-                translateUrl = translateUrl + "&lang=tr-en&text=" + queryword;
-                $("#DictFirst").html(lang("app.tr"));
-                $("#DictFirst").attr("title", lang("app.tr"));
-                $("#DictSecond").html(lang("app.eng"));
-                $("#DictSecond").attr("title", lang("app.eng"));
+                translateUrl = translateUrl + "&lang=" + currentLang + "-en&text=" + queryword;
+                $("#DictFirst").html(currentLangText);
+                $("#DictFirst").attr("title", currentLangText);
+                $("#DictSecond").html(mxLang("app.eng"));
+                $("#DictSecond").attr("title", mxLang("app.eng"));
             }
             $.get(translateUrl, function(data) {
                 //console.log("yandex-translate error code: ", data.code);
@@ -707,7 +594,6 @@ function yandexTranslate(word, detectLang) {
     //$("#mainPageBottom").show();
 }
 
-// get only search results container.
 function turengTranslate(word) {
     //console.log("highlightedText: ", highlightedText);
     if (highlightedText) {
@@ -721,7 +607,7 @@ function turengTranslate(word) {
     }
 
     navHistory.add(word);
-    loadTurengSearchResults(urls["turengTab"] + encodeURIComponent(word));
+    loadTurengSearchResults(Tureng.getUrl() + encodeURIComponent(word));
     $("#searchWord").val(word.toLowerCase());
     $("#searchWord").attr("title", $("#searchWord").val());
     $("#searchWord").focus();
@@ -730,7 +616,7 @@ function turengTranslate(word) {
 
 function wordReferenceTranslate(word) {
     navHistory.add(word);
-    loadWordReferenceSearchResults(urls["wordReferenceTab"] + encodeURIComponent(word));
+    loadWordReferenceSearchResults(Wordreference.getUrl() + encodeURIComponent(word));
     $("#si").val(word.toLowerCase());
     $("#si").attr("title", $("#si").val());
     $("#si").focus();
@@ -739,76 +625,16 @@ function wordReferenceTranslate(word) {
 
 function dictionaryTranslate(word) {
     navHistory.add(word);
-    loadDictionaryReferenceSearchResults(urls["dictionaryTab"] + encodeURIComponent(word));
+    loadDictionaryReferenceSearchResults(DictionaryReference.getUrl() + encodeURIComponent(word));
     $("#search-input").val(word.toLowerCase());
     $("#search-input").attr("title", $("#search-input").val());
     $("#search-input").focus();
     $("#mainPageBottom").show();
 }
 
-var navHistory = {
-    backArr: [],
-    forwardArr: [],
-    navigating: false,
-    add: function(word) {
-        if (!this.navigating) {
-            if ($.inArray(word, this.backArr) === -1) this.backArr.push(word);
-            rt.storage.setConfig("lastSearched", word);
-        }
-        if (this.backArr.length > 10) { this.backArr.shift(); }
-        if (this.backArr.length > 1) { this.cssBack(true); }
-        // reset forward.
-        if (this.forwardArr.length && !this.navigating) {
-            this.cssForward(false);
-            this.forwardArr = [];   
-        }
-        // change styles for back array.
-        if (this.backArr.length <= 1) { this.cssBack(false); }
-        // change styles for forward array.
-        if (!this.forwardArr.length) { this.cssForward(false); }
-
-        this.navigating = false;
-    },
-    next: function() {
-        if (!this.forwardArr.length) { return; }
-        this.navigating = true;
-        var word = this.forwardArr.pop();
-        this.backArr.push(word);
-        //turengTranslate(word);
-        panelTab.translate(word);
-    },
-    prev: function() {
-        if (!this.backArr.length) { return; }
-        if (this.forwardArr.length == 0) { this.cssForward(true); }
-        this.navigating = true;
-        var toForward = this.backArr.pop();
-        this.forwardArr.push(toForward);
-        //turengTranslate(this.backArr[this.backArr.length - 1]);
-        panelTab.translate(this.backArr[this.backArr.length - 1]);
-    },
-    cssBack: function(active) {
-        if (active) {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationBack").attr("title", lang("app.backward"));
-        } else {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
-            $(".navigationBack").attr("title", null);
-        }
-    },
-    cssForward: function(active) {
-        if (active) {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationForward").attr("title", lang("app.forward"));
-        } else {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
-            $(".navigationForward").attr("title", null);
-        }
-    }
-};
-
 function openMore() {
-    var tabs = rt.create("mx.browser.tabs");
-    var newUrl = urls[$(".activeContent").attr("id")];
+    var tabs = mxRuntime.create("mx.browser.tabs");
+    var newUrl = getUrl($(".activeContent").attr("id"));
     var word = $("#searchWord").val();
 
     if (word) {
@@ -817,12 +643,4 @@ function openMore() {
     }
 
     tabs.newTab({ url: newUrl });
-}
-
-function clearSelection() {
-    if (document.selection) {
-        document.selection.empty();
-    } else if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-    }
 }
