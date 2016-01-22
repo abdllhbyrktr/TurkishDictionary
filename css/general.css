@@ -3,6 +3,13 @@ body {
     font-size: 12px;
 }
 
+h1 {
+    text-align: center;
+    font-size: 12px;
+    padding: 3px;
+    margin: 4px 0 10px 0;
+}
+
 #mainPage {
     margin: 0px;
     overflow: hidden;

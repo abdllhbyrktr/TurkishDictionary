@@ -8,6 +8,51 @@ var mxLang = mxRuntime.locale.t;
 mxLocale.setDisplayLocale(mxLocale.getSystemLocale());
 
 function UserConfig() {
+    Object.defineProperty(this, "onOffTdkSozluk", {
+        get: function() {
+            return (mxStorage.getConfig("onOffTdkSozluk") == "true");
+        },
+        set: function(value) {
+            return mxStorage.setConfig("onOffTdkSozluk", value);
+        }
+    });
+
+    Object.defineProperty(this, "onOffYandexTranslate", {
+        get: function() {
+            return (mxStorage.getConfig("onOffYandexTranslate") == "true");
+        },
+        set: function(value) {
+            return mxStorage.setConfig("onOffYandexTranslate", value);
+        }
+    });
+
+    Object.defineProperty(this, "onOffDictionaryReference", {
+        get: function() {
+            return (mxStorage.getConfig("onOffDictionaryReference") == "true");
+        },
+        set: function(value) {
+            return mxStorage.setConfig("onOffDictionaryReference", value);
+        }
+    });
+
+    Object.defineProperty(this, "onOffWordReference", {
+        get: function() {
+            return (mxStorage.getConfig("onOffWordReference") == "true");
+        },
+        set: function(value) {
+            return mxStorage.setConfig("onOffWordReference", value);
+        }
+    });
+
+    Object.defineProperty(this, "onOffTureng", {
+        get: function() {
+            return (mxStorage.getConfig("onOffTureng") == "true");
+        },
+        set: function(value) {
+            return mxStorage.setConfig("onOffTureng", value);
+        }
+    });
+
     Object.defineProperty(this, "languageGroup", {
         get: function() {
             return mxStorage.getConfig("languageGroup");
@@ -37,7 +82,7 @@ function UserConfig() {
 
     Object.defineProperty(this, "doubleClicked", {
         get: function() {
-            return mxStorage.getConfig("dblclicked");
+            return (mxStorage.getConfig("dblclicked") == "true");
         },
         set: function(value) {
             return mxStorage.setConfig("dblclicked", value);
@@ -46,7 +91,7 @@ function UserConfig() {
 
     Object.defineProperty(this, "mouseSelected", {
         get: function() {
-            return mxStorage.getConfig("mouseSelected");
+            return (mxStorage.getConfig("mouseSelected") == "true");
         },
         set: function(value) {
             return mxStorage.setConfig("mouseSelected", value);
@@ -55,11 +100,6 @@ function UserConfig() {
 };
 var userConfig = new UserConfig();
 var systemLanguageIsEnglish = (mxLocale.getSystemLocale().indexOf("en") > -1);
-
-// restore settings.
-if (!userConfig.languageGroup) {
-    userConfig.languageGroup = AvailableLangs.Turkish;
-}
 
 var AvailableLangs = {
     Turkish: "tr",
@@ -71,14 +111,28 @@ var AvailableLangs = {
     }
 };
 
+// restore settings.
+if (!userConfig.languageGroup) {
+    userConfig.languageGroup = AvailableLangs.Turkish;
+    userConfig.onOffTureng = true;
+    userConfig.onOffWordReference = false;
+    userConfig.onOffDictionaryReference = false;
+    userConfig.onOffYandexTranslate = true;
+    userConfig.onOffTdkSozluk = true;
+    userConfig.lastSearchTerm = "gezi parkı";
+    userConfig.doubleClicked = false;
+    userConfig.mouseSelected = false;
+}
+
 var BaseDictionary = {
     baseUrl: "",
     tabId: "",
+    inputSelector: "",
+    divContainer: "",
     getUrl: function () {
         return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
     }
 };
-
 var Tureng = {
     abbrv: {
         "v.": "verb",
@@ -143,120 +197,38 @@ var YandexTranslate = {
         "fr": "?text="
     }
 };
+var TdkSozluk = {
+    lang: {
+        "tr": "?option=com_gts&arama=gts&kelime="
+    }
+};
 
 _.extend(Tureng, BaseDictionary);
 _.extend(Wordreference, BaseDictionary);
 _.extend(DictionaryReference, BaseDictionary);
 _.extend(YandexTranslate, BaseDictionary);
+_.extend(TdkSozluk, BaseDictionary);
 
 Tureng.baseUrl = "http://tureng.com/";
 Tureng.tabId = "turengTab";
+Tureng.inputSelector = "#searchWord";
+Tureng.divContainer = "#searchPage";
 Wordreference.baseUrl = "http://www.wordreference.com/";
 Wordreference.tabId = "wordReferenceTab";
+Wordreference.inputSelector = "#si";
+Wordreference.divContainer = "#articleWRD";
 DictionaryReference.baseUrl = "http://dictionary.reference.com/";
 DictionaryReference.tabId = "dictionaryTab";
+DictionaryReference.inputSelector = "#search-input";
+DictionaryReference.divContainer = ".source-data";
 YandexTranslate.baseUrl = "https://ceviri.yandex.com.tr/";
 YandexTranslate.tabId = "yandexTab";
-
-var PanelTab = (function () {
-    // variables.
-    var currentTab = Tureng.tabId;
-    // constructor.
-    function PanelTab() {
-        //this.currentTab = 0;
-    };
-
-    PanelTab.prototype.getCurrentTab = function () {
-        return currentTab;
-    };
-
-    PanelTab.prototype.setCurrentTab = function (tab) {
-        currentTab = tab;
-    };
-
-    PanelTab.prototype.translate = function (word) {
-        switch (currentTab) {
-            case Tureng.tabId:
-                turengTranslate(word);
-                break;
-            case Wordreference.tabId:
-                wordReferenceTranslate(word);
-                break;
-            case DictionaryReference.tabId:
-                dictionaryTranslate(word);
-                break;
-            case YandexTranslate.tabId:
-                yandexTranslate(word, "");
-                break;
-            default:
-                console.log("Error: there is no tab with: " + currentTab);
-                break;
-        }
-    };
-
-    return PanelTab;
-})();
-var panelTab = new PanelTab();
-
-var navHistory = {
-    backArr: [],
-    forwardArr: [],
-    navigating: false,
-    add: function(word) {
-        if (!this.navigating) {
-            if ($.inArray(word, this.backArr) === -1) this.backArr.push(word);
-            userConfig.lastSearchTerm = word;
-        }
-        if (this.backArr.length > 10) { this.backArr.shift(); }
-        if (this.backArr.length > 1) { this.cssBack(true); }
-        // reset forward.
-        if (this.forwardArr.length && !this.navigating) {
-            this.cssForward(false);
-            this.forwardArr = [];   
-        }
-        // change styles for back array.
-        if (this.backArr.length <= 1) { this.cssBack(false); }
-        // change styles for forward array.
-        if (!this.forwardArr.length) { this.cssForward(false); }
-
-        this.navigating = false;
-    },
-    next: function() {
-        if (!this.forwardArr.length) { return; }
-        this.navigating = true;
-        var word = this.forwardArr.pop();
-        this.backArr.push(word);
-        //turengTranslate(word);
-        panelTab.translate(word);
-    },
-    prev: function() {
-        if (!this.backArr.length) { return; }
-        if (this.forwardArr.length == 0) { this.cssForward(true); }
-        this.navigating = true;
-        var toForward = this.backArr.pop();
-        this.forwardArr.push(toForward);
-        //turengTranslate(this.backArr[this.backArr.length - 1]);
-        panelTab.translate(this.backArr[this.backArr.length - 1]);
-    },
-    cssBack: function(active) {
-        if (active) {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationBack").attr("title", mxLang("app.backward"));
-        } else {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
-            $(".navigationBack").attr("title", null);
-        }
-    },
-    cssForward: function(active) {
-        if (active) {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationForward").attr("title", mxLang("app.forward"));
-        } else {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
-            $(".navigationForward").attr("title", null);
-        }
-    }
-};
+YandexTranslate.inputSelector = "#TargetText";
+YandexTranslate.divContainer = "#DictionaryOutput";
+TdkSozluk.baseUrl = "http://tdk.gov.tr/index.php";
+TdkSozluk.tabId = "tdkTab";
+TdkSozluk.inputSelector = "#metin";
+TdkSozluk.divContainer = "#tdkContainer";
 
 function getUrl(tabName) {
     switch (tabName) {
@@ -268,8 +240,27 @@ function getUrl(tabName) {
             return DictionaryReference.getUrl();
         case YandexTranslate.tabId:
             return YandexTranslate.getUrl();
+        case TdkSozluk.tabId:
+            return TdkSozluk.getUrl();
         default:
             return Tureng.getUrl();
+    }
+}
+
+function getInputSelector(tabName) {
+    switch (tabName) {
+        case Tureng.tabId:
+            return Tureng.inputSelector;
+        case Wordreference.tabId:
+            return Wordreference.inputSelector;
+        case DictionaryReference.tabId:
+            return DictionaryReference.inputSelector;
+        case YandexTranslate.tabId:
+            return YandexTranslate.inputSelector;
+        case TdkSozluk.tabId:
+            return TdkSozluk.inputSelector;
+        default:
+            return Tureng.inputSelector;
     }
 }
 

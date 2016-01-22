@@ -25,7 +25,7 @@ header {
     min-width: 650px;
 }
 
-img {
+.logo {
     position: absolute;
     top: 5px;
     left: -43px;

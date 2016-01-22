@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/wordreference.css">
     <link rel="stylesheet" type="text/css" href="css/dictionary.css">
     <link rel="stylesheet" type="text/css" href="css/yandex.css">
+    <link rel="stylesheet" type="text/css" href="css/tdk.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>{app.title}</title>
 </head>
@@ -53,6 +54,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#tdkTab">
+                            <img src="css/tdk32.png" style="display: inline" alt="Tdk {app.translate}" title="Tdk {app.translate}"/>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#yandexTab">
                             <img src="css/yandex32.png" style="display: inline" alt="Yandex {app.translate}" title="Yandex {app.translate}"/>
                         </a>
@@ -66,7 +72,7 @@
                                 </h1>
                             </div>-->
                         <div id="mainPageTopMiddle">
-                            <input type="text" id="searchWord" name="SearchTerm" value="">
+                            <input type="text" id="searchWord" name="SearchTerm" value="" data-tab-id="turengTab">
                             <input type="button" id="searchButton" class="searchButton" value="{app.translate}">
                         </div>
                         <div id="searchPage">
@@ -77,7 +83,7 @@
                     <div id="wordReferenceTab" class="tab" tab-index="1">
                         <div id="search" name="sbox">
                             <div id="myAutoComplete" style="display:inline" class="yui-ac">
-                                <input type="text" name="w" id="si" size="20" maxlength="200" class="yui-ac-input"/>
+                                <input type="text" name="w" id="si" size="20" maxlength="200" class="yui-ac-input" data-tab-id="wordReferenceTab"/>
                             </div>
                             <div class="inputcontainer">
                                 <input type="image" src="css/magnifying_glass_dark_flipped.png" height="12" width="12" alt="{app.translate}" title="{app.translate}" class="button" />
@@ -90,10 +96,20 @@
 
                     <div id="dictionaryTab" class="tab" tab-index="2">
                         <div class="search-input">
-                            <input type="text" id="search-input" class="form-control input-lg" id="q">
+                            <input type="text" id="search-input" class="form-control input-lg" id="q" data-tab-id="dictionaryTab">
                             <input type="submit" id="search-submit" class="search-submit" value="Search">
                         </div>
                         <div class="source-data">
+                            <h1>{app.loading}</h1>
+                        </div>
+                    </div>
+                    
+                    <div id="tdkTab" class="tab" tab-index="1">
+                        <div class="mainContanier">
+                            <input type="text" name="kelime" id="metin" data-tab-id="tdkTab">
+                            <button id="tdk-input" type="submit">ARA</button>
+                        </div>
+                        <div id="tdkContainer">
                             <h1>{app.loading}</h1>
                         </div>
                     </div>
@@ -128,6 +144,7 @@
                             </div>
                         </div>
                     </div>
+                
                 </div>
                 <div id="mainPageBottom">
                     <h3>

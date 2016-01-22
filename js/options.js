@@ -1,16 +1,43 @@
+var maxDicts = 4;
+var selectedDicts = 1;
+
 $(document).ready(function () {
     // restore settings from config.
-    if (userConfig.doubleClicked) {
-        $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
-    }
+    $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
+    $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
+    $("#onOffDictionaryReference").prop("checked", userConfig.onOffDictionaryReference ? "checked" : null);
+    $("#onOffWordReference").prop("checked", userConfig.onOffWordReference ? "checked" : null);
+    $("#onOffYandexTranslate").prop("checked", userConfig.onOffYandexTranslate ? "checked" : null);
+    $("#onOffTdkSozluk").prop("checked", userConfig.onOffTdkSozluk ? "checked" : null);
+    $("#onOffTdkSozluk").prop("disabled", "disabled");
 
-    if (userConfig.mouseSelected) {
-        $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
-    }
-    
+    userConfig.onOffDictionaryReference && selectedDicts++;
+    userConfig.onOffWordReference && selectedDicts++;
+    userConfig.onOffYandexTranslate && selectedDicts++;
+    userConfig.onOffTdkSozluk && selectedDicts++;
+
+    var updateDicts = function () {
+        if (selectedDicts >= maxDicts) {
+            $(".dictionary:not(:checked)").prop("disabled", "disabled");
+        } else {
+            $(".dictionary:not(:checked)").prop("disabled", null);
+            if (AvailableLangs.getCurrentLanguage() != AvailableLangs.Turkish) {
+                $("#onOffTdkSozluk").prop("disabled", "disabled");
+            }
+        }
+    };
+
+    var checkValue = function (isChecked) {
+        isChecked ? selectedDicts++ : selectedDicts--;
+        updateDicts();
+
+        return isChecked;
+    };
+
     switch (AvailableLangs.getCurrentLanguage()) {
         case AvailableLangs.Turkish:
             $("#trRadio").attr("checked", "checked");
+            $("#onOffTdkSozluk").prop("disabled", null);
             break;
         case AvailableLangs.German:
             $("#deRadio").attr("checked", "checked");
@@ -24,15 +51,48 @@ $(document).ready(function () {
         default:
     }
 
+    $("#onOffDictionaryReference").change(function () {
+        userConfig.onOffDictionaryReference = checkValue($(this).is(":checked"));
+    });
+
+    $("#onOffWordReference").change(function () {
+        userConfig.onOffWordReference = checkValue($(this).is(":checked"));
+    });
+
+    $("#onOffYandexTranslate").change(function () {
+        userConfig.onOffYandexTranslate = checkValue($(this).is(":checked"));
+    });
+
+    $("#onOffTdkSozluk").change(function () {
+        userConfig.onOffTdkSozluk = checkValue($(this).is(":checked"));
+    });
+
     $("#onOffDblClick").change(function () {
         userConfig.doubleClicked = $(this).is(":checked");
     });
-    
+
     $("#onOffSelection").change(function () {
         userConfig.mouseSelected = $(this).is(":checked");
     });
 
     $("input[type='radio'][name='languageGroup']").change(function () {
-        userConfig.languageGroup = $(this).val();
+        var currentVal = $(this).val();
+        userConfig.languageGroup = currentVal;
+
+        if (currentVal == AvailableLangs.Turkish) {
+            selectedDicts < maxDicts ? $("#onOffTdkSozluk").prop("disabled", null) :
+            $("#onOffTdkSozluk").prop("disabled", "disabled");
+        } else {
+            if ($("#onOffTdkSozluk").is(":checked")) {
+                selectedDicts--;
+                updateDicts();
+                userConfig.onOffTdkSozluk = false;
+                $("#onOffTdkSozluk").prop("checked", null);
+            }
+
+            $("#onOffTdkSozluk").prop("disabled", "disabled");
+        }
     });
+
+    updateDicts();
 });

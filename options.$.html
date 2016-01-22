@@ -13,7 +13,7 @@
     <body>
         <div id="wrapper">
             <header>
-                <img src="icons/icon_32.png" alt="logo">
+                <img class="logo" src="icons/icon_32.png" alt="logo">
                 <hgroup>
                     <h1>{app.title}<sup>2.0.0</sup></h1>
                     <h4>{app.description}</h4>
@@ -37,6 +37,31 @@
                         </label>
                         <label>
                             <input type="radio" id="frRadio" name="languageGroup" value="fr"> <strong>{app.fr}</strong> ({app.fr}-{app.eng}, {app.eng}-{app.fr}, {app.eng}-{app.eng})<br>
+                        </label>
+                    </p>
+                    <p>
+                        {app.options3}
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="onOffTureng" class="dictionary" disabled="disabled" checked="checked" />
+                            <img src="css/tureng32.png" alt="Tureng"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffDictionaryReference" class="dictionary" />
+                            <img src="css/dictionary32.png" alt="Dictionary Reference"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffWordReference" class="dictionary" />
+                            <img src="css/wr32.png" alt="WordReference"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffYandexTranslate" class="dictionary" />
+                            <img src="css/yandex32.png" alt="Yandex Translate"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffTdkSozluk" class="dictionary" />
+                            <img src="css/tdk32.png" alt="Tdk Sozluk"/>
                         </label>
                     </p>
                     <p>
