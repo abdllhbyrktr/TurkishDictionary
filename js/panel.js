@@ -430,6 +430,7 @@ function loadTdkSearchResults(data) {
         });
 
         $(TdkSozluk.divContainer).html(html);
+        $("#tdkContainer td a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
         $(TdkSozluk.divContainer).html("<h1>" + mxLang("app.notFound") + "</h1>");
     }
@@ -497,6 +498,44 @@ function replaceTurEng($trs) {
 function addToSearchPage(html, results) {
     $("#searchPage").html(html);
     $(".searchResultsTable").find("tr").slice(results).remove();
+}
+
+function reOrganizeLinks(item) {
+    //console.log($(this).text());
+    var text = $(this).text();
+    text = text.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
+    text = text.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
+    text = text.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
+    text = text.replace("'", "\\'");
+    $(this).attr("onclick", "panelTab.translate('" + text + "');");
+
+    // add highlights.
+    var arr = $(this).text().split(" ");
+    if (arr.length > 1) {
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].replace("/", "</span>/<span>");
+        }
+
+        var newText = arr.join("</span> <span>");
+        newText = "<span>" + newText + "</span>";
+        newText = newText.replace("<span>(", "(<span>");
+        newText = newText.replace(")</span>", "</span>)");
+
+        $(this).html(newText).find("span").each(function (index) {
+            //console.log($(this).text());
+            $(this).hover(function () { // mouseover.
+                if (highlighted) {
+                    highlightedText = $(this).text();
+                    $(this).addClass("highlight");
+                }
+                $hoveredSpan = $(this);
+            }, function () { // mouseout.
+                highlightedText = "";
+                $hoveredSpan = null;
+                $(this).removeClass("highlight");
+            });
+        });
+    }
 }
 
 function loadTurengSearchResults(data) {
@@ -604,43 +643,7 @@ function loadTurengSearchResults(data) {
         $(this).attr("title", Tureng.abbrv[$(this).html()]);
     });
     // re-organize all results for panel application.
-    $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(function(index) {
-        //console.log($(this).text());
-        var text = $(this).text();
-        text = text.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
-        text = text.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
-        text = text.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
-        text = text.replace("'", "\\'");
-        $(this).attr("onclick", "panelTab.translate('" + text + "');");
-
-        // add highlights.
-        var arr = $(this).text().split(" ");
-        if (arr.length > 1) {
-            for (var i = 0; i < arr.length; i++) {
-                arr[i] = arr[i].replace("/", "</span>/<span>");
-            }
-
-            var newText = arr.join("</span> <span>");
-            newText = "<span>" + newText + "</span>";
-            newText = newText.replace("<span>(", "(<span>");
-            newText = newText.replace(")</span>", "</span>)");
-
-            $(this).html(newText).find("span").each(function(index) {
-                //console.log($(this).text());
-                $(this).hover(function() { // mouseover.
-                    if (highlighted) {
-                        highlightedText = $(this).text();
-                        $(this).addClass("highlight");
-                    }
-                    $hoveredSpan = $(this);
-                }, function() { // mouseout.
-                    highlightedText = "";
-                    $hoveredSpan = null;
-                    $(this).removeClass("highlight");
-                });
-            });
-        }
-    });
+    $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(reOrganizeLinks);
 }
 
 function yandexTranslate(word, detectLang) {

@@ -19,7 +19,8 @@
     var iconViewed = false;
     var iconHovered = false;
     var Gestures = {Left: "left", Right: "right", Middle: "middle"};
-    var mouseEvt = {x: 0, y: 0, grab: false, sel: "", occured: false, gesture: Gestures.Right};
+    var mouseEvt = { x: 0, y: 0, grab: false, sel: "", occured: false, gesture: Gestures.Right };
+
     console.log(lang("app.title"));
 
     function ready() {
@@ -54,7 +55,31 @@
         doubleClickEnabled = obj["dblClick"];
         mouseSelectEnabled = obj["mouseSelect"];
     };
-    
+
+    var panelIsStopped = function() {
+        var app = rt.getActionByName("dict-panel");
+
+        if (!app || app.state == "stopped") {
+            return true;
+        }
+
+        return false;
+    };
+
+    var panelIsActive = function () {
+        var app = rt.getActionByName("dict-panel");
+
+        if (!app) {
+            return false;
+        }
+
+        if (app.state == "active") {
+            return true;
+        }
+
+        return false;
+    };
+
     var samples = [];
     var maxSamples = 10;
     function mouseMoving(evt) {
@@ -87,7 +112,8 @@
 
         var sel = getSelected();
         if (sel == "") { return; }
-        else if (!mouseSelectEnabled) {
+
+        if (!mouseSelectEnabled || panelIsStopped()) {
             rt.post("showBadge", sel);
             return;
         }
@@ -105,7 +131,8 @@
     function doubleClicked() {
         var sel = getSelected();
         if (sel == "") { return; }
-        else if (!doubleClickEnabled) {
+
+        if (!doubleClickEnabled || panelIsStopped()) {
             rt.post("showBadge", sel);
             return;
         }
@@ -113,7 +140,7 @@
         //addOverlay();
         rt.post("translate", sel);
         var app = rt.getActionByName("dict-panel");
-        app.activate();
+        panelIsActive() || app.activate();
         //showDialog(sel);
     };
 
@@ -192,7 +219,7 @@
         turengIcon.addEventListener("click", function () {
             rt.post("translate", mouseEvt.sel);
             var app = rt.getActionByName("dict-panel");
-            app.activate();
+            panelIsActive() || app.activate();
             hideIcon();
             //fadeEffect.init("turengWebIcon", 1); // fade out the "fade" element
         }, false);

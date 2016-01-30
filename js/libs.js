@@ -3,6 +3,7 @@ var mxStorage = mxRuntime.storage;
 var mxLocale = mxRuntime.locale;
 var mxBrowser = mxRuntime.create("mx.browser");
 var mxLang = mxRuntime.locale.t;
+var trPanel = mxRuntime.getActionByName("dict-panel");
 //console.log(mxRuntime.version);
 //console.log(mxRuntime.locale.getSystemLocale()); // en, tr-tr
 mxLocale.setDisplayLocale(mxLocale.getSystemLocale());
