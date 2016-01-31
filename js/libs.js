@@ -157,7 +157,7 @@ var Tureng = {
         "tr": (systemLanguageIsEnglish ? "en/turkish-english/" : "tr/turkce-ingilizce/"),
         "de": (systemLanguageIsEnglish ? "en/german-english/" : "de/deutsch-englisch/"),
         "es": (systemLanguageIsEnglish ? "en/spanish-english/" : "es/espanol-ingles/"),
-        "fr": (systemLanguageIsEnglish ? "en/french-english//" : "fr/francais-anglais/")
+        "fr": (systemLanguageIsEnglish ? "en/french-english/" : "fr/francais-anglais/")
     },
     containsTerm: function() {
         switch (AvailableLangs.getCurrentLanguage()) {

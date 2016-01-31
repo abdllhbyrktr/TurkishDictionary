@@ -205,8 +205,16 @@ mxRuntime.listen("translate", function (searchKey) {
     //setTimeout(sendResults, 100);
 });
 
-mxRuntime.listen("updateTabs", function (searchKey) {
+mxRuntime.listen("updateTabs", function (isChecked) {
     updateTabs();
+});
+
+mxRuntime.listen("toggleSettingsForSelection", function (settings) {
+    $(".setSelection :checkbox").click();
+});
+
+mxRuntime.listen("toggleSettingsForDoubleClick", function (settings) {
+    $(".setDblClick :checkbox").click();
 });
 
 function sendResults() {
@@ -351,19 +359,23 @@ $(document).ready(function () {
 
     $("#settings").html('<div class="setDblClick"><span>' + mxLang("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + mxLang("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + mxLang("app.settings") + '"></div>');
 
-    $(".setDblClick :checkbox").iphoneStyle({ checkedLabel: mxLang("app.on"), uncheckedLabel: mxLang("app.off"), onChange: function (e, checked) {
-        dblclicked = checked;
-        userConfig.doubleClicked = dblclicked;
-        sendSettings();
-    }
-    });
+    $(".setDblClick :checkbox").iphoneStyle({
+        checkedLabel: mxLang("app.on"),
+        uncheckedLabel: mxLang("app.off"),
+        onChange: function (e, checked) {
+            dblclicked = checked;
+            userConfig.doubleClicked = dblclicked;
+            sendSettings();
+    }});
 
-    $(".setSelection :checkbox").iphoneStyle({ checkedLabel: mxLang("app.on"), uncheckedLabel: mxLang("app.off"), onChange: function (e, checked) {
-        mouseSelected = checked;
-        userConfig.mouseSelected = mouseSelected;
-        sendSettings();
-    }
-    });
+    $(".setSelection :checkbox").iphoneStyle({
+        checkedLabel: mxLang("app.on"),
+        uncheckedLabel: mxLang("app.off"),
+        onChange: function (e, checked) {
+            mouseSelected = checked;
+            userConfig.mouseSelected = mouseSelected;
+            sendSettings();
+    }});
 
     $("#settings").hover(function (event) {
         // mouseover.
@@ -691,7 +703,7 @@ function openMore() {
     var tabs = mxRuntime.create("mx.browser.tabs");
     var tabId = $(".activeContent").attr("id");
     var newUrl = getUrl(tabId);
-    var inputSelector = getInputSelector(tabId)
+    var inputSelector = getInputSelector(tabId);
     var word = $(inputSelector).val();
 
     if (word) {
