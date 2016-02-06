@@ -6,6 +6,7 @@
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/iphone-style-checkboxes.js"></script>
+    <script type="text/javascript" src="js/mx-core.js"></script>
     <script type="text/javascript" src="js/libs.js"></script>
     <script type="text/javascript" src="js/panel.js"></script>
     <link rel="stylesheet" type="text/css" href="css/general.css">
@@ -15,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/yandex.css">
     <link rel="stylesheet" type="text/css" href="css/tdk.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>{app.title}</title>
+    <title data-lang="app.title"></title>
 </head>
     <body>
         <div id="navigation">
@@ -26,21 +27,21 @@
         </div>
         <div id="settings">
             <div class="setDblClick">
-                <span>{app.dblclick}</span>
+                <span data-lang="app.dblclick"></span>
                 <input type="checkbox" id="onOffDblClick" />
             </div>
             <div class="setSelection">
-                <span>{app.selection}</span>
+                <span data-lang="app.selection"></span>
                 <input type="checkbox" id="onOffSelection" />
             </div>
-            <div class="settingsIcon" title="{app.settings}"></div>
+            <div class="settingsIcon" title="" data-lang-title="app.settings"></div>
         </div>
         <div id="mainPage">
             <div class="tabs">
                 <ul class="tab-links">
                     <li class="active">
                         <a href="#turengTab">
-                            <img src="css/tureng32.png" style="display: inline" alt="Tureng {app.translate}" title="Tureng {app.translate}"/>
+                            <img src="css/tureng32.png" style="display: inline" alt="Tureng " title="Tureng " data-lang-alt="app.translate" data-lang-title="app.translate"/>
                         </a>
                     </li>
                     <li>
@@ -55,28 +56,23 @@
                     </li>
                     <li>
                         <a href="#tdkTab">
-                            <img src="css/tdk32.png" style="display: inline" alt="Tdk {app.translate}" title="Tdk {app.translate}"/>
+                            <img src="css/tdk32.png" style="display: inline" alt="Tdk " title="Tdk " data-lang-alt="app.translate" data-lang-title="app.translate"/>
                         </a>
                     </li>
                     <li>
                         <a href="#yandexTab">
-                            <img src="css/yandex32.png" style="display: inline" alt="Yandex {app.translate}" title="Yandex {app.translate}"/>
+                            <img src="css/yandex32.png" style="display: inline" alt="Yandex " title="Yandex " data-lang-alt="app.translate" data-lang-title="app.translate"/>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div id="turengTab" class="tab activeContent" tab-index="0">
-                        <!--<div id="mainPageTop">
-                                <h1>
-                                    <a href="javascript:;" onclick="openMore();" title="{app.more}">Tureng - Turkish English Dictionary</a>
-                                </h1>
-                            </div>-->
                         <div id="mainPageTopMiddle">
                             <input type="text" id="searchWord" name="SearchTerm" value="" data-tab-id="turengTab">
-                            <input type="button" id="searchButton" class="searchButton" value="{app.translate}">
+                            <input type="button" id="searchButton" class="searchButton" value="Translate" data-lang-value="app.translate">
                         </div>
                         <div id="searchPage">
-                            <h1>{app.loading}</h1>
+                            <h1 data-lang="app.loading">Loading...</h1>
                         </div>
                     </div>
 
@@ -86,11 +82,11 @@
                                 <input type="text" name="w" id="si" size="20" maxlength="200" class="yui-ac-input" data-tab-id="wordReferenceTab"/>
                             </div>
                             <div class="inputcontainer">
-                                <input type="image" src="css/magnifying_glass_dark_flipped.png" height="12" width="12" alt="{app.translate}" title="{app.translate}" class="button" />
+                                <input type="image" src="css/magnifying_glass_dark_flipped.png" height="12" width="12" alt="" title="" class="button" data-lang-alt="app.translate" data-lang-title="app.translate" />
                             </div>
                         </div>
                         <div id="articleWRD">
-                            <h1>{app.loading}</h1>
+                            <h1 data-lang="app.loading">Loading...</h1>
                         </div>
                     </div>
 
@@ -100,7 +96,7 @@
                             <input type="submit" id="search-submit" class="search-submit" value="Search">
                         </div>
                         <div class="source-data">
-                            <h1>{app.loading}</h1>
+                            <h1 data-lang="app.loading">Loading...</h1>
                         </div>
                     </div>
                     
@@ -110,7 +106,7 @@
                             <button id="tdk-input" type="submit">ARA</button>
                         </div>
                         <div id="tdkContainer">
-                            <h1>{app.loading}</h1>
+                            <h1 data-lang="app.loading">Loading...</h1>
                         </div>
                     </div>
 
@@ -120,16 +116,16 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="{app.tr}">{app.tr}</span>
+                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">Turkish</span>
                                         </td>
                                         <td>
                                             <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
                                         </td>
                                         <td>
-                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="{app.eng}">{app.eng}</span>
+                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">English</span>
                                         </td>
                                         <td>
-                                            <input type="button" id="DictControl" value="{app.translate}">
+                                            <input type="button" id="DictControl" value="Translate" data-lang-value="app.translate">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -139,7 +135,7 @@
                                     <textarea name="TargetText" id="TargetText"></textarea>
                                 </span>
                                 <div id="DictionaryOutput">
-                                    <h1>{app.loading}</h1>
+                                    <h1 data-lang="app.loading">Loading...</h1>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +144,7 @@
                 </div>
                 <div id="mainPageBottom">
                     <h3>
-                        <a href="javascript:;" onclick="openMore();" style="color: darkcyan">{app.more}</a>
+                        <a href="javascript:;" onclick="openMore();" style="color: darkcyan" data-lang="app.more">Click More...</a>
                     </h3>
                 </div>
             </div>

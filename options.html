@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="outline-width: 0px !important; -webkit-user-select: text !important;">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title data-lang="app.title|app.settings">Turkish Dictionary Settings</title>
+        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/underscore-min.js"></script>
+        <script type="text/javascript" src="js/mx-core.js"></script>
+        <script type="text/javascript" src="js/libs.js"></script>
+        <script type="text/javascript" src="js/options.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/options.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <img class="logo" src="icons/icon_32.png" alt="logo">
+                <hgroup>
+                    <h1 data-lang="app.title">Turkish Dictionary<sup>2.1.5</sup></h1>
+                    <h4 data-lang="app.description">Displays results from specific web sites which are Tureng, Wordreference, Dictionary and Yandex.Translate.</h4>
+                </hgroup>
+            </header>
+            <section>
+                <h3 data-lang="app.settings">Settings</h3>
+                <div>
+                    <p data-lang="app.options1">
+                        Choose language group which you want.
+                    </p>
+                    <p>
+                        <label>
+                            <input type="radio" id="trRadio" name="languageGroup" value="tr" checked="checked"> <strong data-lang="app.tr">Turkish</strong> (<span data-lang="app.eng">English</span>-<span data-lang="app.tr">Turkish</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.tr">Turkish</span>)<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="deRadio" name="languageGroup" value="de"> <strong data-lang="app.de">German</strong> (<span data-lang="app.de">German</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.de">German</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="esRadio" name="languageGroup" value="es"> <strong data-lang="app.es">Espanol</strong> (<span data-lang="app.es">Espanol</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.es">Espanol</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="frRadio" name="languageGroup" value="fr"> <strong data-lang="app.fr">French</strong> (<span data-lang="app.fr">French</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.fr">French</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
+                        </label>
+                    </p>
+                    <p data-lang="app.options3">
+                        Choose supported web sites (Maximum 4 web sites you can select).
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="onOffTureng" class="dictionary" disabled="disabled" checked="checked" />
+                            <img src="css/tureng32.png" alt="Tureng"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffDictionaryReference" class="dictionary" />
+                            <img src="css/dictionary32.png" alt="Dictionary Reference"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffWordReference" class="dictionary" />
+                            <img src="css/wr32.png" alt="WordReference"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffYandexTranslate" class="dictionary" />
+                            <img src="css/yandex32.png" alt="Yandex Translate"/>
+                        </label>&nbsp;
+                        <label>
+                            <input type="checkbox" id="onOffTdkSozluk" class="dictionary" />
+                            <img src="css/tdk32.png" alt="Tdk Sozluk"/>
+                        </label>
+                    </p>
+                    <p data-lang="app.options2">
+                        Set the features of the extension on pages.
+                    </p>
+                    <p>
+                        <label>
+                            <span data-lang="app.dblclick">x2 Click:</span>
+                            <input type="checkbox" id="onOffDblClick" />
+                        </label>&nbsp;
+                        <label>
+                            <span data-lang="app.selection">Selection:</span>
+                            <input type="checkbox" id="onOffSelection" />
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <footer>
+                <a target="_blank" href="http://extension.maxthon.com/detail/index.php?view_id=2818" data-lang="app.feedback">Feedback</a>
+            </footer>
+        </div>
+    </body>
+</html>

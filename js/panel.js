@@ -126,7 +126,7 @@ var navHistory = {
     cssBack: function(active) {
         if (active) {
             $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationBack").attr("title", mxLang("app.backward"));
+            $(".navigationBack").attr("title", ExtensionCore.i18n("app.backward"));
         } else {
             $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
             $(".navigationBack").attr("title", null);
@@ -135,7 +135,7 @@ var navHistory = {
     cssForward: function(active) {
         if (active) {
             $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
-            $(".navigationForward").attr("title", mxLang("app.forward"));
+            $(".navigationForward").attr("title", ExtensionCore.i18n("app.forward"));
         } else {
             $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
             $(".navigationForward").attr("title", null);
@@ -150,83 +150,67 @@ function updateTabs() {
     userConfig.onOffYandexTranslate ? $(".tab-links li:eq(4)").show() : $(".tab-links li:eq(4)").hide();
 }
 
-mxRuntime.onAppEvent = function (obj) {
-    //console.log(obj.type);
-    switch (obj.type) {
-        case "ACTION_START":
-            //console.log("Action Started.");
-            break;
-        case "ACTION_STOP":
-            //console.log("Action closed (exited).");
-            break;
-        case "ACTION_SHOW":
-            //console.log("Action is shown.");
-            badgeNumber = 0;
-            //mxRuntime.icon.showBadge(badgeNumber);
-            if (lastSelected != "") {
-                panelTab.translate(lastSelected);
-                lastSelected = "";
-            } else {
-                $("#searchWord").focus();
-            }
-            updateTabs();
-            break;
-        case "ACTION_HIDE":
-            //console.log("Action is hidden.");
-            if (navHistory.backArr.length) {
-                userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
-            }
-            break;
-        case "ERROR":
-            console.log(obj.errorMessage);
-            break;
-        case "LOCALE_CHANGED":
-            mxRuntime.locale.setDisplayLocale(mxRuntime.locale.getSystemLocale());
-            location.reload();
-            break;
-        default:
-            console.log("appevent types out of " + obj.type + ".");
+ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
+    badgeNumber = 0;
+    if (lastSelected != "") {
+        panelTab.translate(lastSelected);
+        lastSelected = "";
+    } else {
+        $("#searchWord").focus();
     }
-};
-
-mxRuntime.listen("showBadge", function (selected) {
-    //lastSelected = selected;
-    badgeNumber = badgeNumber + 1;
-    //mxRuntime.icon.showBadge(badgeNumber);
+    updateTabs();
 });
 
-mxRuntime.listen("retrieveMessage", function (msg) {
+ExtensionCore.addAppListener(ExtensionCore.AppEvents.appHide, function () {
+    if (navHistory.backArr.length) {
+        userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
+    }
+});
+
+ExtensionCore.addAppListener(ExtensionCore.AppEvents.appLocaleChange, function () {
+    ExtensionCore.updateDisplayLocale();
+    location.reload();
+});
+
+ExtensionCore.listen("showBadge", function (selected) {
+    //lastSelected = selected;
+    badgeNumber = badgeNumber + 1;
+});
+
+ExtensionCore.listen("retrieveMessage", function (msg) {
     //console.log("I got message from script action: ", msg);
     setTimeout(sendSettings, 100);
 });
 
-mxRuntime.listen("translate", function (searchKey) {
+ExtensionCore.listen("translate", function (searchKey) {
     panelTab.translate(searchKey);
     //setTimeout(sendResults, 100);
 });
 
-mxRuntime.listen("updateTabs", function (isChecked) {
+ExtensionCore.listen("updateTabs", function (isChecked) {
     updateTabs();
 });
 
-mxRuntime.listen("toggleSettingsForSelection", function (settings) {
+ExtensionCore.listen("toggleSettingsForSelection", function (settings) {
     $(".setSelection :checkbox").click();
 });
 
-mxRuntime.listen("toggleSettingsForDoubleClick", function (settings) {
+ExtensionCore.listen("toggleSettingsForDoubleClick", function (settings) {
     $(".setDblClick :checkbox").click();
 });
 
 function sendResults() {
-    mxRuntime.post("results", $("#searchPage").html());
+    ExtensionCore.post("results", $("#searchPage").html());
 }
 
 function sendSettings() {
     var obj = {"dblClick": dblclicked, "mouseSelect": mouseSelected};
-    mxRuntime.post("getSettings", obj);
+    ExtensionCore.post("getSettings", obj);
 }
 
 $(document).ready(function () {
+    localizeHtml();
+
     $(".tabs .tab-links a").on("click", function (e) {
         $("#mainPageBottom").hide();
         var currentAttrValue = $(this).attr("href");
@@ -248,7 +232,7 @@ $(document).ready(function () {
 
     updateTabs();
     // Handler for .ready() called.
-    $("#searchPage").html("<h1>" + mxLang("app.loading") + "</h1>");
+    $("#searchPage").html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
     // Hide main page bottom.
     $("#mainPageBottom").hide();
     // check culture for websites.
@@ -317,7 +301,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#DictSwap").attr({ "title": mxLang("app.swap"), "alt": mxLang("app.swap") });
+    $("#DictSwap").attr({ "title": ExtensionCore.i18n("app.swap"), "alt": ExtensionCore.i18n("app.swap") });
     $("#DictSwap").click(function () {
         var first = $("#DictFirst").html();
         var second = $("#DictSecond").html();
@@ -357,11 +341,11 @@ $(document).ready(function () {
     var checkedClick = dblclicked ? ' checked="checked"' : '';
     var checkedSelect = mouseSelected ? ' checked="checked"' : '';
 
-    $("#settings").html('<div class="setDblClick"><span>' + mxLang("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + mxLang("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + mxLang("app.settings") + '"></div>');
+    $("#settings").html('<div class="setDblClick"><span>' + ExtensionCore.i18n("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + ExtensionCore.i18n("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + ExtensionCore.i18n("app.settings") + '"></div>');
 
     $(".setDblClick :checkbox").iphoneStyle({
-        checkedLabel: mxLang("app.on"),
-        uncheckedLabel: mxLang("app.off"),
+        checkedLabel: ExtensionCore.i18n("app.on"),
+        uncheckedLabel: ExtensionCore.i18n("app.off"),
         onChange: function (e, checked) {
             dblclicked = checked;
             userConfig.doubleClicked = dblclicked;
@@ -369,8 +353,8 @@ $(document).ready(function () {
     }});
 
     $(".setSelection :checkbox").iphoneStyle({
-        checkedLabel: mxLang("app.on"),
-        uncheckedLabel: mxLang("app.off"),
+        checkedLabel: ExtensionCore.i18n("app.on"),
+        uncheckedLabel: ExtensionCore.i18n("app.off"),
         onChange: function (e, checked) {
             mouseSelected = checked;
             userConfig.mouseSelected = mouseSelected;
@@ -408,12 +392,12 @@ function getHtmlData(url, notifyContainer, loadFunc) {
         dataType: "html",
         url: url,
         beforeSend: function (xhr) {
-            $(notifyContainer).html("<h1>" + mxLang("app.loading") + "</h1>");
+            $(notifyContainer).html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
             timeout = setTimeout(function () {
                 xhr.abort();
                 enableCallbacks = false;
                 // Handle the timeout
-                $(notifyContainer).html("<h1>" + mxLang("app.timeout") + "</h1>");
+                $(notifyContainer).html("<h1>" + ExtensionCore.i18n("app.timeout") + "</h1>");
             }, handleTimeout);
         },
         success: function (data, textStatus, xhr) {
@@ -426,7 +410,7 @@ function getHtmlData(url, notifyContainer, loadFunc) {
             clearTimeout(timeout);
             if (!enableCallbacks) return;
             console.log("error: ", xhr.status, " ", textStatus);
-            $(notifyContainer).html("<h1>" + mxLang("app.notFound") + "</h1>");
+            $(notifyContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
         }
     });
 }
@@ -444,7 +428,7 @@ function loadTdkSearchResults(data) {
         $(TdkSozluk.divContainer).html(html);
         $("#tdkContainer td a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
-        $(TdkSozluk.divContainer).html("<h1>" + mxLang("app.notFound") + "</h1>");
+        $(TdkSozluk.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
 }
 
@@ -459,7 +443,7 @@ function loadDictionaryReferenceSearchResults(data) {
         });
 
     } else {
-        $(".source-data").html("<h1>" + mxLang("app.notFound") + "</h1>");
+        $(".source-data").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
 }
 
@@ -490,7 +474,7 @@ function loadWordReferenceSearchResults(data) {
         $("#articleWRD .even").removeClass("even").addClass("wrEven");
         $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
     } else {
-        $("#articleWRD").html("<h1>" + mxLang("app.notFound") + "</h1>");
+        $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
 }
 
@@ -648,7 +632,7 @@ function loadTurengSearchResults(data) {
             $td.html(text);
         });
     } else {
-        $("#searchPage").html("<h1>" + mxLang("app.notFound") + "</h1>");
+        $("#searchPage").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
     // add titles into the abbrevations.
     $(".visible-xs-inline").each(function() {
@@ -659,7 +643,7 @@ function loadTurengSearchResults(data) {
 }
 
 function yandexTranslate(word, detectLang) {
-    $("#DictionaryOutput").html("<h1>" + mxLang("app.loading") + "</h1>");
+    $("#DictionaryOutput").html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
     var queryword = word.replace(/\s/g, "+");
     var detectUrl = "https://translate.yandex.net/api/v1.5/tr.json/detect?key=" + yandexApiKey + "&text=" + queryword;
     var translateUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + yandexApiKey;
@@ -667,21 +651,21 @@ function yandexTranslate(word, detectLang) {
     if (detectLang == "") {
         $.get(detectUrl, function(data) {
             var currentLang = AvailableLangs.getCurrentLanguage();
-            var currentLangText = mxLang("app." + currentLang);
+            var currentLangText = ExtensionCore.i18n("app." + currentLang);
             //console.log("yandex-detect error code: ", data.code);
             //console.log("yandex detect result: ", data.lang);
             if (data.lang == "en") {
                 translateUrl = translateUrl + "&lang=en-" + currentLang + "&text=" + queryword;
-                $("#DictFirst").html(mxLang("app.eng"));
-                $("#DictFirst").attr("title", mxLang("app.eng"));
+                $("#DictFirst").html(ExtensionCore.i18n("app.eng"));
+                $("#DictFirst").attr("title", ExtensionCore.i18n("app.eng"));
                 $("#DictSecond").html(currentLangText);
                 $("#DictSecond").attr("title", currentLangText);
             } else {
                 translateUrl = translateUrl + "&lang=" + currentLang + "-en&text=" + queryword;
                 $("#DictFirst").html(currentLangText);
                 $("#DictFirst").attr("title", currentLangText);
-                $("#DictSecond").html(mxLang("app.eng"));
-                $("#DictSecond").attr("title", mxLang("app.eng"));
+                $("#DictSecond").html(ExtensionCore.i18n("app.eng"));
+                $("#DictSecond").attr("title", ExtensionCore.i18n("app.eng"));
             }
             $.get(translateUrl, function(data) {
                 //console.log("yandex-translate error code: ", data.code);
@@ -700,7 +684,6 @@ function yandexTranslate(word, detectLang) {
 }
 
 function openMore() {
-    var tabs = mxRuntime.create("mx.browser.tabs");
     var tabId = $(".activeContent").attr("id");
     var newUrl = getUrl(tabId);
     var inputSelector = getInputSelector(tabId);
@@ -711,5 +694,5 @@ function openMore() {
         newUrl = newUrl + queryWord;
     }
 
-    tabs.newTab({ url: newUrl });
+    ExtensionCore.openNewTab(newUrl);
 }

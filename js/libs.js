@@ -1,106 +1,98 @@
-var mxRuntime = window.external.mxGetRuntime();
-var mxStorage = mxRuntime.storage;
-var mxLocale = mxRuntime.locale;
-var mxBrowser = mxRuntime.create("mx.browser");
-var mxLang = mxRuntime.locale.t;
-var trPanel = mxRuntime.getActionByName("dict-panel");
-//console.log(mxRuntime.version);
-//console.log(mxRuntime.locale.getSystemLocale()); // en, tr-tr
-mxLocale.setDisplayLocale(mxLocale.getSystemLocale());
+ExtensionCore.updateDisplayLocale();
 
 function UserConfig() {
     Object.defineProperty(this, "onOffTdkSozluk", {
         get: function() {
-            return (mxStorage.getConfig("onOffTdkSozluk") == "true");
+            return (ExtensionCore.getSetting("onOffTdkSozluk") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("onOffTdkSozluk", value);
+            return ExtensionCore.setSetting("onOffTdkSozluk", value);
         }
     });
 
     Object.defineProperty(this, "onOffYandexTranslate", {
         get: function() {
-            return (mxStorage.getConfig("onOffYandexTranslate") == "true");
+            return (ExtensionCore.getSetting("onOffYandexTranslate") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("onOffYandexTranslate", value);
+            return ExtensionCore.setSetting("onOffYandexTranslate", value);
         }
     });
 
     Object.defineProperty(this, "onOffDictionaryReference", {
         get: function() {
-            return (mxStorage.getConfig("onOffDictionaryReference") == "true");
+            return (ExtensionCore.getSetting("onOffDictionaryReference") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("onOffDictionaryReference", value);
+            return ExtensionCore.setSetting("onOffDictionaryReference", value);
         }
     });
 
     Object.defineProperty(this, "onOffWordReference", {
         get: function() {
-            return (mxStorage.getConfig("onOffWordReference") == "true");
+            return (ExtensionCore.getSetting("onOffWordReference") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("onOffWordReference", value);
+            return ExtensionCore.setSetting("onOffWordReference", value);
         }
     });
 
     Object.defineProperty(this, "onOffTureng", {
         get: function() {
-            return (mxStorage.getConfig("onOffTureng") == "true");
+            return (ExtensionCore.getSetting("onOffTureng") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("onOffTureng", value);
+            return ExtensionCore.setSetting("onOffTureng", value);
         }
     });
 
     Object.defineProperty(this, "languageGroup", {
         get: function() {
-            return mxStorage.getConfig("languageGroup");
+            return ExtensionCore.getSetting("languageGroup");
         },
         set: function(value) {
-            return mxStorage.setConfig("languageGroup", value);
+            return ExtensionCore.setSetting("languageGroup", value);
         }
     });
 
     Object.defineProperty(this, "culture", {
         get: function() {
-            return mxStorage.getConfig("culture");
+            return ExtensionCore.getSetting("culture");
         },
         set: function(value) {
-            return mxStorage.setConfig("culture", value);
+            return ExtensionCore.setSetting("culture", value);
         }
     });
 
     Object.defineProperty(this, "lastSearchTerm", {
         get: function() {
-            return mxStorage.getConfig("lastSearched");
+            return ExtensionCore.getSetting("lastSearched");
         },
         set: function(value) {
-            return mxStorage.setConfig("lastSearched", value);
+            return ExtensionCore.setSetting("lastSearched", value);
         }
     });
 
     Object.defineProperty(this, "doubleClicked", {
         get: function() {
-            return (mxStorage.getConfig("dblclicked") == "true");
+            return (ExtensionCore.getSetting("dblclicked") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("dblclicked", value);
+            return ExtensionCore.setSetting("dblclicked", value);
         }
     });
 
     Object.defineProperty(this, "mouseSelected", {
         get: function() {
-            return (mxStorage.getConfig("mouseSelected") == "true");
+            return (ExtensionCore.getSetting("mouseSelected") == "true");
         },
         set: function(value) {
-            return mxStorage.setConfig("mouseSelected", value);
+            return ExtensionCore.setSetting("mouseSelected", value);
         }
     });
 };
 var userConfig = new UserConfig();
-var systemLanguageIsEnglish = (mxLocale.getSystemLocale().indexOf("en") > -1);
+var systemLanguageIsEnglish = (ExtensionCore.getBrowserLocale().indexOf("en") > -1);
 
 var AvailableLangs = {
     Turkish: "tr",
@@ -273,52 +265,37 @@ function clearSelection() {
     }
 }
 
-var culture = "";
-function checkCulture() {
-    if (culture == "") {
-        var timeout = null;
-        var enableCallbacks = true;
-        $.ajax({
-            type: "GET",
-            dataType: "html",
-            url: "http://tureng.com/",
-            beforeSend: function (xhr) {
-                timeout = setTimeout(function() {
-                  xhr.abort();
-                  enableCallbacks = false;
-                  // Handle the timeout
-                  culture = "";
-                  setTimeout(checkCulture, 5000);
-                }, 2000);
-            },
-            success: function (data, textStatus, xhr) {
-                clearTimeout(timeout);
-                if (!enableCallbacks) return;
-                var $culture = $(data).find("#topBarRight a[href^='/setculture']");
-                if ($culture.length) {
-                    var href = $culture.attr("href");
-                    var arr = href.split("=");
-                    culture = arr[1];
-                    if (mxLocale.indexOf(culture) > -1) {
-                        // set tureng culture.
-                        var tabs = rt.create("mx.browser.tabs");
-                        var newUrl = "http://tureng.com/setculture?culture=" + culture;
-                        //tabs.newTab({ url: newUrl, activate: false });
-                    } else {
-                        culture = mxLocale.split("-")[0];
-                    }
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                clearTimeout(timeout);
-                if (!enableCallbacks) return;
-                console.log("error: ", xhr.status, " ", textStatus);
+function localizeHtml() {
+    //$("head title").text(ExtensionCore.i18n("app.settings"));
+    $("[data-lang]").each(function () {
+        var text = "";
+        var keys = $(this).attr("data-lang");
+        keys.split(/\|/g).forEach(function (element, index, array) {
+            if (text == "") {
+                text = ExtensionCore.i18n(element);
+            } else {
+                text += ExtensionCore.i18n(element) + " ";
             }
         });
-    } else if (mxLocale.indexOf(culture) < 0) {
-        // set tureng culture.
-        var tabs = rt.create("mx.browser.tabs");
-        var newUrl = "http://tureng.com/setculture?culture=" + culture;
-        tabs.newTab({ url: newUrl, activate: false });
-    }
+
+        $(this).text(text);
+    });
+    $("[data-lang-value]").each(function () {
+        var key = $(this).attr("data-lang-value");
+        $(this).attr("value", ExtensionCore.i18n(key));
+    });
+    $("[data-lang-alt]").each(function () {
+        var alt = $(this).attr("alt");
+        var key = $(this).attr("data-lang-alt");
+        $(this).attr("alt", alt + ExtensionCore.i18n(key));
+    });
+    $("[data-lang-title]").each(function () {
+        var title = $(this).attr("title");
+        if (!title) {
+            title = "";
+        }
+
+        var key = $(this).attr("data-lang-title");
+        $(this).attr("title", title + ExtensionCore.i18n(key));
+    });
 }

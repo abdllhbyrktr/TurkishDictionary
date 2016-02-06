@@ -2,6 +2,7 @@ var maxDicts = 4;
 var selectedDicts = 1;
 
 $(document).ready(function () {
+    localizeHtml();
     // prevent right click on panel.
     $(document).bind("contextmenu", function (e) { return false; });
     // restore settings from config.
@@ -32,7 +33,7 @@ $(document).ready(function () {
     var checkValue = function (isChecked) {
         isChecked ? selectedDicts++ : selectedDicts--;
         updateDicts();
-        mxRuntime.post("updateTabs", isChecked);
+        ExtensionCore.post("updateTabs", isChecked);
 
         return isChecked;
     };
@@ -72,18 +73,18 @@ $(document).ready(function () {
 
     $("#onOffDblClick").change(function () {
         userConfig.doubleClicked = $(this).is(":checked");
-        mxRuntime.post("toggleSettingsForDoubleClick", userConfig.doubleClicked);
+        ExtensionCore.post("toggleSettingsForDoubleClick", userConfig.doubleClicked);
     });
 
     $("#onOffSelection").change(function () {
         userConfig.mouseSelected = $(this).is(":checked");
-        mxRuntime.post("toggleSettingsForSelection", userConfig.mouseSelected);
+        ExtensionCore.post("toggleSettingsForSelection", userConfig.mouseSelected);
     });
 
     $("input[type='radio'][name='languageGroup']").change(function () {
         var currentVal = $(this).val();
         userConfig.languageGroup = currentVal;
-        mxRuntime.post("updateTabs", currentVal);
+        ExtensionCore.post("updateTabs", currentVal);
 
         if (currentVal == AvailableLangs.Turkish) {
             selectedDicts < maxDicts ? $("#onOffTdkSozluk").prop("disabled", null) :
