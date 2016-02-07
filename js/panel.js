@@ -338,28 +338,22 @@ $(document).ready(function () {
     dblclicked = userConfig.doubleClicked || false;
     mouseSelected = userConfig.mouseSelected || false;
 
-    var checkedClick = dblclicked ? ' checked="checked"' : '';
-    var checkedSelect = mouseSelected ? ' checked="checked"' : '';
+    var checkedClick = dblclicked ? "checked" : null;
+    var checkedSelect = mouseSelected ? "checked" : null;
 
-    $("#settings").html('<div class="setDblClick"><span>' + ExtensionCore.i18n("app.dblclick") + '</span><input type="checkbox" id="onOffDblClick"' + checkedClick + '/></div><div class="setSelection"><span>' + ExtensionCore.i18n("app.selection") + '</span><input type="checkbox" id="onOffSelection"' + checkedSelect + '/></div><div class="settingsIcon" title="' + ExtensionCore.i18n("app.settings") + '"></div>');
-
-    $(".setDblClick :checkbox").iphoneStyle({
-        checkedLabel: ExtensionCore.i18n("app.on"),
-        uncheckedLabel: ExtensionCore.i18n("app.off"),
-        onChange: function (e, checked) {
-            dblclicked = checked;
+    $("#onOffDblClick").prop("checked", checkedClick)
+        .change(function () {
+            dblclicked = $(this).is(":checked");
             userConfig.doubleClicked = dblclicked;
             sendSettings();
-    }});
+    });
 
-    $(".setSelection :checkbox").iphoneStyle({
-        checkedLabel: ExtensionCore.i18n("app.on"),
-        uncheckedLabel: ExtensionCore.i18n("app.off"),
-        onChange: function (e, checked) {
-            mouseSelected = checked;
+    $("#onOffSelection").prop("checked", checkedSelect)
+        .change(function () {
+            mouseSelected = $(this).is(":checked");
             userConfig.mouseSelected = mouseSelected;
             sendSettings();
-    }});
+    });
 
     $("#settings").hover(function (event) {
         // mouseover.

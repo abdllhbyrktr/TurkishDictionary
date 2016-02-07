@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/underscore-min.js"></script>
-    <script type="text/javascript" src="js/iphone-style-checkboxes.js"></script>
     <script type="text/javascript" src="js/mx-core.js"></script>
     <script type="text/javascript" src="js/libs.js"></script>
     <script type="text/javascript" src="js/panel.js"></script>
@@ -15,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="css/dictionary.css">
     <link rel="stylesheet" type="text/css" href="css/yandex.css">
     <link rel="stylesheet" type="text/css" href="css/tdk.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title data-lang="app.title"></title>
 </head>
     <body>
@@ -28,11 +26,17 @@
         <div id="settings">
             <div class="setDblClick">
                 <span data-lang="app.dblclick"></span>
-                <input type="checkbox" id="onOffDblClick" />
+                <div class="onoffswitch">
+                    <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox"/>
+                    <label class="onoffswitch-label" for="onOffDblClick"></label>
+                </div>
             </div>
             <div class="setSelection">
                 <span data-lang="app.selection"></span>
-                <input type="checkbox" id="onOffSelection" />
+                <div class="onoffswitch">
+                    <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox"/>
+                    <label class="onoffswitch-label" for="onOffSelection"></label>
+                </div>
             </div>
             <div class="settingsIcon" title="" data-lang-title="app.settings"></div>
         </div>

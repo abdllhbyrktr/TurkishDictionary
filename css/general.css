@@ -23,6 +23,107 @@ h1 {
     margin: 5px 0 0 5px;
 }
 
+#navigation {
+    position: absolute;
+    width: 60px;
+    height: 28px;
+    top: 0px;
+    left: 0px;
+    padding: 1px 0 0 1px;
+    margin: 0;
+    background: #FFFFFF;
+}
+
+.navigationBack {
+    background-image: url(backward24.png);
+}
+
+.navigationForward {
+    background-image: url(forward24.png);
+}
+
+.navigationBack, .navigationForward {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    border: 2px solid #bf1e2e;
+}
+
+#settings {
+    position: absolute;
+    width: 170px;
+    height: 50px;
+    top: -58px;
+    right: 2px;
+    padding: 1px;
+    margin: 0;
+    background: #FFFFFF;
+    border: 2px solid #2266AA;
+    z-index: 9999;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    -webkit-transition-duration: 0.4s;
+}
+
+.settingsIcon {
+    width: 24px;
+    height: 24px;
+    margin: 49px 0 0 150px;
+    background-repeat: no-repeat;
+    background-image: url(window_info.png);
+}
+
+.setDblClick {
+    float: left;
+}
+
+.setSelection {
+    float: right;
+}
+
+.highlight {
+    background: #6cf;
+}
+
+/*https://proto.io/freebies/onoff/*/
+/*----- On/Off FlipSwitch -----*/
+.onoffswitch {
+    position: relative; width: 70px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    height: 30px; padding: 0; line-height: 30px;
+    border: 2px solid #999999; border-radius: 30px;
+    background-color: #EEEEEE;
+    transition: background-color 0.3s ease-in;
+}
+.onoffswitch-label:before {
+    content: "";
+    display: block; width: 30px; margin: 0px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 38px;
+    border: 2px solid #999999; border-radius: 30px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label {
+    background-color: #1468DE;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+   border-color: #1468DE;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label:before {
+    right: 0px; 
+}
+
 .tabs {
     width: 100%;
     /*display: inline-block;*/
