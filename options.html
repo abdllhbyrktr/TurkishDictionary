@@ -10,13 +10,14 @@
         <script type="text/javascript" src="js/libs.js"></script>
         <script type="text/javascript" src="js/options.js"></script>
         <link rel="stylesheet" type="text/css" href="css/options.css">
+        <link rel="stylesheet" type="text/css" href="css/onoff.css">
     </head>
     <body>
         <div id="wrapper">
             <header>
                 <img class="logo" src="icons/icon_32.png" alt="logo">
                 <hgroup>
-                    <h1 data-lang="app.title">Turkish Dictionary<sup>2.1.5</sup></h1>
+                    <h1 id="optionsTitle">Turkish Dictionary<sup>2.1.5</sup></h1>
                     <h4 data-lang="app.description">Displays results from specific web sites which are Tureng, Wordreference, Dictionary and Yandex.Translate.</h4>
                 </hgroup>
             </header>
@@ -44,39 +45,60 @@
                         Choose supported web sites (Maximum 4 web sites you can select).
                     </p>
                     <p>
-                        <label>
-                            <input type="checkbox" id="onOffTureng" class="dictionary" disabled="disabled" checked="checked" />
+                        <div class="row">
                             <img src="css/tureng32.png" alt="Tureng"/>
-                        </label>&nbsp;
-                        <label>
-                            <input type="checkbox" id="onOffDictionaryReference" class="dictionary" />
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffTureng" name="onoffswitch" class="onoffswitch-checkbox" disabled="disabled" checked="checked"/>
+                                <label class="onoffswitch-label dictionary" for="onOffTureng" style="background-color: crimson"></label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <img src="css/dictionary32.png" alt="Dictionary Reference"/>
-                        </label>&nbsp;
-                        <label>
-                            <input type="checkbox" id="onOffWordReference" class="dictionary" />
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffDictionaryReference" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffDictionaryReference"></label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <img src="css/wr32.png" alt="WordReference"/>
-                        </label>&nbsp;
-                        <label>
-                            <input type="checkbox" id="onOffYandexTranslate" class="dictionary" />
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffWordReference" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffWordReference"></label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <img src="css/yandex32.png" alt="Yandex Translate"/>
-                        </label>&nbsp;
-                        <label>
-                            <input type="checkbox" id="onOffTdkSozluk" class="dictionary" />
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffYandexTranslate" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffYandexTranslate"></label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <img src="css/tdk32.png" alt="Tdk Sozluk"/>
-                        </label>
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffTdkSozluk" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffTdkSozluk"></label>
+                            </div>
+                        </div>
                     </p>
                     <p data-lang="app.options2">
                         Set the features of the extension on pages.
                     </p>
                     <p>
-                        <label>
+                        <div class="row">
                             <span data-lang="app.dblclick">x2 Click:</span>
-                            <input type="checkbox" id="onOffDblClick" />
-                        </label>&nbsp;
-                        <label>
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
+                                <label class="onoffswitch-label" for="onOffDblClick"></label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <span data-lang="app.selection">Selection:</span>
-                            <input type="checkbox" id="onOffSelection" />
-                        </label>
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
+                                <label class="onoffswitch-label" for="onOffSelection"></label>
+                            </div>
+                        </div>
                     </p>
                 </div>
             </section>

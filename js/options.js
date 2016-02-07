@@ -5,6 +5,7 @@ $(document).ready(function () {
     localizeHtml();
     // prevent right click on panel.
     $(document).bind("contextmenu", function (e) { return false; });
+    $("#optionsTitle").html(ExtensionCore.i18n("app.title") + "<sup>2.1.7</sup>");
     // restore settings from config.
     $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
     $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
