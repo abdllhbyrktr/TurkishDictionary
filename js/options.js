@@ -4,7 +4,7 @@ var selectedDicts = 1;
 $(document).ready(function () {
     localizeHtml();
     // prevent right click on panel.
-    $(document).bind("contextmenu", function (e) { return false; });
+    //$(document).bind("contextmenu", function (e) { return false; });
     $("#optionsTitle").html(ExtensionCore.i18n("app.title") + "<sup>2.1.7</sup>");
     // restore settings from config.
     $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
@@ -13,12 +13,34 @@ $(document).ready(function () {
     $("#onOffWordReference").prop("checked", userConfig.onOffWordReference ? "checked" : null);
     $("#onOffYandexTranslate").prop("checked", userConfig.onOffYandexTranslate ? "checked" : null);
     $("#onOffTdkSozluk").prop("checked", userConfig.onOffTdkSozluk ? "checked" : null);
+    $("#onOffAbbyy").prop("checked", userConfig.onOffAbbyy ? "checked" : null);
+    $("#onOffSozlukNet").prop("checked", userConfig.onOffSozlukNet ? "checked" : null);
     $("#onOffTdkSozluk").prop("disabled", "disabled");
 
     userConfig.onOffDictionaryReference && selectedDicts++;
     userConfig.onOffWordReference && selectedDicts++;
     userConfig.onOffYandexTranslate && selectedDicts++;
     userConfig.onOffTdkSozluk && selectedDicts++;
+    userConfig.onOffAbbyy && selectedDicts++;
+    userConfig.onOffSozlukNet && selectedDicts++;
+
+    var showOrHideDicts = function(fromLang, toLang) {
+        console.log("Tureng is supported: ", Tureng.isSupported(fromLang, toLang));
+    };
+
+    $("input[type='radio'][name='fromLang']").on("change", function() {
+        var fromLang = $(this).val();
+        var toLang = $("input[type='radio'][name='toLang']:checked").val();
+        
+        showOrHideDicts(fromLang, toLang);
+    });
+
+    $("input[type='radio'][name='toLang']").on("change", function() {
+        var toLang = $(this).val();
+        var fromLang = $("input[type='radio'][name='fromLang']:checked").val();
+        
+        showOrHideDicts(fromLang, toLang);
+    });
 
     var updateDicts = function () {
         if (selectedDicts >= maxDicts) {
@@ -54,6 +76,9 @@ $(document).ready(function () {
             $("#frRadio").attr("checked", "checked");
             break;
         default:
+        case AvailableLangs.Russian:
+            $("#ruRadio").attr("checked", "checked");
+            break;
     }
 
     $("#onOffDictionaryReference").change(function () {
@@ -70,6 +95,14 @@ $(document).ready(function () {
 
     $("#onOffTdkSozluk").change(function () {
         userConfig.onOffTdkSozluk = checkValue($(this).is(":checked"));
+    });
+
+    $("#onOffAbbyy").change(function () {
+        userConfig.onOffAbbyy = checkValue($(this).is(":checked"));
+    });
+
+    $("#onOffSozlukNet").change(function () {
+        userConfig.onOffSozlukNet = checkValue($(this).is(":checked"));
     });
 
     $("#onOffDblClick").change(function () {

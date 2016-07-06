@@ -3,17 +3,15 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="js/underscore-min.js"></script>
-    <script type="text/javascript" src="js/mx-core.js"></script>
-    <script type="text/javascript" src="js/libs.js"></script>
-    <script type="text/javascript" src="js/panel.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/tureng.css">
     <link rel="stylesheet" type="text/css" href="css/wordreference.css">
     <link rel="stylesheet" type="text/css" href="css/dictionary.css">
     <link rel="stylesheet" type="text/css" href="css/yandex.css">
     <link rel="stylesheet" type="text/css" href="css/tdk.css">
+    <link rel="stylesheet" type="text/css" href="css/abbyy.css">
+    <link rel="stylesheet" type="text/css" href="css/sozlukNet.css">
     <link rel="stylesheet" type="text/css" href="css/onoff.css">
     <title data-lang="app.title">Turkish Dictionary</title>
 </head>
@@ -105,7 +103,7 @@
                         </div>
                     </div>
                     
-                    <div id="tdkTab" class="tab" tab-index="1">
+                    <div id="tdkTab" class="tab" tab-index="3">
                         <div class="mainContanier">
                             <input type="text" name="kelime" id="metin" data-tab-id="tdkTab">
                             <button id="tdk-input" type="submit">ARA</button>
@@ -114,8 +112,39 @@
                             <h1 data-lang="app.loading">Loading...</h1>
                         </div>
                     </div>
+                    
+                    <div id="abbyyTab" class="tab" tab-index="4">
+                        <div class="g-srcpanel__srcbar">
+                            <span class="js-wtrmark g-wtrmark hidetext" style="position: relative; display: inline-block; background: rgb(255, 255, 255);">
+                                <textarea class="g-srcpanel__srctext js-suggests-load js-submit-search-form js-jq-watermark js-keybrd-textbox js-source-text g-wtrmark-bg activeForVk" name="searchText" id="searchText" cols="20" rows="2" tabindex="101" title="" data-lang-title="app.type" data-tab-id="abbyyTab"></textarea>
+                            </span>
+                            <span class="g-btn g-redbtn search">
+                                <span class="g-btn__data">
+                                    <span class="g-btn__text g-redbtn__text search js-allbtntext" data-lang="app.translate">Translate</span>
+                                    <input class="g-btn__btn g-redbtn__btn search js-search-button js-allbtn" type="submit" tabindex="110" value="Translate" data-lang-value="app.translate">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="l-articles js-section-box">
+                            <h1 data-lang="app.loading">Loading...</h1>
+                        </div>
+                    </div>
+                    
+                    <div id="sozlukNetTab" class="tab" tab-index="5">
+                        <div id="ara_satir1">
+                            <div id="ara_kutu">
+                                <input class="keyboardInput" type="text" name="word" id="search" size="30" style="width:315px; border:2px solid #7ab6ec; font-family:Arial; font-size:15px; color:#333333; background:url(/css/araico.gif) no-repeat left #ffffff; padding:7px; padding-left:30px;" data-tab-id="sozlukNetTab">
+                            </div>
+                            <div id="ara_gonder">
+                                <input type="submit" style="background:url(/css/menuarka.gif); width:120px; height:33px; border:2px solid #7ab6ec; font-family:Arial, Helvetica, sans-serif; cursor:pointer; font-size:14px; font-weight:bold; color:#333333;" value="Translate" data-lang-value="app.translate">
+                            </div>
+                        </div>
+                        <div id="sozlukNetContainer">
+                            <h1 data-lang="app.loading">Loading...</h1>
+                        </div>
+                    </div>
 
-                    <div id="yandexTab" class="tab" tab-index="3">
+                    <div id="yandexTab" class="tab" tab-index="6">
                         <div id="dvPageContent">
                             <table id="LangSelectMenuTable">
                                 <tbody>
@@ -155,4 +184,10 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/mx-core.js"></script>
+    <script type="text/javascript" src="js/libs.js"></script>
+    <script type="text/javascript" src="js/panel.js"></script>
 </html>

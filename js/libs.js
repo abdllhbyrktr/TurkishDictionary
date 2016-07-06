@@ -1,6 +1,24 @@
 ExtensionCore.updateDisplayLocale();
 
 function UserConfig() {
+    Object.defineProperty(this, "onOffSozlukNet", {
+        get: function() {
+            return (ExtensionCore.getSetting("onOffSozlukNet") == "true");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("onOffSozlukNet", value);
+        }
+    });
+
+    Object.defineProperty(this, "onOffAbbyy", {
+        get: function() {
+            return (ExtensionCore.getSetting("onOffAbbyy") == "true");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("onOffAbbyy", value);
+        }
+    });
+
     Object.defineProperty(this, "onOffTdkSozluk", {
         get: function() {
             return (ExtensionCore.getSetting("onOffTdkSozluk") == "true");
@@ -95,7 +113,9 @@ var userConfig = new UserConfig();
 var systemLanguageIsEnglish = (ExtensionCore.getBrowserLocale().indexOf("en") > -1);
 
 var AvailableLangs = {
+    English: "en",
     Turkish: "tr",
+    Russian: "ru",
     German: "de",
     Spanish: "es",
     French: "fr",
@@ -124,6 +144,9 @@ var BaseDictionary = {
     divContainer: "",
     getUrl: function () {
         return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
+    },
+    isSupported: function(fromLang, toLang) {
+        return this.langs.hasOwnProperty(fromLang) && this.langs[fromLang].hasOwnProperty(toLang);
     }
 };
 var Tureng = {
@@ -164,7 +187,34 @@ var Tureng = {
             default:
                 return "ng";
         }
-    }
+    },
+    langs: {
+        en: {
+            tr: "en/turkish-english/",
+            de: "en/german-english/",
+            es: "en/spanish-english/",
+            fr: "en/french-english/"
+        },
+        tr: {
+            en: "tr/turkce-ingilizce/"
+        },
+        de: {
+            en: "de/deutsch-englisch/"
+        },
+        es: {
+            en: "es/espanol-ingles/"
+        },
+        fr: {
+            en: "fr/francais-anglais/"
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English,
+        AvailableLangs.Turkish,
+        AvailableLangs.German,
+        AvailableLangs.Spanish,
+        AvailableLangs.French
+    ]
 };
 var Wordreference = {
     lang: {
@@ -172,7 +222,41 @@ var Wordreference = {
         "de": "ende/",
         "es": "es/translation.asp?tranword=",
         "fr": "enfr/"
-    }
+    },
+    langs: {
+        en: {
+            tr: "entr/",
+            de: "ende/",
+            es: "es/translation.asp?tranword=",
+            fr: "enfr/",
+            ru: "enru/"
+        },
+        tr: {
+            en: "tren/"
+        },
+        de: {
+            en: "deen/"
+        },
+        es: {
+            en: "es/en/translation.asp?spen=",
+            fr: "esfr/"
+        },
+        fr: {
+            en: "fren/",
+            es: "fres/"
+        },
+        ru: {
+            en: "ruen/"
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English,
+        AvailableLangs.Turkish,
+        AvailableLangs.Russian,
+        AvailableLangs.German,
+        AvailableLangs.Spanish,
+        AvailableLangs.French
+    ]
 };
 var DictionaryReference = {
     lang: {
@@ -180,7 +264,15 @@ var DictionaryReference = {
         "de": "browse/",
         "es": "browse/",
         "fr": "browse/"
-    }
+    },
+    langs: {
+        en: {
+            en : "browse/"
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English
+    ]
 };
 var YandexTranslate = {
     lang: {
@@ -188,12 +280,131 @@ var YandexTranslate = {
         "de": "?text=",
         "es": "?text=",
         "fr": "?text="
-    }
+    },
+    langs: {
+        en: {
+            tr: "&lang=en-tr&text=",
+            de: "&lang=en-de&text=",
+            es: "&lang=en-es&text=",
+            fr: "&lang=en-fr&text=",
+            ru: "&lang=en-ru&text="
+        },
+        tr: {
+            en: "&lang=tr-en&text=",
+            de: "&lang=tr-de&text=",
+            es: "&lang=tr-es&text=",
+            fr: "&lang=tr-fr&text=",
+            ru: "&lang=tr-ru&text="
+        },
+        de: {
+            tr: "&lang=de-tr&text=",
+            en: "&lang=de-en&text=",
+            es: "&lang=de-es&text=",
+            fr: "&lang=de-fr&text=",
+            ru: "&lang=de-ru&text="
+        },
+        es: {
+            tr: "&lang=es-tr&text=",
+            en: "&lang=es-en&text=",
+            de: "&lang=es-de&text=",
+            fr: "&lang=es-fr&text=",
+            ru: "&lang=es-ru&text="
+        },
+        fr: {
+            tr: "&lang=fr-tr&text=",
+            en: "&lang=fr-en&text=",
+            de: "&lang=fr-de&text=",
+            es: "&lang=fr-es&text=",
+            ru: "&lang=fr-ru&text="
+        },
+        ru: {
+            tr: "&lang=ru-tr&text=",
+            en: "&lang=ru-en&text=",
+            de: "&lang=ru-de&text=",
+            es: "&lang=ru-es&text=",
+            fr: "&lang=ru-fr&text="
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English,
+        AvailableLangs.Turkish,
+        AvailableLangs.Russian,
+        AvailableLangs.German,
+        AvailableLangs.Spanish,
+        AvailableLangs.French
+    ]
 };
 var TdkSozluk = {
     lang: {
         "tr": "?option=com_gts&arama=gts&kelime="
-    }
+    },
+    langs: {
+        tr: {
+            tr: "?option=com_gts&arama=gts&kelime="
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.Turkish
+    ]
+};
+var Abbyy = {
+    langs: {
+        en: {
+            ru: "en/Translate/en-ru/"
+        },
+        ru: {
+            en: "ru/Translate/ru-en/",
+            de: "ru/Translate/ru-de/",
+            es: "ru/Translate/ru-es/",
+            fr: "ru/Translate/ru-fr/"
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English,
+        AvailableLangs.Russian,
+        AvailableLangs.German,
+        AvailableLangs.Spanish,
+        AvailableLangs.French
+    ]
+};
+var SozlukNet = {
+    langs: {
+        en: {
+            en: "?sozluk=english&word=",
+            tr: "?sozluk=ingilizce&word=",
+            de: "?sozluk=german&word=",
+            es: "?sozluk=spanish&word=",
+            fr: "?sozluk=french&word=",
+            ru: "?sozluk=russian&word="
+        },
+        tr: {
+            en: "?sozluk=ingilizce&word=",
+            de: "?sozluk=almanca&word=",
+            es: "?sozluk=ispanyolca&word=",
+            fr: "?sozluk=fransizca&word=",
+            ru: "?sozluk=rusca&word="
+        },
+        de: {
+            tr: "?sozluk=almanca&word="
+        },
+        es: {
+            tr: "?sozluk=ispanyolca&word="
+        },
+        fr: {
+            tr: "?sozluk=fransizca&word="
+        },
+        ru: {
+            tr: "?sozluk=rusca&word="
+        }
+    },
+    supportedLangs: [
+        AvailableLangs.English,
+        AvailableLangs.Turkish,
+        AvailableLangs.Russian,
+        AvailableLangs.German,
+        AvailableLangs.Spanish,
+        AvailableLangs.French
+    ]
 };
 
 _.extend(Tureng, BaseDictionary);
@@ -201,6 +412,8 @@ _.extend(Wordreference, BaseDictionary);
 _.extend(DictionaryReference, BaseDictionary);
 _.extend(YandexTranslate, BaseDictionary);
 _.extend(TdkSozluk, BaseDictionary);
+_.extend(Abbyy, BaseDictionary);
+_.extend(SozlukNet, BaseDictionary);
 
 Tureng.baseUrl = "http://tureng.com/";
 Tureng.tabId = "turengTab";
@@ -222,6 +435,14 @@ TdkSozluk.baseUrl = "http://tdk.gov.tr/index.php";
 TdkSozluk.tabId = "tdkTab";
 TdkSozluk.inputSelector = "#metin";
 TdkSozluk.divContainer = "#tdkContainer";
+Abbyy.baseUrl = "http://www.lingvo-online.ru/";
+Abbyy.tabId = "abbyyTab";
+Abbyy.inputSelector = "#searchText";
+Abbyy.divContainer = ".l-articles";
+SozlukNet.baseUrl = "http://sozluk.net/index.php";
+SozlukNet.tabId = "sozlukNetTab";
+SozlukNet.inputSelector = "#metin";
+SozlukNet.divContainer = "#sozlukNetContainer";
 
 function getUrl(tabName) {
     switch (tabName) {
@@ -235,6 +456,10 @@ function getUrl(tabName) {
             return YandexTranslate.getUrl();
         case TdkSozluk.tabId:
             return TdkSozluk.getUrl();
+        case Abbyy.tabId:
+            return Abbyy.getUrl();
+        case SozlukNet.tabId:
+            return SozlukNet.getUrl();
         default:
             return Tureng.getUrl();
     }
@@ -252,6 +477,10 @@ function getInputSelector(tabName) {
             return YandexTranslate.inputSelector;
         case TdkSozluk.tabId:
             return TdkSozluk.inputSelector;
+        case Abbyy.tabId:
+            return Abbyy.inputSelector;
+        case SozlukNet.tabId:
+            return SozlukNet.inputSelector;
         default:
             return Tureng.inputSelector;
     }

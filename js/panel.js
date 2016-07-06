@@ -238,7 +238,7 @@ $(document).ready(function () {
     // check culture for websites.
     //checkCulture();
     // prevent right click on panel.
-    $(document).bind("contextmenu", function (e) { return false; });
+    //$(document).bind("contextmenu", function (e) { return false; });
 
     $("input[type='text']").keypress(function (event) {
         var tabId = $(this).attr("data-tab-id");

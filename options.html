@@ -4,11 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <title data-lang="app.title|app.settings">Turkish Dictionary Settings</title>
-        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="js/underscore-min.js"></script>
-        <script type="text/javascript" src="js/mx-core.js"></script>
-        <script type="text/javascript" src="js/libs.js"></script>
-        <script type="text/javascript" src="js/options.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/famfamfam-flags.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/options.css">
         <link rel="stylesheet" type="text/css" href="css/onoff.css">
     </head>
@@ -23,13 +20,102 @@
             </header>
             <section>
                 <h3 data-lang="app.settings">Settings</h3>
-                <div>
-                    <p data-lang="app.options1">
+                <div class="row">
+                    <div class="row" data-lang="app.options1">
                         Choose language group which you want.
-                    </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h3 class="pull-right">
+                                <span class="label label-default">
+                                    From Language:
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                    <i class="famfamfam-flag-us"></i>
+                                    <input type="radio" name="fromLang" id="enFrom" value="en" autocomplete="off" checked>
+                                    &nbsp;<span data-lang="app.eng">English</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-tr"></i>
+                                    <input type="radio" name="fromLang" id="trFrom" value="tr" autocomplete="off">
+                                    &nbsp;<span data-lang="app.tr">Turkish</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-ru"></i>
+                                    <input type="radio" name="fromLang" id="ruFrom" value="ru" autocomplete="off">
+                                    &nbsp;<span data-lang="app.ru">Russian</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-de"></i>
+                                    <input type="radio" name="fromLang" id="deFrom" value="de" autocomplete="off">
+                                    &nbsp;<span data-lang="app.de">German</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-es"></i>
+                                    <input type="radio" name="fromLang" id="esFrom" value="es" autocomplete="off">
+                                    &nbsp;<span data-lang="app.es">Spanish</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-fr"></i>
+                                    <input type="radio" name="fromLang" id="frFrom" value="fr" autocomplete="off">
+                                    &nbsp;<span data-lang="app.fr">French</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h3 class="pull-right">
+                                <span class="label label-default">
+                                    To Language:
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-us"></i>
+                                    <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
+                                    &nbsp;<span data-lang="app.eng">English</span>
+                                </label>
+                                <label class="btn btn-success active">
+                                    <i class="famfamfam-flag-tr"></i>
+                                    <input type="radio" name="toLang" id="trTo" value="tr" autocomplete="off" checked>
+                                    &nbsp;<span data-lang="app.tr">Turkish</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-ru"></i>
+                                    <input type="radio" name="toLang" id="ruTo" value="ru" autocomplete="off">
+                                    &nbsp;<span data-lang="app.ru">Russian</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-de"></i>
+                                    <input type="radio" name="toLang" id="deTo" value="de" autocomplete="off">
+                                    &nbsp;<span data-lang="app.de">German</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-es"></i>
+                                    <input type="radio" name="toLang" id="esTo" value="es" autocomplete="off">
+                                    &nbsp;<span data-lang="app.es">Spanish</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-fr"></i>
+                                    <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
+                                    &nbsp;<span data-lang="app.fr">French</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <p>
                         <label>
                             <input type="radio" id="trRadio" name="languageGroup" value="tr" checked="checked"> <strong data-lang="app.tr">Turkish</strong> (<span data-lang="app.eng">English</span>-<span data-lang="app.tr">Turkish</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.tr">Turkish</span>)<br>
+                        </label>
+                        <label>
+                            <input type="radio" id="ruRadio" name="languageGroup" value="ru"> <strong data-lang="app.ru">Russian</strong> (<span data-lang="app.ru">Russian</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.ru">Russian</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
                         </label>
                         <label>
                             <input type="radio" id="deRadio" name="languageGroup" value="de"> <strong data-lang="app.de">German</strong> (<span data-lang="app.de">German</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.de">German</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
@@ -80,6 +166,20 @@
                                 <label class="onoffswitch-label" for="onOffTdkSozluk"></label>
                             </div>
                         </div>
+                        <div class="row">
+                            <img src="css/abbyy32.png" alt="Abbyy"/>
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffAbbyy" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffAbbyy"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <img src="css/sozlukNet32.png" alt="SozlukNet"/>
+                            <div class="onoffswitch">
+                                <input type="checkbox" id="onOffSozlukNet" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
+                                <label class="onoffswitch-label" for="onOffSozlukNet"></label>
+                            </div>
+                        </div>
                     </p>
                     <p data-lang="app.options2">
                         Set the features of the extension on pages.
@@ -107,4 +207,10 @@
             </footer>
         </div>
     </body>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/mx-core.js"></script>
+    <script type="text/javascript" src="js/libs.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
 </html>
