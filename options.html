@@ -1,38 +1,38 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" style="outline-width: 0px !important; -webkit-user-select: text !important;">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <title data-lang="app.title|app.settings">Turkish Dictionary Settings</title>
         <link rel="stylesheet" type="text/css" href="css/famfamfam-flags.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/options.css">
         <link rel="stylesheet" type="text/css" href="css/onoff.css">
     </head>
     <body>
-        <div id="wrapper">
-            <header>
-                <img class="logo" src="icons/icon_32.png" alt="logo">
-                <hgroup>
-                    <h1 id="optionsTitle">Turkish Dictionary<sup>2.1.5</sup></h1>
-                    <h4 data-lang="app.description">Displays results from specific web sites which are Tureng, Wordreference, Dictionary and Yandex.Translate.</h4>
-                </hgroup>
-            </header>
-            <section>
-                <h3 data-lang="app.settings">Settings</h3>
-                <div class="row">
-                    <div class="row" data-lang="app.options1">
+        <div class="container">
+            <div class="page-header">
+                <h3>Turkish Dictionary<small><sup>3.0.0</sup></small></h3>
+            </div>
+            <div class="jumbotron">
+                <p class="lead" data-lang="app.description">Displays results from specific web sites which are Tureng, Wordreference, Dictionary and Yandex.Translate.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 data-lang="app.settings">Settings</h3>
+                    <hr/>
+                    <h3 data-lang="app.options1">
                         Choose language group which you want.
-                    </div>
+                    </h3>
                     <div class="row">
-                        <div class="col-md-2">
-                            <h3 class="pull-right">
+                        <div class="col-md-11">
+                            <h3>
                                 <span class="label label-default">
                                     From Language:
                                 </span>
                             </h3>
-                        </div>
-                        <div class="col-md-9">
                             <div class="btn-group btn-group-lg" data-toggle="buttons">
                                 <label class="btn btn-primary active">
                                     <i class="famfamfam-flag-us"></i>
@@ -68,14 +68,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">
-                            <h3 class="pull-right">
+                        <div class="col-md-11">
+                            <h3>
                                 <span class="label label-default">
                                     To Language:
                                 </span>
                             </h3>
-                        </div>
-                        <div class="col-md-9">
                             <div class="btn-group btn-group-lg" data-toggle="buttons">
                                 <label class="btn btn-success">
                                     <i class="famfamfam-flag-us"></i>
@@ -110,99 +108,76 @@
                             </div>
                         </div>
                     </div>
-                    <p>
-                        <label>
-                            <input type="radio" id="trRadio" name="languageGroup" value="tr" checked="checked"> <strong data-lang="app.tr">Turkish</strong> (<span data-lang="app.eng">English</span>-<span data-lang="app.tr">Turkish</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.tr">Turkish</span>-<span data-lang="app.tr">Turkish</span>)<br>
-                        </label>
-                        <label>
-                            <input type="radio" id="ruRadio" name="languageGroup" value="ru"> <strong data-lang="app.ru">Russian</strong> (<span data-lang="app.ru">Russian</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.ru">Russian</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
-                        </label>
-                        <label>
-                            <input type="radio" id="deRadio" name="languageGroup" value="de"> <strong data-lang="app.de">German</strong> (<span data-lang="app.de">German</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.de">German</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
-                        </label>
-                        <label>
-                            <input type="radio" id="esRadio" name="languageGroup" value="es"> <strong data-lang="app.es">Espanol</strong> (<span data-lang="app.es">Espanol</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.es">Espanol</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
-                        </label>
-                        <label>
-                            <input type="radio" id="frRadio" name="languageGroup" value="fr"> <strong data-lang="app.fr">French</strong> (<span data-lang="app.fr">French</span>-<span data-lang="app.eng">English</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.fr">French</span>, <span data-lang="app.eng">English</span>-<span data-lang="app.eng">English</span>)<br>
-                        </label>
-                    </p>
-                    <p data-lang="app.options3">
-                        Choose supported web sites (Maximum 4 web sites you can select).
-                    </p>
-                    <p>
-                        <div class="row">
-                            <img src="css/tureng32.png" alt="Tureng"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffTureng" name="onoffswitch" class="onoffswitch-checkbox" disabled="disabled" checked="checked"/>
-                                <label class="onoffswitch-label dictionary" for="onOffTureng" style="background-color: crimson"></label>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 data-lang="app.options3">
+                                Choose supported web sites (Maximum 4 web sites you can select).
+                            </h3>
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <img src="css/tureng32.png" class="img-rounded" alt="Tureng"/>
+                                    <input type="checkbox" name="dict" id="cTureng" value="Tureng" autocomplete="off" checked>
+                                    &nbsp;<span>Tureng</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/dictionary32.png" class="img-rounded" alt="Dictionary.com"/>
+                                    <input type="checkbox" name="dict" id="cDictionary" value="Dictionary.com" autocomplete="off">
+                                    &nbsp;<span>Dictionary.com</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/wr32.png" class="img-rounded" alt="Wordreference.com"/>
+                                    <input type="checkbox" name="dict" id="cWordreference" value="Wordreference.com" autocomplete="off">
+                                    &nbsp;<span>Wordreference.com</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/yandex32.png" class="img-rounded" alt="Yandex.Translate"/>
+                                    <input type="checkbox" name="dict" id="cYandex" value="Yandex.Translate" autocomplete="off">
+                                    &nbsp;<span>Yandex.Translate</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/tdk32.png" class="img-rounded" alt="TDK"/>
+                                    <input type="checkbox" name="dict" id="cTdk" value="Tdk" autocomplete="off">
+                                    &nbsp;<span>TDK</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/abbyy32.png" class="img-rounded" alt="Abbyy"/>
+                                    <input type="checkbox" name="dict" id="cAbbyy" value="Abbyy" autocomplete="off">
+                                    &nbsp;<span>Abbyy</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="css/sozlukNet32.png" class="img-rounded" alt="Sozluk.net"/>
+                                    <input type="checkbox" name="dict" id="cSozluknet" value="Sozluk.net" autocomplete="off">
+                                    &nbsp;<span>Sozluk.net</span>
+                                </label>
                             </div>
                         </div>
-                        <div class="row">
-                            <img src="css/dictionary32.png" alt="Dictionary Reference"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffDictionaryReference" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffDictionaryReference"></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 data-lang="app.options2">
+                                Set the features of the extension on pages.
+                            </h3>
+                            <div class="col-md-8">
+                                <div class="col-md-6">
+                                    <span data-lang="app.dblclick">x2 Click:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffDblClick"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span data-lang="app.selection">Selection:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffSelection"></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <img src="css/wr32.png" alt="WordReference"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffWordReference" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffWordReference"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <img src="css/yandex32.png" alt="Yandex Translate"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffYandexTranslate" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffYandexTranslate"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <img src="css/tdk32.png" alt="Tdk Sozluk"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffTdkSozluk" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffTdkSozluk"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <img src="css/abbyy32.png" alt="Abbyy"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffAbbyy" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffAbbyy"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <img src="css/sozlukNet32.png" alt="SozlukNet"/>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffSozlukNet" name="onoffswitch" class="onoffswitch-checkbox dictionary" />
-                                <label class="onoffswitch-label" for="onOffSozlukNet"></label>
-                            </div>
-                        </div>
-                    </p>
-                    <p data-lang="app.options2">
-                        Set the features of the extension on pages.
-                    </p>
-                    <p>
-                        <div class="row">
-                            <span data-lang="app.dblclick">x2 Click:</span>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
-                                <label class="onoffswitch-label" for="onOffDblClick"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <span data-lang="app.selection">Selection:</span>
-                            <div class="onoffswitch">
-                                <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
-                                <label class="onoffswitch-label" for="onOffSelection"></label>
-                            </div>
-                        </div>
-                    </p>
+                    </div>
                 </div>
-            </section>
-            <footer>
+            </div>
+            <footer class="footer page-header">
                 <a target="_blank" href="http://extension.maxthon.com/detail/index.php?view_id=2818" data-lang="app.feedback">Feedback</a>
             </footer>
         </div>

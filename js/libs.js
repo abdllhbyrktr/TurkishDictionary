@@ -138,10 +138,12 @@ if (!userConfig.languageGroup) {
 }
 
 var BaseDictionary = {
+    name: "",
     baseUrl: "",
     tabId: "",
     inputSelector: "",
     divContainer: "",
+    onOff: null,
     getUrl: function () {
         return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
     },
@@ -207,14 +209,7 @@ var Tureng = {
         fr: {
             en: "fr/francais-anglais/"
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English,
-        AvailableLangs.Turkish,
-        AvailableLangs.German,
-        AvailableLangs.Spanish,
-        AvailableLangs.French
-    ]
+    }
 };
 var Wordreference = {
     lang: {
@@ -248,15 +243,7 @@ var Wordreference = {
         ru: {
             en: "ruen/"
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English,
-        AvailableLangs.Turkish,
-        AvailableLangs.Russian,
-        AvailableLangs.German,
-        AvailableLangs.Spanish,
-        AvailableLangs.French
-    ]
+    }
 };
 var DictionaryReference = {
     lang: {
@@ -269,10 +256,7 @@ var DictionaryReference = {
         en: {
             en : "browse/"
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English
-    ]
+    }
 };
 var YandexTranslate = {
     lang: {
@@ -324,15 +308,7 @@ var YandexTranslate = {
             es: "&lang=ru-es&text=",
             fr: "&lang=ru-fr&text="
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English,
-        AvailableLangs.Turkish,
-        AvailableLangs.Russian,
-        AvailableLangs.German,
-        AvailableLangs.Spanish,
-        AvailableLangs.French
-    ]
+    }
 };
 var TdkSozluk = {
     lang: {
@@ -342,10 +318,7 @@ var TdkSozluk = {
         tr: {
             tr: "?option=com_gts&arama=gts&kelime="
         }
-    },
-    supportedLangs: [
-        AvailableLangs.Turkish
-    ]
+    }
 };
 var Abbyy = {
     langs: {
@@ -354,18 +327,12 @@ var Abbyy = {
         },
         ru: {
             en: "ru/Translate/ru-en/",
+            ru: "ru/Translate/ru-ru/",
             de: "ru/Translate/ru-de/",
             es: "ru/Translate/ru-es/",
             fr: "ru/Translate/ru-fr/"
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English,
-        AvailableLangs.Russian,
-        AvailableLangs.German,
-        AvailableLangs.Spanish,
-        AvailableLangs.French
-    ]
+    }
 };
 var SozlukNet = {
     langs: {
@@ -396,15 +363,7 @@ var SozlukNet = {
         ru: {
             tr: "?sozluk=rusca&word="
         }
-    },
-    supportedLangs: [
-        AvailableLangs.English,
-        AvailableLangs.Turkish,
-        AvailableLangs.Russian,
-        AvailableLangs.German,
-        AvailableLangs.Spanish,
-        AvailableLangs.French
-    ]
+    }
 };
 
 _.extend(Tureng, BaseDictionary);
@@ -415,34 +374,43 @@ _.extend(TdkSozluk, BaseDictionary);
 _.extend(Abbyy, BaseDictionary);
 _.extend(SozlukNet, BaseDictionary);
 
+Tureng.name = "Tureng";
+Tureng.onOff = userConfig.onOffTureng;
 Tureng.baseUrl = "http://tureng.com/";
 Tureng.tabId = "turengTab";
 Tureng.inputSelector = "#searchWord";
 Tureng.divContainer = "#searchPage";
+Wordreference.name = "Wordreference.com";
 Wordreference.baseUrl = "http://www.wordreference.com/";
 Wordreference.tabId = "wordReferenceTab";
 Wordreference.inputSelector = "#si";
 Wordreference.divContainer = "#articleWRD";
+DictionaryReference.name = "Dictionary.com";
 DictionaryReference.baseUrl = "http://dictionary.reference.com/";
 DictionaryReference.tabId = "dictionaryTab";
 DictionaryReference.inputSelector = "#search-input";
 DictionaryReference.divContainer = ".source-data";
+YandexTranslate.name = "Yandex.Translate";
 YandexTranslate.baseUrl = "https://ceviri.yandex.com.tr/";
 YandexTranslate.tabId = "yandexTab";
 YandexTranslate.inputSelector = "#TargetText";
 YandexTranslate.divContainer = "#DictionaryOutput";
+TdkSozluk.name = "Tdk";
 TdkSozluk.baseUrl = "http://tdk.gov.tr/index.php";
 TdkSozluk.tabId = "tdkTab";
 TdkSozluk.inputSelector = "#metin";
 TdkSozluk.divContainer = "#tdkContainer";
+Abbyy.name = "Abbyy";
 Abbyy.baseUrl = "http://www.lingvo-online.ru/";
 Abbyy.tabId = "abbyyTab";
 Abbyy.inputSelector = "#searchText";
 Abbyy.divContainer = ".l-articles";
+SozlukNet.name = "Sozluk.net";
 SozlukNet.baseUrl = "http://sozluk.net/index.php";
 SozlukNet.tabId = "sozlukNetTab";
 SozlukNet.inputSelector = "#metin";
 SozlukNet.divContainer = "#sozlukNetContainer";
+var AllWebSites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet];
 
 function getUrl(tabName) {
     switch (tabName) {

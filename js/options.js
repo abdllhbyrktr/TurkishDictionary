@@ -25,7 +25,17 @@ $(document).ready(function () {
     userConfig.onOffSozlukNet && selectedDicts++;
 
     var showOrHideDicts = function(fromLang, toLang) {
-        console.log("Tureng is supported: ", Tureng.isSupported(fromLang, toLang));
+        AllWebSites.forEach(function(element, index, array) {
+            var $el = $("input[type='checkbox'][value='" + element.name + "']");
+            if (!element.isSupported(fromLang, toLang)) {
+                $el.prop("checked", null)
+                .parent("label").removeClass("active").addClass("disabled");
+            } else {
+                $el.parent("label").removeClass("disabled");
+                $el.parent("label").addClass("active");
+                $el.prop("checked", "checked");
+            }
+        });
     };
 
     $("input[type='radio'][name='fromLang']").on("change", function() {
@@ -33,6 +43,16 @@ $(document).ready(function () {
         var toLang = $("input[type='radio'][name='toLang']:checked").val();
         
         showOrHideDicts(fromLang, toLang);
+        $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
+        
+        if (fromLang == AvailableLangs.German || fromLang == AvailableLangs.Spanish || fromLang == AvailableLangs.French) {
+            var $to = $("input[type='radio'][name='toLang'][value='" + fromLang + "']");
+            if ($to.is(":checked")) {
+                $("input[type='radio'][name='toLang']:first").click();
+            }
+
+            $to.parent("label").addClass("disabled");
+        }
     });
 
     $("input[type='radio'][name='toLang']").on("change", function() {
