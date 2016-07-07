@@ -1,66 +1,21 @@
 ExtensionCore.updateDisplayLocale();
 
 function UserConfig() {
-    Object.defineProperty(this, "onOffSozlukNet", {
+    Object.defineProperty(this, "fromLang", {
         get: function() {
-            return (ExtensionCore.getSetting("onOffSozlukNet") == "true");
+            return ExtensionCore.getSetting("fromLang1");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("onOffSozlukNet", value);
+            return ExtensionCore.setSetting("fromLang1", value);
         }
     });
 
-    Object.defineProperty(this, "onOffAbbyy", {
+    Object.defineProperty(this, "toLang", {
         get: function() {
-            return (ExtensionCore.getSetting("onOffAbbyy") == "true");
+            return ExtensionCore.getSetting("toLang1");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("onOffAbbyy", value);
-        }
-    });
-
-    Object.defineProperty(this, "onOffTdkSozluk", {
-        get: function() {
-            return (ExtensionCore.getSetting("onOffTdkSozluk") == "true");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("onOffTdkSozluk", value);
-        }
-    });
-
-    Object.defineProperty(this, "onOffYandexTranslate", {
-        get: function() {
-            return (ExtensionCore.getSetting("onOffYandexTranslate") == "true");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("onOffYandexTranslate", value);
-        }
-    });
-
-    Object.defineProperty(this, "onOffDictionaryReference", {
-        get: function() {
-            return (ExtensionCore.getSetting("onOffDictionaryReference") == "true");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("onOffDictionaryReference", value);
-        }
-    });
-
-    Object.defineProperty(this, "onOffWordReference", {
-        get: function() {
-            return (ExtensionCore.getSetting("onOffWordReference") == "true");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("onOffWordReference", value);
-        }
-    });
-
-    Object.defineProperty(this, "onOffTureng", {
-        get: function() {
-            return (ExtensionCore.getSetting("onOffTureng") == "true");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("onOffTureng", value);
+            return ExtensionCore.setSetting("toLang1", value);
         }
     });
 
@@ -125,13 +80,10 @@ var AvailableLangs = {
 };
 
 // restore settings.
-if (!userConfig.languageGroup) {
+if (!userConfig.fromLang) {
+    userConfig.fromLang = AvailableLangs.English;
+    userConfig.toLang = AvailableLangs.Turkish;
     userConfig.languageGroup = AvailableLangs.Turkish;
-    userConfig.onOffTureng = true;
-    userConfig.onOffWordReference = false;
-    userConfig.onOffDictionaryReference = false;
-    userConfig.onOffYandexTranslate = true;
-    userConfig.onOffTdkSozluk = true;
     userConfig.lastSearchTerm = "gezi parkı";
     userConfig.doubleClicked = false;
     userConfig.mouseSelected = false;
@@ -143,7 +95,6 @@ var BaseDictionary = {
     tabId: "",
     inputSelector: "",
     divContainer: "",
-    onOff: null,
     getUrl: function () {
         return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
     },
@@ -375,7 +326,6 @@ _.extend(Abbyy, BaseDictionary);
 _.extend(SozlukNet, BaseDictionary);
 
 Tureng.name = "Tureng";
-Tureng.onOff = userConfig.onOffTureng;
 Tureng.baseUrl = "http://tureng.com/";
 Tureng.tabId = "turengTab";
 Tureng.inputSelector = "#searchWord";
