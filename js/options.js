@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     var showOrHideDicts = function(fromLang, toLang) {
         ExtensionCore.post("updateTabs", fromLang);
-        AllWebSites.forEach(function(element, index, array) {
+        AllWebsites.forEach(function(element, index, array) {
             var $el = $("input[type='checkbox'][value='" + element.name + "']");
             if (!element.isSupported(fromLang, toLang)) {
                 $el.prop("checked", null)

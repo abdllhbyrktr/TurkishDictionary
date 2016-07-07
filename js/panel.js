@@ -211,6 +211,11 @@ function sendSettings() {
 $(document).ready(function () {
     localizeHtml();
 
+    $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+    });
+
     $(".tabs .tab-links a").on("click", function (e) {
         $("#mainPageBottom").hide();
         var currentAttrValue = $(this).attr("href");

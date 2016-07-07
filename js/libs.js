@@ -360,48 +360,15 @@ SozlukNet.baseUrl = "http://sozluk.net/index.php";
 SozlukNet.tabId = "sozlukNetTab";
 SozlukNet.inputSelector = "#metin";
 SozlukNet.divContainer = "#sozlukNetContainer";
-var AllWebSites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet];
+
+var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet];
 
 function getUrl(tabName) {
-    switch (tabName) {
-        case Tureng.tabId:
-            return Tureng.getUrl();
-        case Wordreference.tabId:
-            return Wordreference.getUrl();
-        case DictionaryReference.tabId:
-            return DictionaryReference.getUrl();
-        case YandexTranslate.tabId:
-            return YandexTranslate.getUrl();
-        case TdkSozluk.tabId:
-            return TdkSozluk.getUrl();
-        case Abbyy.tabId:
-            return Abbyy.getUrl();
-        case SozlukNet.tabId:
-            return SozlukNet.getUrl();
-        default:
-            return Tureng.getUrl();
-    }
+    return _.findWhere(AllWebsites, {tabId: tabName}).getUrl();
 }
 
 function getInputSelector(tabName) {
-    switch (tabName) {
-        case Tureng.tabId:
-            return Tureng.inputSelector;
-        case Wordreference.tabId:
-            return Wordreference.inputSelector;
-        case DictionaryReference.tabId:
-            return DictionaryReference.inputSelector;
-        case YandexTranslate.tabId:
-            return YandexTranslate.inputSelector;
-        case TdkSozluk.tabId:
-            return TdkSozluk.inputSelector;
-        case Abbyy.tabId:
-            return Abbyy.inputSelector;
-        case SozlukNet.tabId:
-            return SozlukNet.inputSelector;
-        default:
-            return Tureng.inputSelector;
-    }
+    return _.findWhere(AllWebsites, {tabId: tabName}).inputSelector;
 }
 
 function clearSelection() {
