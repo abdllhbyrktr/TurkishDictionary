@@ -30,12 +30,12 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-left" role="search">
+                    <div class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Type a word." data-lang-placeholder="app.type">
+                            <input id="searchInput" type="text" class="form-control" placeholder="Type a word." data-lang-placeholder="app.type">
                         </div>
-                        <button type="submit" class="btn btn-default">Translate</button>
-                    </form>
+                        <a id="searchButton" href="javascript:;" class="btn btn-default">Translate</a>
+                    </div>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
@@ -105,7 +105,7 @@
             </div>
             <div class="row">
                 <div class="col-md-11">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#turengTab" aria-controls="turengTab" role="tab" data-toggle="tab" title="Tureng">
                                 <img src="css/tureng32.png" alt="Tureng">
@@ -207,7 +207,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer page-header">
+            <footer id="mainPageBottom" class="footer page-header">
                 <a href="javascript:;" onclick="openMore();" style="color: darkcyan" data-lang="app.more">Click More...</a>
             </footer>
         </div>

@@ -93,7 +93,7 @@ var BaseDictionary = {
     name: "",
     baseUrl: "",
     tabId: "",
-    inputSelector: "",
+    loadFunc: null,
     divContainer: "",
     getUrl: function () {
         return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
@@ -328,37 +328,30 @@ _.extend(SozlukNet, BaseDictionary);
 Tureng.name = "Tureng";
 Tureng.baseUrl = "http://tureng.com/";
 Tureng.tabId = "turengTab";
-Tureng.inputSelector = "#searchWord";
 Tureng.divContainer = "#searchPage";
 Wordreference.name = "Wordreference.com";
 Wordreference.baseUrl = "http://www.wordreference.com/";
 Wordreference.tabId = "wordReferenceTab";
-Wordreference.inputSelector = "#si";
 Wordreference.divContainer = "#articleWRD";
 DictionaryReference.name = "Dictionary.com";
 DictionaryReference.baseUrl = "http://dictionary.reference.com/";
 DictionaryReference.tabId = "dictionaryTab";
-DictionaryReference.inputSelector = "#search-input";
 DictionaryReference.divContainer = ".source-data";
 YandexTranslate.name = "Yandex.Translate";
 YandexTranslate.baseUrl = "https://ceviri.yandex.com.tr/";
 YandexTranslate.tabId = "yandexTab";
-YandexTranslate.inputSelector = "#TargetText";
 YandexTranslate.divContainer = "#DictionaryOutput";
 TdkSozluk.name = "Tdk";
 TdkSozluk.baseUrl = "http://tdk.gov.tr/index.php";
 TdkSozluk.tabId = "tdkTab";
-TdkSozluk.inputSelector = "#metin";
 TdkSozluk.divContainer = "#tdkContainer";
 Abbyy.name = "Abbyy";
 Abbyy.baseUrl = "http://www.lingvo-online.ru/";
 Abbyy.tabId = "abbyyTab";
-Abbyy.inputSelector = "#searchText";
 Abbyy.divContainer = ".l-articles";
 SozlukNet.name = "Sozluk.net";
 SozlukNet.baseUrl = "http://sozluk.net/index.php";
 SozlukNet.tabId = "sozlukNetTab";
-SozlukNet.inputSelector = "#metin";
 SozlukNet.divContainer = "#sozlukNetContainer";
 
 var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet];
@@ -367,8 +360,12 @@ function getUrl(tabName) {
     return _.findWhere(AllWebsites, {tabId: tabName}).getUrl();
 }
 
-function getInputSelector(tabName) {
-    return _.findWhere(AllWebsites, {tabId: tabName}).inputSelector;
+function getDivContainer(tabName) {
+    return _.findWhere(AllWebsites, {tabId: tabName}).divContainer;
+}
+
+function getLoadFunc(tabName) {
+    return _.findWhere(AllWebsites, {tabId: tabName}).loadFunc;
 }
 
 function clearSelection() {

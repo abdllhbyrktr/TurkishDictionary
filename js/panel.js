@@ -26,6 +26,10 @@ var PanelTab = (function () {
     };
 
     PanelTab.prototype.translate = function (word) {
+        if (!word.length) {
+            return;
+        }
+
         if (highlightedText) {
             word = highlightedText;
             word = word.replace(/&\w+;/g, ""); // remove html codes like &nbsp;
@@ -37,47 +41,16 @@ var PanelTab = (function () {
         }
 
         navHistory.add(word);
-
-        var inputSelector = "",
-            url ="";
-
-        switch (currentTab) {
-            case Tureng.tabId:
-                inputSelector = Tureng.inputSelector;
-                url = Tureng.getUrl() + encodeURIComponent(word);
-                getHtmlData(url, Tureng.divContainer, loadTurengSearchResults);
-                break;
-            case Wordreference.tabId:
-                inputSelector = Wordreference.inputSelector;
-                url = Wordreference.getUrl() + encodeURIComponent(word);
-                getHtmlData(url, Wordreference.divContainer, loadWordReferenceSearchResults);
-                break;
-            case DictionaryReference.tabId:
-                inputSelector = DictionaryReference.inputSelector;
-                url = DictionaryReference.getUrl() + encodeURIComponent(word);
-                getHtmlData(url, DictionaryReference.divContainer, loadDictionaryReferenceSearchResults);
-                break;
-            case YandexTranslate.tabId:
-                inputSelector = YandexTranslate.inputSelector;
-                yandexTranslate(word, "");
-                break;
-            case TdkSozluk.tabId:
-                inputSelector = TdkSozluk.inputSelector;
-                url = TdkSozluk.getUrl() + encodeURIComponent(word);
-                getHtmlData(url, TdkSozluk.divContainer, loadTdkSearchResults);
-                break;
-            default:
-                console.log("Error: there is no tab with: " + currentTab);
-                break;
-        }
-        
-        if (currentTab != YandexTranslate.tabId) {
-            $(inputSelector).attr("title", $(inputSelector).val());
+        if (currentTab == YandexTranslate.tabId) {
+            yandexTranslate(word, "");
+        } else {
+            var url = getUrl(currentTab) + encodeURIComponent(word);
+            getHtmlData(url, getDivContainer(currentTab), getLoadFunc(currentTab));
             $("#mainPageBottom").show();
         }
 
-        $(inputSelector).val(word.toLowerCase());
-        $(inputSelector).focus();
+        $("#searchInput").val(word.toLowerCase());
+        $("#searchInput").focus();
         userConfig.lastSearchTerm = word;
     };
 
@@ -214,25 +187,22 @@ $(document).ready(function () {
     $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
         e.target // newly activated tab
         e.relatedTarget // previous active tab
-    });
-
-    $(".tabs .tab-links a").on("click", function (e) {
-        $("#mainPageBottom").hide();
-        var currentAttrValue = $(this).attr("href");
-
-        // Show/Hide Tabs
-        $(".tabs " + currentAttrValue).fadeIn(400).siblings().hide();
-
-        // Change/remove current tab to active
-        $(this).parent("li").addClass("active").siblings().removeClass("active");
-        $(currentAttrValue).addClass("activeContent").siblings().removeClass("activeContent");
+        var tabId = $(e.target).attr("aria-controls");
         // set current tab index
-        panelTab.setCurrentTab($(".activeContent").attr("id"));
+        panelTab.setCurrentTab(tabId);
         // translate
         var currentWord = userConfig.lastSearchTerm;
         panelTab.translate(currentWord);
+    });
 
-        e.preventDefault();
+    $("#searchInput").on("keypress", function(e) {
+        if (e.which == 13) {
+            panelTab.translate($(this).val());
+        }
+    });
+
+    $("#searchButton").click(function() {
+        panelTab.translate($("#searchInput").val());
     });
 
     updateTabs();
@@ -245,54 +215,9 @@ $(document).ready(function () {
     // prevent right click on panel.
     //$(document).bind("contextmenu", function (e) { return false; });
 
-    $("input[type='text']").keypress(function (event) {
-        var tabId = $(this).attr("data-tab-id");
-        var inputSelector = getInputSelector(tabId);
-
-        if (event.which == 13) {
-            var searchTerm = $(inputSelector).val();
-
-            if (searchTerm.length) {
-                panelTab.translate(searchTerm);
-            }
-        }
-    });
-
-    $("#searchButton").click(function () {
-        var searchTerm = $(Tureng.inputSelector).val();
-
-        if (searchTerm.length) {
-            panelTab.translate(searchTerm);
-        }
-    });
-
-    $("#search input.button").click(function () {
-        var searchTerm = $(Wordreference.inputSelector).val();
-
-        if (searchTerm.length) {
-            panelTab.translate(searchTerm);
-        }
-    });
-
-    $("#search-submit").click(function () {
-        var searchTerm = $(DictionaryReference.inputSelector).val();
-
-        if (searchTerm.length) {
-            panelTab.translate(searchTerm);
-        }
-    });
-    
-    $("#tdk-input").click(function () {
-        var searchTerm = $(TdkSozluk.inputSelector).val();
-
-        if (searchTerm.length) {
-            panelTab.translate(searchTerm);
-        }
-    });
-
     $("#DictControl").click(function () {
         var dataLang = "";
-        var searchTerm = $(YandexTranslate.inputSelector).val();
+        var searchTerm = $("#TargetText").val();
         var currentLang = AvailableLangs.getCurrentLanguage();
 
         if ($("#DictFirst").html().indexOf("English") > -1) {
@@ -683,10 +608,9 @@ function yandexTranslate(word, detectLang) {
 }
 
 function openMore() {
-    var tabId = $(".activeContent").attr("id");
+    var tabId = $(".tab-content .active").attr("id");
     var newUrl = getUrl(tabId);
-    var inputSelector = getInputSelector(tabId);
-    var word = $(inputSelector).val();
+    var word = $("#searchInput").val();
 
     if (word) {
         var queryWord = encodeURIComponent(word); //word.replace(/\s/g, "%20");
@@ -695,3 +619,8 @@ function openMore() {
 
     ExtensionCore.openNewTab(newUrl);
 }
+
+Tureng.loadFunc = loadTurengSearchResults;
+Wordreference.loadFunc = loadWordReferenceSearchResults;
+DictionaryReference.loadFunc = loadDictionaryReferenceSearchResults;
+TdkSozluk.loadFunc = loadTdkSearchResults;
