@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" style="outline-width: 0px !important; -webkit-user-select: text !important;">
+<html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/non-responsive.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/tureng.css">
     <link rel="stylesheet" type="text/css" href="css/wordreference.css">
@@ -16,12 +19,6 @@
     <title data-lang="app.title">Turkish Dictionary</title>
 </head>
     <body>
-        <div id="navigation">
-            <div class="navigationBack" style="cursor: default; -webkit-filter: grayscale(1);" title="">
-            </div>
-            <div class="navigationForward" style="cursor: default; -webkit-filter: grayscale(1);" title="">
-            </div>
-        </div>
         <div id="settings">
             <div class="setDblClick">
                 <span data-lang="app.dblclick"></span>
@@ -39,149 +36,131 @@
             </div>
             <div class="settingsIcon" title="" data-lang-title="app.settings"></div>
         </div>
-        <div id="mainPage">
-            <div class="tabs">
-                <ul class="tab-links">
-                    <li class="active">
-                        <a href="#turengTab">
-                            <img src="css/tureng32.png" style="display: inline" alt="Tureng " title="Tureng " data-lang-alt="app.translate" data-lang-title="app.translate"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#wordReferenceTab">
-                            <img src="css/wr32.png" style="display: inline" alt="Word Reference" title="Word Reference"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#dictionaryTab">
-                            <img src="css/dictionary32.png" style="display: inline" alt="Dictionary Reference" title="Dictionary Reference" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#tdkTab">
-                            <img src="css/tdk32.png" style="display: inline" alt="Tdk " title="Tdk " data-lang-alt="app.translate" data-lang-title="app.translate"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#yandexTab">
-                            <img src="css/yandex32.png" style="display: inline" alt="Yandex " title="Yandex " data-lang-alt="app.translate" data-lang-title="app.translate"/>
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div id="turengTab" class="tab activeContent" tab-index="0">
-                        <div id="mainPageTopMiddle">
-                            <input type="text" id="searchWord" name="SearchTerm" value="" data-tab-id="turengTab">
-                            <input type="button" id="searchButton" class="searchButton" value="Translate" data-lang-value="app.translate">
-                        </div>
-                        <div id="searchPage">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-
-                    <div id="wordReferenceTab" class="tab" tab-index="1">
-                        <div id="search" name="sbox">
-                            <div id="myAutoComplete" style="display:inline" class="yui-ac">
-                                <input type="text" name="w" id="si" size="20" maxlength="200" class="yui-ac-input" data-tab-id="wordReferenceTab"/>
-                            </div>
-                            <div class="inputcontainer">
-                                <input type="image" src="css/magnifying_glass_dark_flipped.png" height="12" width="12" alt="" title="" class="button" data-lang-alt="app.translate" data-lang-title="app.translate" />
-                            </div>
-                        </div>
-                        <div id="articleWRD">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-
-                    <div id="dictionaryTab" class="tab" tab-index="2">
-                        <div class="search-input">
-                            <input type="text" id="search-input" class="form-control input-lg" id="q" data-tab-id="dictionaryTab">
-                            <input type="submit" id="search-submit" class="search-submit" value="Search">
-                        </div>
-                        <div class="source-data">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-                    
-                    <div id="tdkTab" class="tab" tab-index="3">
-                        <div class="mainContanier">
-                            <input type="text" name="kelime" id="metin" data-tab-id="tdkTab">
-                            <button id="tdk-input" type="submit">ARA</button>
-                        </div>
-                        <div id="tdkContainer">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-                    
-                    <div id="abbyyTab" class="tab" tab-index="4">
-                        <div class="g-srcpanel__srcbar">
-                            <span class="js-wtrmark g-wtrmark hidetext" style="position: relative; display: inline-block; background: rgb(255, 255, 255);">
-                                <textarea class="g-srcpanel__srctext js-suggests-load js-submit-search-form js-jq-watermark js-keybrd-textbox js-source-text g-wtrmark-bg activeForVk" name="searchText" id="searchText" cols="20" rows="2" tabindex="101" title="" data-lang-title="app.type" data-tab-id="abbyyTab"></textarea>
-                            </span>
-                            <span class="g-btn g-redbtn search">
-                                <span class="g-btn__data">
-                                    <span class="g-btn__text g-redbtn__text search js-allbtntext" data-lang="app.translate">Translate</span>
-                                    <input class="g-btn__btn g-redbtn__btn search js-search-button js-allbtn" type="submit" tabindex="110" value="Translate" data-lang-value="app.translate">
-                                </span>
-                            </span>
-                        </div>
-                        <div class="l-articles js-section-box">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-                    
-                    <div id="sozlukNetTab" class="tab" tab-index="5">
-                        <div id="ara_satir1">
-                            <div id="ara_kutu">
-                                <input class="keyboardInput" type="text" name="word" id="search" size="30" style="width:315px; border:2px solid #7ab6ec; font-family:Arial; font-size:15px; color:#333333; background:url(/css/araico.gif) no-repeat left #ffffff; padding:7px; padding-left:30px;" data-tab-id="sozlukNetTab">
-                            </div>
-                            <div id="ara_gonder">
-                                <input type="submit" style="background:url(/css/menuarka.gif); width:120px; height:33px; border:2px solid #7ab6ec; font-family:Arial, Helvetica, sans-serif; cursor:pointer; font-size:14px; font-weight:bold; color:#333333;" value="Translate" data-lang-value="app.translate">
-                            </div>
-                        </div>
-                        <div id="sozlukNetContainer">
-                            <h1 data-lang="app.loading">Loading...</h1>
-                        </div>
-                    </div>
-
-                    <div id="yandexTab" class="tab" tab-index="6">
-                        <div id="dvPageContent">
-                            <table id="LangSelectMenuTable">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">Turkish</span>
-                                        </td>
-                                        <td>
-                                            <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
-                                        </td>
-                                        <td>
-                                            <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">English</span>
-                                        </td>
-                                        <td>
-                                            <input type="button" id="DictControl" value="Translate" data-lang-value="app.translate">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div id="TransPreview" style="padding-left: 4px;">
-                                <span id="SpanTargetText">
-                                    <textarea name="TargetText" id="TargetText"></textarea>
-                                </span>
-                                <div id="DictionaryOutput">
-                                    <h1 data-lang="app.loading">Loading...</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <!--<a class="navbar-brand" href="#">Brand</a>-->
                 </div>
-                <div id="mainPageBottom">
-                    <h3>
-                        <a href="javascript:;" onclick="openMore();" style="color: darkcyan" data-lang="app.more">Click More...</a>
-                    </h3>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Type a word." data-lang-placeholder="app.type">
+                        </div>
+                        <button type="submit" class="btn btn-default">Translate</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="navigationBack" href="#">&lt;</a></li>
+                        <li><a class="navigationForward" href="#">&gt;</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#turengTab"><span class="sr-only">Tureng</span>
+                        <img src="css/tureng32.png" alt="Tureng">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#wordReferenceTab"><span class="sr-only">Wordreference.com</span>
+                        <img src="css/wr32.png" alt="Wordreference.com">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#dictionaryTab"><span class="sr-only">Dictionary.com</span>
+                        <img src="css/dictionary32.png" alt="Dictionary.com">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#tdkTab"><span class="sr-only">Tdk</span>
+                        <img src="css/tdk32.png" alt="Tdk">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#abbyyTab"><span class="sr-only">Abbyy</span>
+                        <img src="css/abbyy32.png" alt="Abbyy">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#sozlukNetTab"><span class="sr-only">Sozluk.net</span>
+                        <img src="css/sozluknet32.png" alt="Sozluk.net">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#yandexTab"><span class="sr-only">Yandex.Translate</span>
+                        <img src="css/yandex32.png" alt="Yandex.Translate">
+                    </a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="turengTab">
+                    <div id="searchPage">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="wordReferenceTab">
+                    <div id="articleWRD">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="dictionaryTab">
+                    <div class="source-data">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tdkTab">
+                    <div id="tdkContainer">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="abbyyTab">
+                    <div class="l-articles js-section-box">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="sozlukNetTab">
+                    <div id="sozlukNetContainer">
+                        <h1 data-lang="app.loading">Loading...</h1>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="yandexTab">
+                    <div id="dvPageContent">
+                        <table id="LangSelectMenuTable">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">Turkish</span>
+                                    </td>
+                                    <td>
+                                        <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
+                                    </td>
+                                    <td>
+                                        <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">English</span>
+                                    </td>
+                                    <td>
+                                        <input type="button" id="DictControl" value="Translate" data-lang-value="app.translate">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="TransPreview" style="padding-left: 4px;">
+                            <span id="SpanTargetText">
+                                <textarea name="TargetText" id="TargetText"></textarea>
+                            </span>
+                            <div id="DictionaryOutput">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <footer class="footer page-header">
+                <a href="javascript:;" onclick="openMore();" style="color: darkcyan" data-lang="app.more">Click More...</a>
+            </footer>
         </div>
     </body>
     <script type="text/javascript" src="js/jquery.min.js"></script>

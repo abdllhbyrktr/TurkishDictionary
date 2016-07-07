@@ -431,6 +431,10 @@ function localizeHtml() {
         var key = $(this).attr("data-lang-value");
         $(this).attr("value", ExtensionCore.i18n(key));
     });
+    $("[data-lang-placeholder]").each(function () {
+        var key = $(this).attr("data-lang-placeholder");
+        $(this).attr("placeholder", ExtensionCore.i18n(key));
+    });
     $("[data-lang-alt]").each(function () {
         var alt = $(this).attr("alt");
         var key = $(this).attr("data-lang-alt");
