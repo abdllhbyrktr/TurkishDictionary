@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="css/famfamfam-flags.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/non-responsive.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
@@ -19,28 +20,13 @@
     <title data-lang="app.title">Turkish Dictionary</title>
 </head>
     <body>
-        <div id="settings">
-            <div class="setDblClick">
-                <span data-lang="app.dblclick"></span>
-                <div class="onoffswitch">
-                    <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox"/>
-                    <label class="onoffswitch-label" for="onOffDblClick"></label>
-                </div>
-            </div>
-            <div class="setSelection">
-                <span data-lang="app.selection"></span>
-                <div class="onoffswitch">
-                    <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox"/>
-                    <label class="onoffswitch-label" for="onOffSelection"></label>
-                </div>
-            </div>
-            <div class="settingsIcon" title="" data-lang-title="app.settings"></div>
-        </div>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <!--<a class="navbar-brand" href="#">Brand</a>-->
+                    <!--<a class="navbar-brand" href="#">
+                        <img src="css/logo.png" alt="Turkish Dictionary">
+                    </a>-->
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="bs-example-navbar-collapse-1">
@@ -50,109 +36,172 @@
                         </div>
                         <button type="submit" class="btn btn-default">Translate</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a class="navigationBack" href="#">&lt;</a></li>
-                        <li><a class="navigationForward" href="#">&gt;</a></li>
-                    </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
         <div class="container">
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active">
-                    <a href="#turengTab"><span class="sr-only">Tureng</span>
-                        <img src="css/tureng32.png" alt="Tureng">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#wordReferenceTab"><span class="sr-only">Wordreference.com</span>
-                        <img src="css/wr32.png" alt="Wordreference.com">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#dictionaryTab"><span class="sr-only">Dictionary.com</span>
-                        <img src="css/dictionary32.png" alt="Dictionary.com">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#tdkTab"><span class="sr-only">Tdk</span>
-                        <img src="css/tdk32.png" alt="Tdk">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#abbyyTab"><span class="sr-only">Abbyy</span>
-                        <img src="css/abbyy32.png" alt="Abbyy">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#sozlukNetTab"><span class="sr-only">Sozluk.net</span>
-                        <img src="css/sozluknet32.png" alt="Sozluk.net">
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#yandexTab"><span class="sr-only">Yandex.Translate</span>
-                        <img src="css/yandex32.png" alt="Yandex.Translate">
-                    </a>
-                </li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="turengTab">
-                    <div id="searchPage">
-                        <h1 data-lang="app.loading">Loading...</h1>
+            <div id="settings">
+                <div class="setDblClick">
+                    <span data-lang="app.dblclick"></span>
+                    <div class="onoffswitch">
+                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox"/>
+                        <label class="onoffswitch-label" for="onOffDblClick"></label>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="wordReferenceTab">
-                    <div id="articleWRD">
-                        <h1 data-lang="app.loading">Loading...</h1>
+                <div class="setSelection">
+                    <span data-lang="app.selection"></span>
+                    <div class="onoffswitch">
+                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox"/>
+                        <label class="onoffswitch-label" for="onOffSelection"></label>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="dictionaryTab">
-                    <div class="source-data">
-                        <h1 data-lang="app.loading">Loading...</h1>
+                <div class="settingsIcon" title="" data-lang-title="app.settings"></div>
+            </div>
+            <div id="swapLangs">
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:;" id="fromLang" class="btn btn-default">
+                        <i class="famfamfam-flag-us"></i>
+                    </a>
+                </div>
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:;" id="swapFromTo" class="btn btn-default">&lt;&gt;</a>
+                </div>
+                <div class="btn-group btn-group-xs" data-toggle="buttons">
+                    <label class="btn btn-primary">
+                        <i class="famfamfam-flag-us"></i>
+                        <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary active">
+                        <i class="famfamfam-flag-tr"></i>
+                        <input type="radio" name="toLang" id="trTo" value="tr" autocomplete="off" checked>
+                    </label>
+                    <label class="btn btn-primary">
+                        <i class="famfamfam-flag-ru"></i>
+                        <input type="radio" name="toLang" id="ruTo" value="ru" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary">
+                        <i class="famfamfam-flag-de"></i>
+                        <input type="radio" name="toLang" id="deTo" value="de" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary">
+                        <i class="famfamfam-flag-es"></i>
+                        <input type="radio" name="toLang" id="esTo" value="es" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary">
+                        <i class="famfamfam-flag-fr"></i>
+                        <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
+                    </label>
+                </div>
+            </div>
+            <div class="row lead">
+                <div class="col-sm-4">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">&lt;</button>
+                        <button type="button" class="btn btn-default">&gt;</button>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="tdkTab">
-                    <div id="tdkContainer">
-                        <h1 data-lang="app.loading">Loading...</h1>
-                    </div>
+                <div class="col-sm-8">
                 </div>
-                <div role="tabpanel" class="tab-pane" id="abbyyTab">
-                    <div class="l-articles js-section-box">
-                        <h1 data-lang="app.loading">Loading...</h1>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="sozlukNetTab">
-                    <div id="sozlukNetContainer">
-                        <h1 data-lang="app.loading">Loading...</h1>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="yandexTab">
-                    <div id="dvPageContent">
-                        <table id="LangSelectMenuTable">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">Turkish</span>
-                                    </td>
-                                    <td>
-                                        <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
-                                    </td>
-                                    <td>
-                                        <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">English</span>
-                                    </td>
-                                    <td>
-                                        <input type="button" id="DictControl" value="Translate" data-lang-value="app.translate">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div id="TransPreview" style="padding-left: 4px;">
-                            <span id="SpanTargetText">
-                                <textarea name="TargetText" id="TargetText"></textarea>
-                            </span>
-                            <div id="DictionaryOutput">
+            </div>
+            <div class="row">
+                <div class="col-md-11">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active">
+                            <a href="#turengTab"><span class="sr-only">Tureng</span>
+                                <img src="css/tureng32.png" alt="Tureng">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#wordReferenceTab"><span class="sr-only">Wordreference.com</span>
+                                <img src="css/wr32.png" alt="Wordreference.com">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#dictionaryTab"><span class="sr-only">Dictionary.com</span>
+                                <img src="css/dictionary32.png" alt="Dictionary.com">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tdkTab"><span class="sr-only">Tdk</span>
+                                <img src="css/tdk32.png" alt="Tdk">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#abbyyTab"><span class="sr-only">Abbyy</span>
+                                <img src="css/abbyy32.png" alt="Abbyy">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#sozlukNetTab"><span class="sr-only">Sozluk.net</span>
+                                <img src="css/sozluknet32.png" alt="Sozluk.net">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#yandexTab"><span class="sr-only">Yandex.Translate</span>
+                                <img src="css/yandex32.png" alt="Yandex.Translate">
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="turengTab">
+                            <div id="searchPage">
                                 <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="wordReferenceTab">
+                            <div id="articleWRD">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="dictionaryTab">
+                            <div class="source-data">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tdkTab">
+                            <div id="tdkContainer">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="abbyyTab">
+                            <div class="l-articles js-section-box">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="sozlukNetTab">
+                            <div id="sozlukNetContainer">
+                                <h1 data-lang="app.loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="yandexTab">
+                            <div id="dvPageContent">
+                                <table id="LangSelectMenuTable">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictFirst" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">Turkish</span>
+                                            </td>
+                                            <td>
+                                                <img src="css/swapLTR.gif" id="DictSwap" dir="ltr" title="" alt="">
+                                            </td>
+                                            <td>
+                                                <span onselectstart="return false" tabindex="0" class="DDStyle" id="DictSecond" style="width: 80px; overflow: visible;" title="" data-lang-title="app.tr" data-lang="app.tr">English</span>
+                                            </td>
+                                            <td>
+                                                <input type="button" id="DictControl" value="Translate" data-lang-value="app.translate">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div id="TransPreview" style="padding-left: 4px;">
+                                    <span id="SpanTargetText">
+                                        <textarea name="TargetText" id="TargetText"></textarea>
+                                    </span>
+                                    <div id="DictionaryOutput">
+                                        <h1 data-lang="app.loading">Loading...</h1>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
