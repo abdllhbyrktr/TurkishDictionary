@@ -63,15 +63,7 @@ var AvailableLangs = {
     Russian: "ru",
     German: "de",
     Spanish: "es",
-    French: "fr",
-    getLanguageIcon: function(lang) {
-        var prefix = "famfamfam-flag-";
-        if (lang == this.English) {
-            return prefix + "us";
-        }
-
-        return prefix + lang;
-    }
+    French: "fr"
 };
 
 // restore settings.
@@ -383,3 +375,16 @@ function localizeHtml() {
         $(this).attr("title", ExtensionCore.i18n(key));
     });
 }
+
+String.prototype.getLocalKey = function() {
+    return "app." + this;
+};
+
+String.prototype.getLanguageIcon = function() {
+    var prefix = "famfamfam-flag-";
+    if (this == AvailableLangs.English) {
+        return prefix + "us";
+    }
+
+    return prefix + this;
+};

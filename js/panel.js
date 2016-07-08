@@ -42,7 +42,7 @@ var PanelTab = (function () {
 
         navHistory.add(word);
         if (currentTab == YandexTranslate.tabId) {
-            yandexTranslate(word, "");
+            yandexTranslate(word);
         } else {
             var url = getUrl(currentTab) + encodeURIComponent(word);
             getHtmlData(url, getDivContainer(currentTab), getLoadFunc(currentTab));
@@ -242,12 +242,12 @@ $(document).ready(function () {
             }
 
             $("#fromLang").attr("data-value", toLang);
-            $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(toLang));
+            $("#fromLang i").removeClass().addClass(toLang.getLanguageIcon());
             $to.parent("label").addClass("disabled");
         } else {
             updateTabs();
             $("#fromLang").attr("data-value", toLang);
-            $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(toLang));
+            $("#fromLang i").removeClass().addClass(toLang.getLanguageIcon());
             $("input[type='radio'][name='toLang'][value='" + fromLang + "']").click();
         }
     });
@@ -257,44 +257,20 @@ $(document).ready(function () {
         updateTabs();
     });
 
+    $("#TargetText").on("change keyup paste", function() {
+        $("#searchInput").val($(this).val());
+    })
+
     // initialize.
     var activeTabId = $(".tab-content .active").attr("id");
-    $("#mainPageBottom").hide();
     $(getDivContainer(activeTabId)).html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
     $("#fromLang").attr("data-value", userConfig.fromLang);
-    $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(userConfig.fromLang));
+    $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
     $("input[type='radio'][name='toLang'][value='" + userConfig.toLang + "']")
         .prop("checked", "checked")
         .parent("label").addClass("active");
+    $("#mainPageBottom").hide();
     updateTabs();
-
-    $("#DictControl").click(function () {
-        var dataLang = "";
-        var searchTerm = $("#TargetText").val();
-        // TODO: 1
-        //var currentLang = AvailableLangs.getCurrentLanguage();
-
-        if ($("#DictFirst").html().indexOf("English") > -1) {
-            dataLang = "&lang=en-" + currentLang;
-        } else {
-            dataLang = "&lang=" + currentLang + "-en";
-        }
-
-        if (searchTerm.length) {
-            yandexTranslate(searchTerm, dataLang);
-        }
-    });
-
-    $("#DictSwap").attr({ "title": ExtensionCore.i18n("app.swap"), "alt": ExtensionCore.i18n("app.swap") });
-    $("#DictSwap").click(function () {
-        var first = $("#DictFirst").html();
-        var second = $("#DictSecond").html();
-        $("#DictFirst").html(second);
-        $("#DictFirst").attr("title", second);
-        $("#DictSecond").html(first);
-        $("#DictSecond").attr("title", first);
-        $("#TargetText").focus();
-    });
 
     $(document).on("keydown", function () {
         // ctrl key.
@@ -620,46 +596,19 @@ function loadTurengSearchResults(data) {
     $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(reOrganizeLinks);
 }
 
-function yandexTranslate(word, detectLang) {
-    $("#DictionaryOutput").html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
+function yandexTranslate(word) {
     var queryword = word.replace(/\s/g, "+");
-    var detectUrl = "https://translate.yandex.net/api/v1.5/tr.json/detect?key=" + yandexApiKey + "&text=" + queryword;
     var translateUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + yandexApiKey;
 
-    if (detectLang == "") {
-        $.get(detectUrl, function(data) {
-            // TODO: 2
-            //var currentLang = AvailableLangs.getCurrentLanguage();
-            var currentLangText = ExtensionCore.i18n("app." + currentLang);
-            //console.log("yandex-detect error code: ", data.code);
-            //console.log("yandex detect result: ", data.lang);
-            if (data.lang == "en") {
-                translateUrl = translateUrl + "&lang=en-" + currentLang + "&text=" + queryword;
-                $("#DictFirst").html(ExtensionCore.i18n("app.eng"));
-                $("#DictFirst").attr("title", ExtensionCore.i18n("app.eng"));
-                $("#DictSecond").html(currentLangText);
-                $("#DictSecond").attr("title", currentLangText);
-            } else {
-                translateUrl = translateUrl + "&lang=" + currentLang + "-en&text=" + queryword;
-                $("#DictFirst").html(currentLangText);
-                $("#DictFirst").attr("title", currentLangText);
-                $("#DictSecond").html(ExtensionCore.i18n("app.eng"));
-                $("#DictSecond").attr("title", ExtensionCore.i18n("app.eng"));
-            }
-            $.get(translateUrl, function(data) {
-                //console.log("yandex-translate error code: ", data.code);
-                //console.log("yandex translate result: ", data.text.join(" "));
-                $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
-            }, "json");
-        }, "json");
-    } else {
-        translateUrl = translateUrl + detectLang + "&text=" + queryword;
-        $.get(translateUrl, function (data) {
-            //console.log("yandex-translate error code: ", data.code);
-            //console.log("yandex translate result: ", data.text.join(" "));
-            $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
-        }, "json");
-    }
+    $("#TargetText").val(word);
+    $("#DictionaryOutput").html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
+
+    translateUrl = translateUrl + YandexTranslate.langs[userConfig.fromLang][userConfig.toLang] + queryword;
+    $.get(translateUrl, function (data) {
+        //console.log("yandex-translate error code: ", data.code);
+        //console.log("yandex translate result: ", data.text.join(" "));
+        $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
+    }, "json");
 }
 
 function openMore() {
