@@ -116,6 +116,18 @@ var navHistory = {
     }
 };
 
+function updateSwapLangs() {
+    $("#fromLang").attr("data-value", userConfig.fromLang);
+    $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
+    $("input[type='radio'][name='toLang']").each(function(index, item) {
+        $(this).prop("checked", null);
+        $(this).parent("label").removeClass("active");
+    });
+    $("input[type='radio'][name='toLang'][value='" + userConfig.toLang + "']")
+        .prop("checked", "checked")
+        .parent("label").addClass("active");
+}
+
 function updateTabs() {
     var currentTabInNotSupported = false;
     var currentTab = $(".tab-content .active").attr("id");
@@ -147,6 +159,7 @@ ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
     } else {
         $("#searchWord").focus();
     }
+    updateSwapLangs();
     updateTabs();
 });
 
@@ -177,6 +190,7 @@ ExtensionCore.listen("translate", function (searchKey) {
 });
 
 ExtensionCore.listen("updateTabs", function (isChecked) {
+    updateSwapLangs();
     updateTabs();
 });
 
@@ -231,6 +245,10 @@ $(document).ready(function () {
         var newUrl = getUrl(tabId);
         var word = $("#searchInput").val();
 
+        if (tabId == YandexTranslate.tabId) {
+            newUrl = newUrl.replace("/&", "/?");
+        }
+
         if (word) {
             var queryWord = encodeURIComponent(word); //word.replace(/\s/g, "%20");
             newUrl = newUrl + queryWord;
@@ -281,12 +299,8 @@ $(document).ready(function () {
     var activeTabId = $(".tab-content .active").attr("id");
     $("#searchInput").val(userConfig.lastSearchTerm);
     $(getDivContainer(activeTabId)).html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
-    $("#fromLang").attr("data-value", userConfig.fromLang);
-    $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
-    $("input[type='radio'][name='toLang'][value='" + userConfig.toLang + "']")
-        .prop("checked", "checked")
-        .parent("label").addClass("active");
     $("#mainPageBottom").hide();
+    updateSwapLangs();
     updateTabs();
 
     $(document).on("keydown", function () {
@@ -391,6 +405,9 @@ function loadSozluknetSearchResults(data) {
     var $tables = $(data).find(selector);
     if ($tables.length > 0) {
         $tables.find("td").prop("width", null);
+        $tables.find("a img").each(function(index, item) {
+            $(this).parent().remove();
+        });
         $tables.find("a").attr({ href: "javascript:;", target: null });
         $(SozlukNet.divContainer).html($tables.find("table")[0].outerHTML);
     } else {
