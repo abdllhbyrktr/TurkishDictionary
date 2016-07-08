@@ -98,19 +98,19 @@ var navHistory = {
     },
     cssBack: function(active) {
         if (active) {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
+            $(".navigationBack").removeClass("disabled");
             $(".navigationBack").attr("title", ExtensionCore.i18n("app.backward"));
         } else {
-            $(".navigationBack").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
+            $(".navigationBack").addClass("disabled");
             $(".navigationBack").attr("title", null);
         }
     },
     cssForward: function(active) {
         if (active) {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(0.1)"});
+            $(".navigationForward").removeClass("disabled");
             $(".navigationForward").attr("title", ExtensionCore.i18n("app.forward"));
         } else {
-            $(".navigationForward").css({"cursor": "default", "-webkit-filter": "grayscale(1)"});
+            $(".navigationForward").addClass("disabled");
             $(".navigationForward").attr("title", null);
         }
     }
