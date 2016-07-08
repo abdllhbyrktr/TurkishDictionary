@@ -1,8 +1,8 @@
 // ==UserScript==
 // @author         	hd49
 // @version         1.0.0
-// @name 			Turkish Dictionary Popup.
-// @description		English - Turkish, Turkish - English popup dialog dictionary.
+// @name 			Dictionary Popup.
+// @description		popup dialog for dictionary.
 // @include 		*
 // @exclude     	about:*
 // @grant       	none

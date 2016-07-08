@@ -214,12 +214,14 @@ $(document).ready(function () {
     });
 
     $("#searchInput").on("keypress", function(e) {
+        e.stopPropagation();
         if (e.which == 13) {
             panelTab.translate($(this).val());
         }
     });
 
-    $("#searchButton").click(function() {
+    $("#searchButton").click(function(e) {
+        e.stopPropagation();
         panelTab.translate($("#searchInput").val());
     });
 
