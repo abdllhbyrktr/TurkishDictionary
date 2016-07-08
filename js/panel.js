@@ -214,7 +214,7 @@ function sendSettings() {
 $(document).ready(function () {
     localizeHtml();
     // prevent right click on panel.
-    //$(document).bind("contextmenu", function (e) { return false; });
+    $(document).bind("contextmenu", function (e) { return false; });
 
     $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
         e.target // newly activated tab
