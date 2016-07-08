@@ -8,6 +8,8 @@ $(document).ready(function () {
     $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
 
     var showOrHideDicts = function(fromLang, toLang) {
+        userConfig.fromLang = fromLang;
+        userConfig.toLang = toLang;
         ExtensionCore.post("updateTabs", fromLang);
         AllWebsites.forEach(function(element, index, array) {
             var $el = $("input[type='checkbox'][value='" + element.name + "']");

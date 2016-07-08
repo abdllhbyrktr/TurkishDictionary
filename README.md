@@ -1,4 +1,4 @@
-# TurkishDictionary
+# Dictionary
 Maxthon Dictionary Extension
 
 It is an extension for Maxthon 4 Web Browser to translate selected or clicked(double) text on any websites.

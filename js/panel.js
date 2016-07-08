@@ -225,6 +225,20 @@ $(document).ready(function () {
         panelTab.translate($("#searchInput").val());
     });
 
+    $("#clickMore").click(function(e) {
+        e.stopPropagation();
+        var tabId = $(".tab-content .active").attr("id");
+        var newUrl = getUrl(tabId);
+        var word = $("#searchInput").val();
+
+        if (word) {
+            var queryWord = encodeURIComponent(word); //word.replace(/\s/g, "%20");
+            newUrl = newUrl + queryWord;
+        }
+
+        ExtensionCore.openNewTab(newUrl);
+    });
+
     $("#swapFromTo").click(function() {
         var fromLang = $("#fromLang").attr("data-value");
         var toLang = $("input[type='radio'][name='toLang']:checked").val();
@@ -642,19 +656,6 @@ function yandexTranslate(word) {
         //console.log("yandex translate result: ", data.text.join(" "));
         $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
     }, "json");
-}
-
-function openMore() {
-    var tabId = $(".tab-content .active").attr("id");
-    var newUrl = getUrl(tabId);
-    var word = $("#searchInput").val();
-
-    if (word) {
-        var queryWord = encodeURIComponent(word); //word.replace(/\s/g, "%20");
-        newUrl = newUrl + queryWord;
-    }
-
-    ExtensionCore.openNewTab(newUrl);
 }
 
 Tureng.loadFunc = loadTurengSearchResults;

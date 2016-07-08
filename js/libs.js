@@ -3,28 +3,19 @@ ExtensionCore.updateDisplayLocale();
 function UserConfig() {
     Object.defineProperty(this, "fromLang", {
         get: function() {
-            return ExtensionCore.getSetting("fromLang5");
+            return ExtensionCore.getSetting("fromLang");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("fromLang5", value);
+            return ExtensionCore.setSetting("fromLang", value);
         }
     });
 
     Object.defineProperty(this, "toLang", {
         get: function() {
-            return ExtensionCore.getSetting("toLang5");
+            return ExtensionCore.getSetting("toLang");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("toLang5", value);
-        }
-    });
-
-    Object.defineProperty(this, "culture", {
-        get: function() {
-            return ExtensionCore.getSetting("culture");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("culture", value);
+            return ExtensionCore.setSetting("toLang", value);
         }
     });
 
