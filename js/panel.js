@@ -370,6 +370,18 @@ function getHtmlData(url, notifyContainer, loadFunc) {
     });
 }
 
+function loadSozluknetSearchResults(data) {
+    var selector = "#" + userConfig.fromLang + userConfig.toLang;
+    var $tables = $(data).find(selector);
+    if ($tables.length > 0) {
+        $tables.find("td").prop("width", null);
+        $tables.find("a").attr({ href: "javascript:;", target: null });
+        $(SozlukNet.divContainer).html($tables.find("table")[0].outerHTML);
+    } else {
+        $(SozlukNet.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+    }
+}
+
 function loadAbbyySearchResults(data) {
     var $article = $(data).find(".js-article-html");
     if ($article.length > 0) {
@@ -648,3 +660,4 @@ Wordreference.loadFunc = loadWordReferenceSearchResults;
 DictionaryReference.loadFunc = loadDictionaryReferenceSearchResults;
 TdkSozluk.loadFunc = loadTdkSearchResults;
 Abbyy.loadFunc = loadAbbyySearchResults;
+SozlukNet.loadFunc = loadSozluknetSearchResults;
