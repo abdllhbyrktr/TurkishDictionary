@@ -117,10 +117,26 @@ var navHistory = {
 };
 
 function updateTabs() {
-    userConfig.onOffWordReference ? $(".tab-links li:eq(1)").show() : $(".tab-links li:eq(1)").hide();
-    userConfig.onOffDictionaryReference ? $(".tab-links li:eq(2)").show() : $(".tab-links li:eq(2)").hide();
-    userConfig.onOffTdkSozluk ? $(".tab-links li:eq(3)").show() : $(".tab-links li:eq(3)").hide();
-    userConfig.onOffYandexTranslate ? $(".tab-links li:eq(4)").show() : $(".tab-links li:eq(4)").hide();
+    var currentTabInNotSupported = false;
+    var currentTab = $(".tab-content .active").attr("id");
+
+    AllWebsites.forEach(function(element, index, array) {
+        var $el = $("a[data-toggle='tab'][href='#" + element.tabId + "']");
+        var isSupported = element.isSupported(userConfig.fromLang, userConfig.toLang);
+
+        isSupported ? $el.show() : $el.hide();
+        if (element.tabId == currentTab) {
+            currentTabInNotSupported = !isSupported;
+        }
+    });
+
+    if (currentTabInNotSupported) {
+        var $firstTab = $("a[data-toggle='tab']:not(:hidden):first");
+        $firstTab.tab("show");
+        panelTab.setCurrentTab($firstTab.attr("aria-controls"));
+    }
+
+    panelTab.translate(userConfig.lastSearchTerm);
 }
 
 ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
@@ -183,8 +199,10 @@ function sendSettings() {
 
 $(document).ready(function () {
     localizeHtml();
+    // prevent right click on panel.
+    //$(document).bind("contextmenu", function (e) { return false; });
 
-    $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
         e.target // newly activated tab
         e.relatedTarget // previous active tab
         var tabId = $(e.target).attr("aria-controls");
@@ -205,20 +223,56 @@ $(document).ready(function () {
         panelTab.translate($("#searchInput").val());
     });
 
-    updateTabs();
-    // Handler for .ready() called.
-    $("#searchPage").html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
-    // Hide main page bottom.
+    $("#swapFromTo").click(function() {
+        var fromLang = $("#fromLang").attr("data-value");
+        var toLang = $("input[type='radio'][name='toLang']:checked").val();
+
+        if (fromLang == toLang) {
+            return false;
+        }
+
+        userConfig.toLang = fromLang;
+        userConfig.fromLang = toLang;
+
+        $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
+        if (toLang == AvailableLangs.German || toLang == AvailableLangs.Spanish || toLang == AvailableLangs.French) {
+            var $to = $("input[type='radio'][name='toLang'][value='" + toLang + "']");
+            if ($to.is(":checked")) {
+                $("input[type='radio'][name='toLang']:first").click();
+            }
+
+            $("#fromLang").attr("data-value", toLang);
+            $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(toLang));
+            $to.parent("label").addClass("disabled");
+        } else {
+            updateTabs();
+            $("#fromLang").attr("data-value", toLang);
+            $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(toLang));
+            $("input[type='radio'][name='toLang'][value='" + fromLang + "']").click();
+        }
+    });
+
+    $("input[type='radio'][name='toLang']").on("change", function() {
+        userConfig.toLang = $(this).val();
+        updateTabs();
+    });
+
+    // initialize.
+    var activeTabId = $(".tab-content .active").attr("id");
     $("#mainPageBottom").hide();
-    // check culture for websites.
-    //checkCulture();
-    // prevent right click on panel.
-    //$(document).bind("contextmenu", function (e) { return false; });
+    $(getDivContainer(activeTabId)).html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
+    $("#fromLang").attr("data-value", userConfig.fromLang);
+    $("#fromLang i").removeClass().addClass(AvailableLangs.getLanguageIcon(userConfig.fromLang));
+    $("input[type='radio'][name='toLang'][value='" + userConfig.toLang + "']")
+        .prop("checked", "checked")
+        .parent("label").addClass("active");
+    updateTabs();
 
     $("#DictControl").click(function () {
         var dataLang = "";
         var searchTerm = $("#TargetText").val();
-        var currentLang = AvailableLangs.getCurrentLanguage();
+        // TODO: 1
+        //var currentLang = AvailableLangs.getCurrentLanguage();
 
         if ($("#DictFirst").html().indexOf("English") > -1) {
             dataLang = "&lang=en-" + currentLang;
@@ -265,8 +319,8 @@ $(document).ready(function () {
     });
 
     // restore settings from config.
-    dblclicked = userConfig.doubleClicked || false;
-    mouseSelected = userConfig.mouseSelected || false;
+    dblclicked = userConfig.doubleClicked || dblclicked;
+    mouseSelected = userConfig.mouseSelected || mouseSelected;
 
     var checkedClick = dblclicked ? "checked" : null;
     var checkedSelect = mouseSelected ? "checked" : null;
@@ -304,7 +358,7 @@ $(document).ready(function () {
     });
 
     sendSettings();
-    panelTab.translate(userConfig.lastSearchTerm);
+    //panelTab.translate(userConfig.lastSearchTerm);
 });
 
 function getHtmlData(url, notifyContainer, loadFunc) {
@@ -574,7 +628,8 @@ function yandexTranslate(word, detectLang) {
 
     if (detectLang == "") {
         $.get(detectUrl, function(data) {
-            var currentLang = AvailableLangs.getCurrentLanguage();
+            // TODO: 2
+            //var currentLang = AvailableLangs.getCurrentLanguage();
             var currentLangText = ExtensionCore.i18n("app." + currentLang);
             //console.log("yandex-detect error code: ", data.code);
             //console.log("yandex detect result: ", data.lang);

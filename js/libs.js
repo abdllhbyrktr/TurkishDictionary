@@ -3,28 +3,19 @@ ExtensionCore.updateDisplayLocale();
 function UserConfig() {
     Object.defineProperty(this, "fromLang", {
         get: function() {
-            return ExtensionCore.getSetting("fromLang1");
+            return ExtensionCore.getSetting("fromLang5");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("fromLang1", value);
+            return ExtensionCore.setSetting("fromLang5", value);
         }
     });
 
     Object.defineProperty(this, "toLang", {
         get: function() {
-            return ExtensionCore.getSetting("toLang1");
+            return ExtensionCore.getSetting("toLang5");
         },
         set: function(value) {
-            return ExtensionCore.setSetting("toLang1", value);
-        }
-    });
-
-    Object.defineProperty(this, "languageGroup", {
-        get: function() {
-            return ExtensionCore.getSetting("languageGroup");
-        },
-        set: function(value) {
-            return ExtensionCore.setSetting("languageGroup", value);
+            return ExtensionCore.setSetting("toLang5", value);
         }
     });
 
@@ -64,9 +55,8 @@ function UserConfig() {
         }
     });
 };
-var userConfig = new UserConfig();
-var systemLanguageIsEnglish = (ExtensionCore.getBrowserLocale().indexOf("en") > -1);
 
+var userConfig = new UserConfig();
 var AvailableLangs = {
     English: "en",
     Turkish: "tr",
@@ -74,8 +64,13 @@ var AvailableLangs = {
     German: "de",
     Spanish: "es",
     French: "fr",
-    getCurrentLanguage: function () {
-        return userConfig.languageGroup;
+    getLanguageIcon: function(lang) {
+        var prefix = "famfamfam-flag-";
+        if (lang == this.English) {
+            return prefix + "us";
+        }
+
+        return prefix + lang;
     }
 };
 
@@ -83,8 +78,7 @@ var AvailableLangs = {
 if (!userConfig.fromLang) {
     userConfig.fromLang = AvailableLangs.English;
     userConfig.toLang = AvailableLangs.Turkish;
-    userConfig.languageGroup = AvailableLangs.Turkish;
-    userConfig.lastSearchTerm = "gezi parkı";
+    userConfig.lastSearchTerm = userConfig.lastSearchTerm || "gezi parkı";
     userConfig.doubleClicked = false;
     userConfig.mouseSelected = false;
 }
@@ -96,7 +90,7 @@ var BaseDictionary = {
     loadFunc: null,
     divContainer: "",
     getUrl: function () {
-        return this.baseUrl + this.lang[AvailableLangs.getCurrentLanguage()];
+        return this.baseUrl + this.langs[userConfig.fromLang][userConfig.toLang];
     },
     isSupported: function(fromLang, toLang) {
         return this.langs.hasOwnProperty(fromLang) && this.langs[fromLang].hasOwnProperty(toLang);
@@ -121,25 +115,26 @@ var Tureng = {
         "": null,
         "undefined": null
     },
-    lang: {
-        "tr": (systemLanguageIsEnglish ? "en/turkish-english/" : "tr/turkce-ingilizce/"),
-        "de": (systemLanguageIsEnglish ? "en/german-english/" : "de/deutsch-englisch/"),
-        "es": (systemLanguageIsEnglish ? "en/spanish-english/" : "es/espanol-ingles/"),
-        "fr": (systemLanguageIsEnglish ? "en/french-english/" : "fr/francais-anglais/")
-    },
     containsTerm: function() {
-        switch (AvailableLangs.getCurrentLanguage()) {
-            case AvailableLangs.Turkish:
-                return "rk";
-            case AvailableLangs.German:
-                return (systemLanguageIsEnglish ? "rm" : "tsc");
-            case AvailableLangs.Spanish:
-                return "pan";
-            case AvailableLangs.French:
-                return "nc";
-            default:
-                return "ng";
+        if (userConfig.fromLang == AvailableLangs.Turkish || userConfig.toLang == AvailableLangs.Turkish) {
+            return "rk";
         }
+        
+        if (userConfig.fromLang == AvailableLangs.Spanish || userConfig.toLang == AvailableLangs.Spanish) {
+            return "pa";
+        }
+        
+        if (userConfig.fromLang == AvailableLangs.French || userConfig.toLang == AvailableLangs.French) {
+            return "nc";
+        }
+        
+        if (userConfig.fromLang == AvailableLangs.English || userConfig.toLang == AvailableLangs.German) {
+            return "rm";
+        } else if (userConfig.fromLang == AvailableLangs.German || userConfig.toLang == AvailableLangs.English) {
+            return "tsc";
+        }
+        
+        return "ng";
     },
     langs: {
         en: {
@@ -163,12 +158,6 @@ var Tureng = {
     }
 };
 var Wordreference = {
-    lang: {
-        "tr": "entr/",
-        "de": "ende/",
-        "es": "es/translation.asp?tranword=",
-        "fr": "enfr/"
-    },
     langs: {
         en: {
             tr: "entr/",
@@ -197,12 +186,6 @@ var Wordreference = {
     }
 };
 var DictionaryReference = {
-    lang: {
-        "tr": "browse/",
-        "de": "browse/",
-        "es": "browse/",
-        "fr": "browse/"
-    },
     langs: {
         en: {
             en : "browse/"
@@ -210,12 +193,6 @@ var DictionaryReference = {
     }
 };
 var YandexTranslate = {
-    lang: {
-        "tr": "?text=",
-        "de": "?text=",
-        "es": "?text=",
-        "fr": "?text="
-    },
     langs: {
         en: {
             tr: "&lang=en-tr&text=",
@@ -262,9 +239,6 @@ var YandexTranslate = {
     }
 };
 var TdkSozluk = {
-    lang: {
-        "tr": "?option=com_gts&arama=gts&kelime="
-    },
     langs: {
         tr: {
             tr: "?option=com_gts&arama=gts&kelime="
@@ -405,12 +379,7 @@ function localizeHtml() {
         $(this).attr("alt", alt + ExtensionCore.i18n(key));
     });
     $("[data-lang-title]").each(function () {
-        var title = $(this).attr("title");
-        if (!title) {
-            title = "";
-        }
-
         var key = $(this).attr("data-lang-title");
-        $(this).attr("title", title + ExtensionCore.i18n(key));
+        $(this).attr("title", ExtensionCore.i18n(key));
     });
 }
