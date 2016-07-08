@@ -164,9 +164,9 @@ ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
 });
 
 ExtensionCore.addAppListener(ExtensionCore.AppEvents.appHide, function () {
-    if (navHistory.backArr.length) {
-        userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
-    }
+    // if (navHistory.backArr.length) {
+    //     userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
+    // }
 });
 
 ExtensionCore.addAppListener(ExtensionCore.AppEvents.appLocaleChange, function () {
