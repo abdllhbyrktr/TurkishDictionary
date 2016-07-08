@@ -263,6 +263,7 @@ $(document).ready(function () {
 
     // initialize.
     var activeTabId = $(".tab-content .active").attr("id");
+    $("#searchInput").val(userConfig.lastSearchTerm);
     $(getDivContainer(activeTabId)).html("<h1>" + ExtensionCore.i18n("app.loading") + "</h1>");
     $("#fromLang").attr("data-value", userConfig.fromLang);
     $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
@@ -367,6 +368,24 @@ function getHtmlData(url, notifyContainer, loadFunc) {
             $(notifyContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
         }
     });
+}
+
+function loadAbbyySearchResults(data) {
+    var $article = $(data).find(".js-article-html");
+    if ($article.length > 0) {
+        $article.find("h2:first").remove();
+        $article.find(".l-article__sound").remove();
+        $article.find(".l-article__navpanel").remove();
+        $article.find(".l-article__transcription").each(function(index, item) {
+            var href = $(this).attr("src");
+            $(this).attr("src", Abbyy.baseUrl + href.slice(1));
+        });
+        $article.find(".l-article__commentlink").attr({ href: "javascript:;", target: null });
+        $article.find(".P1 a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        $(Abbyy.divContainer).html($article[0].outerHTML);
+    } else {
+        $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+    }
 }
 
 function loadTdkSearchResults(data) {
@@ -628,3 +647,4 @@ Tureng.loadFunc = loadTurengSearchResults;
 Wordreference.loadFunc = loadWordReferenceSearchResults;
 DictionaryReference.loadFunc = loadDictionaryReferenceSearchResults;
 TdkSozluk.loadFunc = loadTdkSearchResults;
+Abbyy.loadFunc = loadAbbyySearchResults;
