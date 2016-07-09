@@ -5,7 +5,7 @@ var highlightedText = "";
 var $hoveredSpan;
 var badgeNumber = 0;
 var lastSelected = "";
-var handleTimeout = 6000;
+var handleTimeout = 8000;
 var maxNavigationHistory = 10;
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
 
@@ -257,7 +257,8 @@ $(document).ready(function () {
         ExtensionCore.openNewTab(newUrl);
     });
 
-    $("#swapFromTo").click(function() {
+    $("#swapFromTo").click(function(e) {
+        e.stopPropagation();
         var fromLang = $("#fromLang").attr("data-value");
         var toLang = $("input[type='radio'][name='toLang']:checked").val();
 
@@ -286,7 +287,8 @@ $(document).ready(function () {
         }
     });
 
-    $("input[type='radio'][name='toLang']").on("change", function() {
+    $("input[type='radio'][name='toLang']").on("change", function(e) {
+        e.stopPropagation();
         userConfig.toLang = $(this).val();
         updateTabs();
     });
