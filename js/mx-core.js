@@ -136,5 +136,6 @@ var ExtensionCore = ExtensionCore || {};
 
 })();
 
+ExtensionCore.updateDisplayLocale();
 console.log(ExtensionCore.getVersion());
 console.log(ExtensionCore.getBrowserLocale());

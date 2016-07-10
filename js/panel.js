@@ -428,7 +428,7 @@ function loadAbbyySearchResults(data) {
             $(this).attr("src", Abbyy.baseUrl + href.slice(1));
         });
         $article.find(".l-article__commentlink").attr({ href: "javascript:;", target: null });
-        $article.find(".P1 a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        $article.find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
         $(Abbyy.divContainer).html($article[0].outerHTML);
     } else {
         $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
