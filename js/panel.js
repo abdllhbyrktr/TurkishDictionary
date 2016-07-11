@@ -3,11 +3,52 @@ var mouseSelected = false;
 var highlighted = false;
 var highlightedText = "";
 var $hoveredSpan;
-var badgeNumber = 0;
-var lastSelected = "";
 var handleTimeout = 8000;
 var maxNavigationHistory = 10;
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
+
+ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
+    updateSwapLangs();
+    updateTabs();
+});
+
+ExtensionCore.addAppListener(ExtensionCore.AppEvents.appHide, function () {
+    // if (navHistory.backArr.length) {
+    //     userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
+    // }
+});
+
+ExtensionCore.listen("refresh", function (from) {
+    ExtensionCore.updateDisplayLocale();
+    location.reload();
+});
+
+ExtensionCore.listen("showBadge", function (selected) {
+    // do nothing.
+});
+
+ExtensionCore.listen("retrieveMessage", function (msg) {
+    //console.log("I got message from script action: ", msg);
+    setTimeout(sendSettings, 100);
+});
+
+ExtensionCore.listen("translate", function (searchKey) {
+    panelTab.translate(searchKey);
+    //setTimeout(sendResults, 100);
+});
+
+ExtensionCore.listen("updateTabs", function (isChecked) {
+    updateSwapLangs();
+    updateTabs();
+});
+
+ExtensionCore.listen("toggleSettingsForSelection", function (settings) {
+    $(".setSelection :checkbox").click();
+});
+
+ExtensionCore.listen("toggleSettingsForDoubleClick", function (settings) {
+    $(".setDblClick :checkbox").click();
+});
 
 var PanelTab = (function () {
     // variables.
@@ -150,57 +191,6 @@ function updateTabs() {
 
     panelTab.translate(userConfig.lastSearchTerm);
 }
-
-ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
-    badgeNumber = 0;
-    if (lastSelected != "") {
-        panelTab.translate(lastSelected);
-        lastSelected = "";
-    } else {
-        $("#searchWord").focus();
-    }
-    updateSwapLangs();
-    updateTabs();
-});
-
-ExtensionCore.addAppListener(ExtensionCore.AppEvents.appHide, function () {
-    // if (navHistory.backArr.length) {
-    //     userConfig.lastSearchTerm = navHistory.backArr[navHistory.backArr.length - 1];
-    // }
-});
-
-ExtensionCore.addAppListener(ExtensionCore.AppEvents.appLocaleChange, function () {
-    ExtensionCore.updateDisplayLocale();
-    location.reload();
-});
-
-ExtensionCore.listen("showBadge", function (selected) {
-    //lastSelected = selected;
-    badgeNumber = badgeNumber + 1;
-});
-
-ExtensionCore.listen("retrieveMessage", function (msg) {
-    //console.log("I got message from script action: ", msg);
-    setTimeout(sendSettings, 100);
-});
-
-ExtensionCore.listen("translate", function (searchKey) {
-    panelTab.translate(searchKey);
-    //setTimeout(sendResults, 100);
-});
-
-ExtensionCore.listen("updateTabs", function (isChecked) {
-    updateSwapLangs();
-    updateTabs();
-});
-
-ExtensionCore.listen("toggleSettingsForSelection", function (settings) {
-    $(".setSelection :checkbox").click();
-});
-
-ExtensionCore.listen("toggleSettingsForDoubleClick", function (settings) {
-    $(".setDblClick :checkbox").click();
-});
 
 function sendResults() {
     ExtensionCore.post("results", $("#searchPage").html());
@@ -494,7 +484,14 @@ function loadWordReferenceSearchResults(data) {
         $("#articleWRD .even").removeClass("even").addClass("wrEven");
         $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
     } else {
-        $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+        $tables = $(data).find("#article");
+        if ($tables.length) {
+            $("#articleWRD").html($tables[0].outerHTML);
+            $("#articleWRD").find(".small1").remove();
+            $("#articleWRD a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        } else {
+            $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+        }
     }
 }
 
