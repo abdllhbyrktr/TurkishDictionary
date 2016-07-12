@@ -10,19 +10,6 @@
     text-align: left;
 }
 
-#metin {
-    border: 1px solid #0080C0;
-    background: #FFFFDF;
-    width: 270px;
-    float: left;
-    padding: 5px;
-}
-
-#tdk-input {
-    padding: 5px 10px 5px 10px;
-    float: left;
-}
-
 .hor-minimalist {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 14px;

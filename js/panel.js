@@ -408,9 +408,14 @@ function loadSozluknetSearchResults(data) {
 }
 
 function loadAbbyySearchResults(data) {
-    var $article = $(data).find(".js-article-html");
+    var $article = $(data).find(".js-search-results");
     if ($article.length > 0) {
-        $article.find("h2:first").remove();
+        $article.children(":not(.l-articles,.l-reverse,.l-wordbyword)").remove();
+        $article.find(".g-navigation").remove();
+        $article.find("img:not([class='l-article__transcription'])").remove();
+        $article.find(".pointer").remove();
+        $article.find(".l-reverse__tdfromdict").remove();
+        $article.find(".js-article-html h2").remove();
         $article.find(".l-article__sound").remove();
         $article.find(".l-article__navpanel").remove();
         $article.find(".l-article__transcription").each(function(index, item) {
@@ -458,7 +463,13 @@ function loadDictionaryReferenceSearchResults(data) {
 }
 
 function loadWordReferenceSearchResults(data) {
-    var $tables = $(data).find(".WRD");
+    var $data = $(data);
+    if ($data.find("#noEntryFound").length) {
+        $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+        return;
+    }
+
+    var $tables = $data.find(".WRD");
     if ($tables.length) {
         $("#articleWRD").html($tables[0].outerHTML);
 
@@ -483,8 +494,9 @@ function loadWordReferenceSearchResults(data) {
         // replace odd and even classes.
         $("#articleWRD .even").removeClass("even").addClass("wrEven");
         $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
+        $("#articleWRD a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
-        $tables = $(data).find("#article");
+        $tables = $data.find("#article");
         if ($tables.length) {
             $("#articleWRD").html($tables[0].outerHTML);
             $("#articleWRD").find(".small1").remove();

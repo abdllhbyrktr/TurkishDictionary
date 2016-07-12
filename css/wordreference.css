@@ -1,4 +1,3 @@
-
 #articleWRD {
     font-family: sans-serif;
     color: #222;
@@ -117,22 +116,4 @@ span.ic, span.i, .bl {
 
 .FTsource {
     padding-left: 30px;
-}
-
-#myAutoComplete {
-    width: 150px;
-    padding: 2px 2px 2px 2px;
-    display: inline;
-    text-align: left;
-}
-
-.yui-skin-sam .yui-ac {
-    position: relative;
-    font-family: arial;
-    font-size: 100%;
-}
-
-.yui-skin-sam .yui-ac-input {
-    position: relative;
-    width: 150px;
 }
