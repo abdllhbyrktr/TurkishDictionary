@@ -20,6 +20,7 @@
     var iconHovered = false;
     var Gestures = {Left: "left", Right: "right", Middle: "middle"};
     var mouseEvt = { x: 0, y: 0, grab: false, sel: "", occured: false, gesture: Gestures.Right };
+    var maxSelection = 2048;
 
     console.log(lang("app.title"));
 
@@ -189,7 +190,7 @@
         // check and remove undesired chars.
         s = s.replace(/<\/?[^>]+(>|$)/g, ""); // remove html tags.
         if (s.match(/[#$%*+=^{}<>~]/g)) { return ""; }
-        if (s.length > 512) { return ""; }
+        if (s.length > maxSelection) { return ""; }
         s = s.replace(/&\w+;/g, ""); // remove html codes like &nbsp;
         s = s.replace(/[0-9"`\/\(\)\[\]|&?!:;.,_-]/g, " "); // convert some chars to whitespace.
         s = s.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
