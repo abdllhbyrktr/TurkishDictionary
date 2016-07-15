@@ -33,24 +33,12 @@ $(document).ready(function () {
     $("input[type='radio'][name='fromLang']").on("change", function() {
         var fromLang = $(this).val();
         var toLang = $("input[type='radio'][name='toLang']:checked").val();
-        
         showOrHideDicts(fromLang, toLang);
-        $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
-        
-        if (fromLang == AvailableLangs.German || fromLang == AvailableLangs.Spanish || fromLang == AvailableLangs.French) {
-            var $to = $("input[type='radio'][name='toLang'][value='" + fromLang + "']");
-            if ($to.is(":checked")) {
-                $("input[type='radio'][name='toLang']:first").click();
-            }
-
-            $to.parent("label").addClass("disabled");
-        }
     });
 
     $("input[type='radio'][name='toLang']").on("change", function() {
         var toLang = $(this).val();
         var fromLang = $("input[type='radio'][name='fromLang']:checked").val();
-        
         showOrHideDicts(fromLang, toLang);
     });
 

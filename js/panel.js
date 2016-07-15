@@ -158,21 +158,6 @@ var navHistory = {
 };
 
 function updateSwapLangs() {
-    $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
-    if (userConfig.fromLang == AvailableLangs.German ||
-        userConfig.fromLang == AvailableLangs.Spanish ||
-        userConfig.fromLang == AvailableLangs.French) {
-        var $to = $("input[type='radio'][name='toLang'][value='" + userConfig.fromLang + "']");
-        $to.parent("label").addClass("disabled");
-    }
-    $(".fromLang-dropdown a").parent("li").removeClass("disabled");
-    if (userConfig.toLang == AvailableLangs.German ||
-        userConfig.toLang == AvailableLangs.Spanish ||
-        userConfig.toLang == AvailableLangs.French) {
-        var $from = $(".fromLang-dropdown a[data-value='" + userConfig.toLang + "']");
-        $from.parent("li").addClass("disabled");
-    }
-
     $("#fromLang").attr("data-value", userConfig.fromLang);
     $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
     $("input[type='radio'][name='toLang']").each(function(index, item) {
@@ -268,10 +253,6 @@ $(document).ready(function () {
             return;
         }
 
-        if ($(this).parent("li").hasClass("disabled")) {
-            return;
-        }
-
         userConfig.fromLang = fromLang;
         updateSwapLangs();
         updateTabs();
@@ -288,36 +269,13 @@ $(document).ready(function () {
 
         userConfig.toLang = fromLang;
         userConfig.fromLang = toLang;
-
-        $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
-        if (toLang == AvailableLangs.German || toLang == AvailableLangs.Spanish || toLang == AvailableLangs.French) {
-            var $to = $("input[type='radio'][name='toLang'][value='" + toLang + "']");
-            if ($to.is(":checked")) {
-                $("input[type='radio'][name='toLang']:first").click();
-            }
-
-            $("#fromLang").attr("data-value", toLang);
-            $("#fromLang i").removeClass().addClass(toLang.getLanguageIcon());
-            $to.parent("label").addClass("disabled");
-        } else {
-            updateTabs();
-            $("#fromLang").attr("data-value", toLang);
-            $("#fromLang i").removeClass().addClass(toLang.getLanguageIcon());
-            $("input[type='radio'][name='toLang'][value='" + fromLang + "']").click();
-        }
+        updateSwapLangs();
+        updateTabs();
     });
 
     $("input[type='radio'][name='toLang']").on("change", function(e) {
         e.stopPropagation();
         var toLang = $(this).val();
-        $(".fromLang-dropdown a").parent("li").removeClass("disabled");
-        if (toLang == AvailableLangs.German ||
-            toLang == AvailableLangs.Spanish ||
-            toLang == AvailableLangs.French) {
-            var $from = $(".fromLang-dropdown a[data-value='" + toLang + "']");
-            $from.parent("li").addClass("disabled");
-        }
-        
         userConfig.toLang = toLang;
         updateTabs();
     });
@@ -447,7 +405,13 @@ function loadSozluknetSearchResults(data) {
 }
 
 function loadAbbyySearchResults(data) {
-    var $article = $(data).find(".js-search-results");
+    var $data = $(data);
+    if ($data.find(".l-notfound")) {
+        $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+        return;
+    }
+
+    var $article = $data.find(".js-search-results");
     if ($article.length > 0) {
         $article.children(":not(.l-articles,.l-reverse,.l-wordbyword)").remove();
         $article.find(".g-navigation").remove();
@@ -725,6 +689,7 @@ function yandexTranslate(word) {
     }, "json");
 }
 
+NotSupported.loadFunc = function(data) {}
 Tureng.loadFunc = loadTurengSearchResults;
 Wordreference.loadFunc = loadWordReferenceSearchResults;
 DictionaryReference.loadFunc = loadDictionaryReferenceSearchResults;

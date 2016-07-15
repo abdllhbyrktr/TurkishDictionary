@@ -273,6 +273,19 @@ var SozlukNet = {
         }
     }
 };
+var NotSupported = {
+    langs: {
+        de: {
+            de: ""
+        },
+        es: {
+            es: ""
+        },
+        fr: {
+            fr: ""
+        }
+    }
+};
 
 _.extend(Tureng, BaseDictionary);
 _.extend(Wordreference, BaseDictionary);
@@ -281,6 +294,7 @@ _.extend(YandexTranslate, BaseDictionary);
 _.extend(TdkSozluk, BaseDictionary);
 _.extend(Abbyy, BaseDictionary);
 _.extend(SozlukNet, BaseDictionary);
+_.extend(NotSupported, BaseDictionary);
 
 Tureng.name = "Tureng";
 Tureng.baseUrl = "http://tureng.com/";
@@ -310,8 +324,12 @@ SozlukNet.name = "Sozluk.net";
 SozlukNet.baseUrl = "http://sozluk.net/index.php";
 SozlukNet.tabId = "sozlukNetTab";
 SozlukNet.divContainer = "#sozlukNetContainer";
+NotSupported.name = "Not Supported";
+NotSupported.baseUrl = "#";
+NotSupported.tabId = "notSupportedTab";
+NotSupported.divContainer = "#notSupportedContainer";
 
-var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet];
+var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet, NotSupported];
 
 function getUrl(tabName) {
     return _.findWhere(AllWebsites, {tabId: tabName}).getUrl();
