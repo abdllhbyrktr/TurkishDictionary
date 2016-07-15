@@ -60,9 +60,48 @@
             </div>
             <div id="swapLangs">
                 <div class="btn-group btn-group-xs">
-                    <a href="javascript:;" id="fromLang" data-value="en" class="btn btn-default" title="From Language" data-lang-title="app.fromLang">
+                    <a href="javascript:;" id="fromLang" data-value="en" class="btn btn-default dropdown-toggle" title="From Language" data-lang-title="app.fromLang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="famfamfam-flag-us"></i>
+                        <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu fromLang-dropdown">
+                        <li>
+                            <a href="javascript:;" id="enFrom" data-value="en">
+                                <i class="famfamfam-flag-us"></i>
+                                <span data-lang="app.en">English</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="trFrom" data-value="tr">
+                                <i class="famfamfam-flag-tr"></i>
+                                <span data-lang="app.tr">Turkish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="ruFrom" data-value="ru">
+                                <i class="famfamfam-flag-ru"></i>
+                                <span data-lang="app.ru">Russian</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="deFrom" data-value="de">
+                                <i class="famfamfam-flag-de"></i>
+                                <span data-lang="app.de">German</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="esFrom" data-value="es">
+                                <i class="famfamfam-flag-es"></i>
+                                <span data-lang="app.es">Spanish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="frFrom" data-value="fr">
+                                <i class="famfamfam-flag-fr"></i>
+                                <span data-lang="app.fr">French</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="btn-group btn-group-xs">
                     <a href="javascript:;" id="swapFromTo" class="btn btn-default" title="Swap Languages" data-lang-title="app.swap">&lt;&gt;</a>

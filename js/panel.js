@@ -158,6 +158,21 @@ var navHistory = {
 };
 
 function updateSwapLangs() {
+    $("input[type='radio'][name='toLang']").parent("label").removeClass("disabled");
+    if (userConfig.fromLang == AvailableLangs.German ||
+        userConfig.fromLang == AvailableLangs.Spanish ||
+        userConfig.fromLang == AvailableLangs.French) {
+        var $to = $("input[type='radio'][name='toLang'][value='" + userConfig.fromLang + "']");
+        $to.parent("label").addClass("disabled");
+    }
+    $(".fromLang-dropdown a").parent("li").removeClass("disabled");
+    if (userConfig.toLang == AvailableLangs.German ||
+        userConfig.toLang == AvailableLangs.Spanish ||
+        userConfig.toLang == AvailableLangs.French) {
+        var $from = $(".fromLang-dropdown a[data-value='" + userConfig.toLang + "']");
+        $from.parent("li").addClass("disabled");
+    }
+
     $("#fromLang").attr("data-value", userConfig.fromLang);
     $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
     $("input[type='radio'][name='toLang']").each(function(index, item) {
@@ -247,6 +262,21 @@ $(document).ready(function () {
         ExtensionCore.openNewTab(newUrl);
     });
 
+    $(".fromLang-dropdown a").click(function(e) {
+        var fromLang = $(this).attr("data-value");
+        if (userConfig.fromLang == fromLang) {
+            return;
+        }
+
+        if ($(this).parent("li").hasClass("disabled")) {
+            return;
+        }
+
+        userConfig.fromLang = fromLang;
+        updateSwapLangs();
+        updateTabs();
+    });
+
     $("#swapFromTo").click(function(e) {
         e.stopPropagation();
         var fromLang = $("#fromLang").attr("data-value");
@@ -279,7 +309,16 @@ $(document).ready(function () {
 
     $("input[type='radio'][name='toLang']").on("change", function(e) {
         e.stopPropagation();
-        userConfig.toLang = $(this).val();
+        var toLang = $(this).val();
+        $(".fromLang-dropdown a").parent("li").removeClass("disabled");
+        if (toLang == AvailableLangs.German ||
+            toLang == AvailableLangs.Spanish ||
+            toLang == AvailableLangs.French) {
+            var $from = $(".fromLang-dropdown a[data-value='" + toLang + "']");
+            $from.parent("li").addClass("disabled");
+        }
+        
+        userConfig.toLang = toLang;
         updateTabs();
     });
 
