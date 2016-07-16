@@ -406,7 +406,7 @@ function loadSozluknetSearchResults(data) {
 
 function loadAbbyySearchResults(data) {
     var $data = $(data);
-    if ($data.find(".l-notfound")) {
+    if ($data.find(".l-notfound").length) {
         $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
         return;
     }
@@ -467,7 +467,7 @@ function loadDictionaryReferenceSearchResults(data) {
 
 function loadWordReferenceSearchResults(data) {
     var $data = $(data);
-    if ($data.find("#noEntryFound").length) {
+    if ($data.find("#noEntryFound").length || $data.find(".tobetranslated").length) {
         $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
         return;
     }
