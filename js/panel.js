@@ -411,8 +411,14 @@ function loadAbbyySearchResults(data) {
         return;
     }
 
+    var $abbyContainer = $(Abbyy.divContainer);
     var $article = $data.find(".js-search-results");
     if ($article.length > 0) {
+        if (!$article.children(".l-articles,.l-reverse,.l-wordbyword").length) {
+            $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app_notFound") + "</h1>");
+            return;
+        }
+
         $article.children(":not(.l-articles,.l-reverse,.l-wordbyword)").remove();
         $article.find(".g-navigation").remove();
         $article.find("img:not([class='l-article__transcription'])").remove();
@@ -426,8 +432,8 @@ function loadAbbyySearchResults(data) {
             $(this).attr("src", Abbyy.baseUrl + href.slice(1));
         });
         $article.find(".l-article__commentlink").attr({ href: "javascript:;", target: null });
-        $article.find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
-        $(Abbyy.divContainer).html($article[0].outerHTML);
+        $abbyContainer.html($article[0].outerHTML);
+        $abbyContainer.find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
         $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
@@ -535,7 +541,9 @@ function reOrganizeLinks(item) {
     text = text.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
     text = text.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
     text = text.replace("'", "\\'");
-    $(this).attr("onclick", "panelTab.translate('" + text + "');");
+    $(this).on("click", function(e) {
+        panelTab.translate(text);
+    });
 
     // add highlights.
     var arr = $(this).text().split(" ");
