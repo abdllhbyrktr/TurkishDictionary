@@ -1,0 +1,11 @@
+node_modules
+temp
+.tmp
+dist
+.sass-cache
+chrome/bower_components
+test/bower_components
+package
+test
+*.pem
+*.exe
