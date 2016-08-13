@@ -1,7 +1,7 @@
 # Dictionary
-Maxthon Dictionary Extension
+Dictionary Extension for Maxthon, Google Chrome and Opera.
 
-It is an extension for Maxthon 4 Web Browser to translate selected or clicked(double) text on any websites.
+It is an extension to translate selected or clicked(double) text on any websites.
 
 Supported languages: English, Turkish, Russian, German, Spanish and French.
 

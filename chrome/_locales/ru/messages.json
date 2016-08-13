@@ -1,0 +1,130 @@
+{
+  "app_title": {
+    "message": "Cловарь",
+    "description": "The name of the application"
+  },
+  "app_description": {
+    "message": "Мгновенный перевод выделенного текста прямо в боковой панели.",
+    "description": "The description of the application"
+  },
+  "app_settings": {
+    "message": "Настройки",
+    "description": ""
+  },
+  "app_translate": {
+    "message": "Перевести",
+    "description": ""
+  },
+  "app_more": {
+    "message": "Подробнее...",
+    "description": ""
+  },
+  "app_loading": {
+    "message": "Загрузка...",
+    "description": ""
+  },
+  "app_dblclick": {
+    "message": "Двойной клик",
+    "description": ""
+  },
+  "app_selection": {
+    "message": "Выделение",
+    "description": ""
+  },
+  "app_backward": {
+    "message": "Назад",
+    "description": ""
+  },
+  "app_forward": {
+    "message": "Вперед",
+    "description": ""
+  },
+  "app_tr": {
+    "message": "Турецкий",
+    "description": ""
+  },
+  "app_ru": {
+    "message": "Pусский",
+    "description": ""
+  },
+  "app_en": {
+    "message": "Английский",
+    "description": ""
+  },
+  "app_de": {
+    "message": "Немецкий",
+    "description": ""
+  },
+  "app_es": {
+    "message": "Испанский",
+    "description": ""
+  },
+  "app_fr": {
+    "message": "Французский",
+    "description": ""
+  },
+  "app_it": {
+    "message": "Итальянский",
+    "description": ""
+  },
+  "app_zhCn": {
+    "message": "Китайский (упрощённый)",
+    "description": ""
+  },
+  "app_ptBr": {
+    "message": "Португальский (Бразилия)",
+    "description": ""
+  },
+  "app_elGr": {
+    "message": "Греческий",
+    "description": ""
+  },
+  "app_options1": {
+    "message": "Выберите языки, с которыми хотите работать.",
+    "description": ""
+  },
+  "app_options2": {
+    "message": "Выберите подходящие варианты работы расширения.",
+    "description": ""
+  },
+  "app_options3": {
+    "message": "Выберите сайты, с которыми хотите работать (сайты, которые нельзя выбрать, не поддерживают выбранный вами язык).",
+    "description": ""
+  },
+  "app_notFound": {
+    "message": "Термин не найден!",
+    "description": ""
+  },
+  "app_timeout": {
+    "message": "Время соединения истекло!",
+    "description": ""
+  },
+  "app_swap": {
+    "message": "Поменять местами",
+    "description": ""
+  },
+  "app_feedback": {
+    "message": "Обратная связь",
+    "description": ""
+  },
+  "app_type": {
+    "message": "Введите слово...",
+    "description": ""
+  },
+  "app_fromLang": {
+    "message": "Перевести с...",
+    "description": ""
+  },
+  "app_toLang": {
+    "message": "Перевести на...",
+    "description": ""
+  },
+  "app_notSupported": {
+    "message": "Не поддерживается!",
+    "description": ""
+  },
+  "app_contribute": {
+    "message": "Помощь в разработке",
+    "description": ""
+  }
+}

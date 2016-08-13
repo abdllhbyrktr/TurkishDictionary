@@ -1,0 +1,130 @@
+{
+  "app_title": {
+    "message": "Sözlük",
+    "description": "The name of the application"
+  },
+  "app_description": {
+    "message": "Web sayfalarında çift tıkladığınız ya da seçtiğiniz kelimeleri desteklediği sitelerden getirdiği sonuçları gösteren bir uzantıdır.",
+    "description": "The description of the application"
+  },
+  "app_settings": {
+    "message": "Ayarlar",
+    "description": ""
+  },
+  "app_translate": {
+    "message": "Çevir",
+    "description": ""
+  },
+  "app_more": {
+    "message": "Daha Fazlası için Tıklayın...",
+    "description": ""
+  },
+  "app_loading": {
+    "message": "Yükleniyor...",
+    "description": ""
+  },
+  "app_dblclick": {
+    "message": "Çift Tıklama",
+    "description": ""
+  },
+  "app_selection": {
+    "message": "Elle Seçme",
+    "description": ""
+  },
+  "app_backward": {
+    "message": "Geri",
+    "description": ""
+  },
+  "app_forward": {
+    "message": "İleri",
+    "description": ""
+  },
+  "app_tr": {
+    "message": "Türkçe",
+    "description": ""
+  },
+  "app_ru": {
+    "message": "Rusça",
+    "description": ""
+  },
+  "app_en": {
+    "message": "İngilizce",
+    "description": ""
+  },
+  "app_de": {
+    "message": "Almanca",
+    "description": ""
+  },
+  "app_es": {
+    "message": "İspanyolca",
+    "description": ""
+  },
+  "app_fr": {
+    "message": "Fransızca",
+    "description": ""
+  },
+  "app_it": {
+    "message": "İtalyanca",
+    "description": ""
+  },
+  "app_zhCn": {
+    "message": "Çince",
+    "description": ""
+  },
+  "app_ptBr": {
+    "message": "Portekizce",
+    "description": ""
+  },
+  "app_elGr": {
+    "message": "Yunanca",
+    "description": ""
+  },
+  "app_options1": {
+    "message": "İstediğiniz bir dili seçiniz.",
+    "description": ""
+  },
+  "app_options2": {
+    "message": "Diğer sayfa özelliklerini ayarlayın.",
+    "description": ""
+  },
+  "app_options3": {
+    "message": "Aşağıdaki uzantının desteklediği siteler seçili haldedir (Seçilemeyen sözlükler desteklemediği anlamındadır).",
+    "description": ""
+  },
+  "app_notFound": {
+    "message": "Aradığınız terimin karşılığı bulunamadı!",
+    "description": ""
+  },
+  "app_timeout": {
+    "message": "Bağlantı zaman aşımına uğradı!",
+    "description": ""
+  },
+  "app_swap": {
+    "message": "Dillerin Yönünü Değiştir",
+    "description": ""
+  },
+  "app_feedback": {
+    "message": "Geri Bildirim",
+    "description": ""
+  },
+  "app_type": {
+    "message": "Bir sözcük girin...",
+    "description": ""
+  },
+  "app_fromLang": {
+    "message": "Birinci Dilden",
+    "description": ""
+  },
+  "app_toLang": {
+    "message": "İkinci Dile",
+    "description": ""
+  },
+  "app_notSupported": {
+    "message": "Desteklenmiyor!",
+    "description": ""
+  },
+  "app_contribute": {
+    "message": "Katkıda Bulunun",
+    "description": ""
+  }
+}

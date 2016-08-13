@@ -1,0 +1,190 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title data-lang="app_settings">Settings</title>
+        <script src="scripts/chrome-core.js"></script>
+        <link rel="stylesheet" href="styles/famfamfam-flags.css">
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/onoff.css">
+    </head>
+    <body style="zoom: 1;">
+        <div class="container">
+            <div class="page-header">
+                <h3 id="optionsTitle">Dictionary<small><sup>3.0</sup></small></h3>
+            </div>
+            <div class="jumbotron">
+                <p class="lead" data-lang="app_description">Displays results from specific web sites.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 data-lang="app_settings">Settings</h3>
+                    <hr/>
+                    <h3 data-lang="app_options1">
+                        Choose language group which you want.
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3>
+                                <span class="label label-default">
+                                    From Language:
+                                </span>
+                            </h3>
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-us"></i>
+                                    <input type="radio" name="fromLang" id="enFrom" value="en" autocomplete="off">
+                                    &nbsp;<span data-lang="app_en">English</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-tr"></i>
+                                    <input type="radio" name="fromLang" id="trFrom" value="tr" autocomplete="off">
+                                    &nbsp;<span data-lang="app_tr">Turkish</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-ru"></i>
+                                    <input type="radio" name="fromLang" id="ruFrom" value="ru" autocomplete="off">
+                                    &nbsp;<span data-lang="app_ru">Russian</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-de"></i>
+                                    <input type="radio" name="fromLang" id="deFrom" value="de" autocomplete="off">
+                                    &nbsp;<span data-lang="app_de">German</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-es"></i>
+                                    <input type="radio" name="fromLang" id="esFrom" value="es" autocomplete="off">
+                                    &nbsp;<span data-lang="app_es">Spanish</span>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-fr"></i>
+                                    <input type="radio" name="fromLang" id="frFrom" value="fr" autocomplete="off">
+                                    &nbsp;<span data-lang="app_fr">French</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3>
+                                <span class="label label-default">
+                                    To Language:
+                                </span>
+                            </h3>
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-us"></i>
+                                    <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
+                                    &nbsp;<span data-lang="app_en">English</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-tr"></i>
+                                    <input type="radio" name="toLang" id="trTo" value="tr" autocomplete="off">
+                                    &nbsp;<span data-lang="app_tr">Turkish</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-ru"></i>
+                                    <input type="radio" name="toLang" id="ruTo" value="ru" autocomplete="off">
+                                    &nbsp;<span data-lang="app_ru">Russian</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-de"></i>
+                                    <input type="radio" name="toLang" id="deTo" value="de" autocomplete="off">
+                                    &nbsp;<span data-lang="app_de">German</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-es"></i>
+                                    <input type="radio" name="toLang" id="esTo" value="es" autocomplete="off">
+                                    &nbsp;<span data-lang="app_es">Spanish</span>
+                                </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-fr"></i>
+                                    <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
+                                    &nbsp;<span data-lang="app_fr">French</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 data-lang="app_options3">
+                                Choose supported web sites.
+                            </h3>
+                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <img src="images/tureng32.png" class="img-rounded" alt="Tureng"/>
+                                    <input type="checkbox" name="dict" id="cTureng" value="Tureng" autocomplete="off" checked>
+                                    &nbsp;<span>Tureng</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/dictionary32.png" class="img-rounded" alt="Dictionary.com"/>
+                                    <input type="checkbox" name="dict" id="cDictionary" value="Dictionary.com" autocomplete="off">
+                                    &nbsp;<span>Dictionary.com</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/wr32.png" class="img-rounded" alt="Wordreference.com"/>
+                                    <input type="checkbox" name="dict" id="cWordreference" value="Wordreference.com" autocomplete="off">
+                                    &nbsp;<span>Wordreference.com</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/yandex32.png" class="img-rounded" alt="Yandex.Translate"/>
+                                    <input type="checkbox" name="dict" id="cYandex" value="Yandex.Translate" autocomplete="off">
+                                    &nbsp;<span>Yandex.Translate</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/tdk32.png" class="img-rounded" alt="TDK"/>
+                                    <input type="checkbox" name="dict" id="cTdk" value="Tdk" autocomplete="off">
+                                    &nbsp;<span>TDK</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/abbyy32.png" class="img-rounded" alt="Abbyy"/>
+                                    <input type="checkbox" name="dict" id="cAbbyy" value="Abbyy" autocomplete="off">
+                                    &nbsp;<span>Abbyy</span>
+                                </label>
+                                <label class="btn btn-default">
+                                    <img src="images/sozlukNet32.png" class="img-rounded" alt="Sozluk.net"/>
+                                    <input type="checkbox" name="dict" id="cSozluknet" value="Sozluk.net" autocomplete="off">
+                                    &nbsp;<span>Sozluk.net</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 data-lang="app_options2">
+                                Set the features of the extension on pages.
+                            </h3>
+                            <div class="col-md-8">
+                                <div class="col-md-6">
+                                    <span data-lang="app_dblclick">x2 Click:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffDblClick"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span data-lang="app_selection">Selection:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffSelection"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer page-header text-center">
+                <a target="_blank" href="#" data-lang="app_feedback">Feedback</a>&nbsp;&nbsp;<a target="_blank" href="https://github.com/abdllhbyrktr/TurkishDictionary" data-lang="app_contribute">Contribute</a>
+            </footer>
+        </div>
+    </body>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/underscore-min.js"></script>
+    <script src="scripts/libs.js"></script>
+    <script src="scripts/options.js"></script>
+</html>

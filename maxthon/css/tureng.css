@@ -1,0 +1,80 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+#mainPageTop {
+    height: 60px;
+    margin-bottom: 5px;
+}
+
+#mainPageTopMiddle {
+    width: 340px;
+    height: 32px;
+    overflow: hidden;
+    margin: 5px 0 0 15px;
+}
+
+#mainPageTop h1 {
+    background-image: url(logoMainPage.png);
+    width: 200px;
+    height: 65px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -1000px;
+    padding: 0;
+    margin: 0 0 0 65px;
+}
+
+    #mainPageTop h1 a {
+        padding: 0;
+        margin: 0;
+        display: block;
+        width: 193px;
+        height: 65px;
+    }
+
+#searchPage {
+    width: 352px;
+}
+
+    #searchPage h1 {
+        text-align: center;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        border-bottom: 2px solid #bf1e2e;
+        margin: 4px 0 10px 0;
+    }
+
+.searchResultsTable {
+    width: 100%;
+    /*margin-bottom: 20px;*/
+    margin-top: 5px;
+}
+
+    .searchResultsTable .even {
+        background-color: #ececec;
+    }
+
+    .searchResultsTable td {
+        padding: 3px;
+    }
+
+    .searchResultsTable th {
+        background-color: #c9c9c9;
+        text-align: left;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        border-bottom: 2px solid #bf1e2e;
+    }
+
+    .searchResultsTable tr td:first-child {
+        max-width: 56px;
+        word-wrap: break-word;
+    }
+
+    .searchResultsTable tr td:not(:first-child) {
+        max-width: 141px;
+    }
