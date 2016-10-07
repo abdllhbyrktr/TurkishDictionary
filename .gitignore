@@ -9,3 +9,6 @@ package
 test
 *.pem
 *.exe
+*.nex
+*.crx
+*.mxaddon

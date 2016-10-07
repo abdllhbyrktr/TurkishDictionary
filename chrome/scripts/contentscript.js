@@ -46,11 +46,6 @@
         });
     };
 
-    function addResults(results) {
-        console.log("Result: ", results);
-        document.getElementById("tureng_web_dialog").innerHTML = results;
-    };
-
     function getSettings(obj) {
         doubleClickEnabled = obj["dblClick"];
         mouseSelectEnabled = obj["mouseSelect"];
