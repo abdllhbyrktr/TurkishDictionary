@@ -231,14 +231,24 @@ var TdkSozluk = {
 var Abbyy = {
     langs: {
         en: {
-            ru: "en/Translate/en-ru/"
+            ru: "en-us/translate/en-ru/"
+        },
+        es: {
+            en: "es-mx/translate/es-en/",
+            ru: "es-mx/translate/es-ru/"
+        },
+        de: {
+            ru: "en-us/translate/de-ru/"
+        },
+        fr: {
+            ru: "en-us/translate/fr-ru/"
         },
         ru: {
-            en: "ru/Translate/ru-en/",
-            ru: "ru/Translate/ru-ru/",
-            de: "ru/Translate/ru-de/",
-            es: "ru/Translate/ru-es/",
-            fr: "ru/Translate/ru-fr/"
+            en: "ru-ru/translate/ru-en/",
+            ru: "ru-ru/translate/ru-ru/",
+            de: "ru-ru/translate/ru-de/",
+            es: "ru-ru/translate/ru-es/",
+            fr: "ru-ru/translate/ru-fr/"
         }
     }
 };
@@ -317,7 +327,7 @@ TdkSozluk.baseUrl = "http://tdk.gov.tr/index.php";
 TdkSozluk.tabId = "tdkTab";
 TdkSozluk.divContainer = "#tdkContainer";
 Abbyy.name = "Abbyy";
-Abbyy.baseUrl = "http://www.lingvo-online.ru/";
+Abbyy.baseUrl = "https://www.lingvolive.com/";
 Abbyy.tabId = "abbyyTab";
 Abbyy.divContainer = ".js-search-results";
 SozlukNet.name = "Sozluk.net";

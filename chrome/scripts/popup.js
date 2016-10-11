@@ -394,36 +394,18 @@ function loadSozluknetSearchResults(data) {
 
 function loadAbbyySearchResults(data) {
     var $data = $(data);
-    if ($data.find(".l-notfound").length) {
-        $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app_notFound") + "</h1>");
-        return;
-    }
-
     var $abbyContainer = $(Abbyy.divContainer);
-    var $article = $data.find(".js-search-results");
+    var $article = $data.find('div[name*="dictionary"]');
     if ($article.length > 0) {
-        if (!$article.children(".l-articles,.l-reverse,.l-wordbyword").length) {
-            $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app_notFound") + "</h1>");
-            return;
-        }
-
-        $article.children(":not(.l-articles,.l-reverse,.l-wordbyword)").remove();
-        $article.find(".g-navigation").remove();
-        $article.find("img:not([class='l-article__transcription'])").remove();
-        $article.find(".pointer").remove();
-        $article.find(".l-reverse__tdfromdict").remove();
-        $article.find(".js-article-html h2").remove();
-        $article.find(".l-article__sound").remove();
-        $article.find(".l-article__navpanel").remove();
-        $article.find(".l-article__transcription").each(function(index, item) {
-            var href = $(this).attr("src");
-            $(this).attr("src", Abbyy.baseUrl + href.slice(1));
-        });
-        $article.find(".l-article__commentlink").attr({ href: "javascript:;", target: null });
+        $article.find('a[href*="Sound"]').remove();
+        $article.find('._1lsRx').remove();
+        $article.find('h1').remove();
+        $article.find('h4').remove();
         $abbyContainer.html($article[0].outerHTML);
+        $abbyContainer.find('._3zJig').each(reOrganizeLinks);
         $abbyContainer.find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
-        $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app_notFound") + "</h1>");
+        $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
 }
 
@@ -523,8 +505,12 @@ function addToSearchPage(html, results) {
 }
 
 function reOrganizeLinks(item) {
-    //console.log($(this).text());
     var text = $(this).text();
+
+    if (/\([^)]*\)/g.test(text)) {
+        return;
+    }
+
     text = text.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
     text = text.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
     text = text.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
