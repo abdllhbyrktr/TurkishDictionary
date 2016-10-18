@@ -1,0 +1,49 @@
+.source-data {
+    display: block;
+    color: #666;
+    width: 352px;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    .source-data h1 {
+        text-align: center;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        margin: 4px 0 10px 0;
+    }
+
+.def-list {
+    margin-top: 10px;
+}
+
+.def-set {
+    padding-bottom: 17px;
+}
+
+.def-number {
+    display: block;
+    float: left;
+    padding-right: 5px;
+}
+
+.def-content {
+    padding-left: 37px;
+}
+
+.def-inline-example {
+    color: #979797;
+}
+
+.dbox-example {
+    font-style: italic;
+}
+
+.dbox-pg {
+    color: #666;
+    font-size: 20px;
+}

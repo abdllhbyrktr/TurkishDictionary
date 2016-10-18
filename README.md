@@ -1,5 +1,5 @@
 # Dictionary
-Dictionary Extension for Maxthon, Google Chrome and Opera.
+Dictionary Extension is for Maxthon, Google Chrome and Opera.
 
 It is an extension to translate selected or clicked(double) text on any websites.
 

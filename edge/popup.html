@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="scripts/edge-core.js"></script>
+    <link rel="stylesheet" href="styles/famfamfam-flags.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/non-responsive.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/tureng.css">
+    <link rel="stylesheet" href="styles/wordreference.css">
+    <link rel="stylesheet" href="styles/dictionary.css">
+    <link rel="stylesheet" href="styles/yandex.css">
+    <link rel="stylesheet" href="styles/tdk.css">
+    <link rel="stylesheet" href="styles/abbyy.css">
+    <link rel="stylesheet" href="styles/sozlukNet.css">
+    <link rel="stylesheet" href="styles/onoff.css">
+    <title data-lang="app_title">Dictionary</title>
+</head>
+    <body style="zoom: 1;">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <!--<a class="navbar-brand" href="#">
+                        <img src="images/logo.png" alt="Dictionary">
+                    </a>-->
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div id="bs-example-navbar-collapse-1">
+                    <div class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input id="searchInput" type="text" class="form-control" placeholder="Type a word." data-lang-placeholder="app_type">
+                        </div>
+                        <a id="searchButton" href="javascript:;" class="btn btn-default" data-lang="app_translate">Translate</a>
+                    </div>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <div id="settings">
+                <div class="setDblClick">
+                    <span data-lang="app_dblclick"></span>
+                    <div class="onoffswitch">
+                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox"/>
+                        <label class="onoffswitch-label" for="onOffDblClick"></label>
+                    </div>
+                </div>
+                <div class="setSelection">
+                    <span data-lang="app_selection"></span>
+                    <div class="onoffswitch">
+                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox"/>
+                        <label class="onoffswitch-label" for="onOffSelection"></label>
+                    </div>
+                </div>
+                <div class="settingsIcon" title="" data-lang-title="app_settings"></div>
+            </div>
+            <div id="swapLangs">
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:;" id="fromLang" data-value="en" class="btn btn-default dropdown-toggle" title="From Language" data-lang-title="app_fromLang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="famfamfam-flag-us"></i>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu fromLang-dropdown">
+                        <li>
+                            <a href="javascript:;" id="enFrom" data-value="en">
+                                <i class="famfamfam-flag-us"></i>
+                                <span data-lang="app_en">English</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="trFrom" data-value="tr">
+                                <i class="famfamfam-flag-tr"></i>
+                                <span data-lang="app_tr">Turkish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="ruFrom" data-value="ru">
+                                <i class="famfamfam-flag-ru"></i>
+                                <span data-lang="app_ru">Russian</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="deFrom" data-value="de">
+                                <i class="famfamfam-flag-de"></i>
+                                <span data-lang="app_de">German</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="esFrom" data-value="es">
+                                <i class="famfamfam-flag-es"></i>
+                                <span data-lang="app_es">Spanish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="frFrom" data-value="fr">
+                                <i class="famfamfam-flag-fr"></i>
+                                <span data-lang="app_fr">French</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:;" id="swapFromTo" class="btn btn-default" title="Swap Languages" data-lang-title="app_swap">&lt;&gt;</a>
+                </div>
+                <div class="btn-group btn-group-xs" data-toggle="buttons">
+                    <label class="btn btn-primary" title="English" data-lang-title="app_en">
+                        <i class="famfamfam-flag-us"></i>
+                        <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary" title="Turkish" data-lang-title="app_tr">
+                        <i class="famfamfam-flag-tr"></i>
+                        <input type="radio" name="toLang" id="trTo" value="tr" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary" title="Russian" data-lang-title="app_ru">
+                        <i class="famfamfam-flag-ru"></i>
+                        <input type="radio" name="toLang" id="ruTo" value="ru" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary" title="German" data-lang-title="app_de">
+                        <i class="famfamfam-flag-de"></i>
+                        <input type="radio" name="toLang" id="deTo" value="de" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary" title="Spanish" data-lang-title="app_es">
+                        <i class="famfamfam-flag-es"></i>
+                        <input type="radio" name="toLang" id="esTo" value="es" autocomplete="off">
+                    </label>
+                    <label class="btn btn-primary" title="French" data-lang-title="app_fr">
+                        <i class="famfamfam-flag-fr"></i>
+                        <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
+                    </label>
+                </div>
+            </div>
+            <div class="row lead">
+                <div class="col-sm-4">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default navigationBack">&lt;</button>
+                        <button type="button" class="btn btn-default navigationForward">&gt;</button>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#turengTab" aria-controls="turengTab" role="tab" data-toggle="tab" title="Tureng">
+                                <img src="images/tureng32.png" alt="Tureng">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#wordReferenceTab" aria-controls="wordReferenceTab" role="tab" data-toggle="tab" title="Wordreference.com">
+                                <img src="images/wr32.png" alt="Wordreference.com">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#dictionaryTab" aria-controls="dictionaryTab" role="tab" data-toggle="tab" title="Dictionary.com">
+                                <img src="images/dictionary32.png" alt="Dictionary.com">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tdkTab" aria-controls="tdkTab" role="tab" data-toggle="tab" title="Tdk">
+                                <img src="images/tdk32.png" alt="Tdk">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#abbyyTab" aria-controls="abbyyTab" role="tab" data-toggle="tab" title="Abbyy">
+                                <img src="images/abbyy32.png" alt="Abbyy">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#sozlukNetTab" aria-controls="sozlukNetTab" role="tab" data-toggle="tab" title="Sozluk.net">
+                                <img src="images/sozluknet32.png" alt="Sozluk.net">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#yandexTab" aria-controls="yandexTab" role="tab" data-toggle="tab" title="Yandex.Translate">
+                                <img src="images/yandex32.png" alt="Yandex.Translate">
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#notSupportedTab" aria-controls="notSupportedTab" role="tab" data-toggle="tab" title="Not Supported" data-lang-title="app_notSupported">
+                                <img src="images/not-supported.png" alt="Not Supported">
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="turengTab">
+                            <div id="searchPage">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="wordReferenceTab">
+                            <div id="articleWRD">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="dictionaryTab">
+                            <div class="source-data">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tdkTab">
+                            <div id="tdkContainer">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="abbyyTab">
+                            <div class="js-search-results">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="sozlukNetTab">
+                            <div id="sozlukNetContainer">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="yandexTab">
+                            <div id="dvPageContent">
+                                <div id="TransPreview" style="padding-left: 4px;">
+                                    <span id="SpanTargetText">
+                                        <textarea name="TargetText" id="TargetText"></textarea>
+                                    </span>
+                                    <div id="DictionaryOutput">
+                                        <h1 data-lang="app_loading">Loading...</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="notSupportedTab">
+                            <div>
+                                <h1 data-lang="app_notSupported">Not Supported!</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer id="mainPageBottom" class="footer page-header">
+                <a href="javascript:;" id="clickMore" style="color: darkcyan" data-lang="app_more">Click More...</a>
+            </footer>
+        </div>
+    </body>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/underscore-min.js"></script>
+    <script src="scripts/libs.js"></script>
+    <script src="scripts/popup.js"></script>
+</html>

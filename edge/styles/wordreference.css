@@ -1,0 +1,123 @@
+#articleWRD {
+    font-family: sans-serif;
+    color: #222;
+    font-size: 14px;
+    line-height: 1.231;
+    width: 352px;
+}
+    #articleWRD h1 {
+        text-align: center;
+        font-size: 12px;
+        padding: 3px;
+        font-weight: normal;
+        margin: 4px 0 10px 0;
+    }
+
+.WRD {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: solid 1px #dcdcdc;
+    border-bottom: solid 1px #dcdcdc;
+    cursor: default;
+}
+
+    .WRD td {
+        padding: 2px;
+    }
+
+        .WRD td.FrWrd {
+            padding-left: 20px;
+        }
+
+        .WRD td.ToWrd {
+            color: black;
+            padding-right: 10px;
+        }
+
+        .WRD td.ToEx {
+            color: gray;
+        }
+
+        .WRD td.FrEx {
+            color: gray;
+        }
+
+.POS2 {
+    color: #0645ad;
+}
+
+.wrEven {
+    background-color: #ebebf2;
+    vertical-align: top;
+}
+
+.wrOdd {
+    vertical-align: top;
+}
+
+:not(.wrEven) + .wrEven, :not(.wrOdd) + .wrOdd {
+    border-top: 1px solid #dcdcdc;
+}
+
+#article, #articleHead, #postArticle {
+    padding: 0 20px;
+}
+
+.small1 {
+    font-size: x-small;
+}
+
+.hw {
+    font-weight: 700;
+}
+
+.phonetics {
+    color: #039;
+    font-size: 10pt;
+    font-weight: 700;
+    font-family: "Lucida Sans Unicode","Arial Unicode MS","Lucida Grande";
+}
+
+.ps {
+    font-family: sans-serif;
+    color: #039;
+    font-weight: 700;
+}
+
+.CA, .CC, .CH, .CN, .CO, .CS, .CV, .GR, .IN, .LF, .NC, .RN, .RR, .SF, .SN, .gr, .inflecter, .prov, .register, .translation.gloss {
+    color: #039;
+}
+
+#article a, #articleWRD a, #articleHead a {
+    font-size: 13px;
+}
+
+.AF, .FF, .box.ex, .inflected, .label.ff, .phrase {
+    font-weight: 700;
+}
+
+#contenttable {
+    border-collapse: collapse;
+}
+
+span.ic, span.i, .bl {
+    font-style: italic;
+    color: #039;
+}
+
+#FTintro {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.FTlist {
+    padding-left: 60px;
+}
+
+.FTsource {
+    padding-left: 30px;
+}
+.notePubl {
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+}

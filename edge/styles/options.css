@@ -1,0 +1,78 @@
+body {
+    font: 12px/1 'Segoe UI', Arial, 'Microsoft Yahei', Simsun, sans-serif;
+    font-size: 18px;
+}
+
+a {
+    color: #15C;
+}
+
+#wrapper {
+    margin: 50px 0 0 170px;
+    min-width: 650px;
+}
+
+header, section, footer {
+    margin-bottom: 20px;
+}
+
+header {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1em;
+    max-width: 850px;
+    min-width: 650px;
+}
+
+.logo {
+    position: absolute;
+    top: 5px;
+    left: -43px;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+h3 {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+h4 {
+    font-weight: normal;
+    margin: 7px 0;
+}
+
+h3 + div {
+    margin-left: 1em;
+}
+
+sup {
+    font-size: 11px;
+    margin-left: .5em;
+}
+
+p {
+    clear: both;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+label {
+    margin: 0.65em 0;
+    color: #303942;
+}
+
+label:hover {
+    color: #000;
+}
+/* Footer */
+footer {
+    border-top: 1px solid #eee;
+    padding-top: 1em;
+    max-width: 850px;
+    min-width: 650px;
+}

@@ -1,0 +1,130 @@
+{
+  "app_title": {
+    "message": "Wörterbuch",
+    "description": "The name of the application"
+  },
+  "app_description": {
+    "message": "It is an extension that displays translation results on panel when you clicked or selected text in a web page.",
+    "description": "The description of the application"
+  },
+  "app_settings": {
+    "message": "Einstellungen",
+    "description": ""
+  },
+  "app_translate": {
+    "message": "Übersetzen",
+    "description": ""
+  },
+  "app_more": {
+    "message": "Mehr..",
+    "description": ""
+  },
+  "app_loading": {
+    "message": "Lädt...",
+    "description": ""
+  },
+  "app_dblclick": {
+    "message": "Doppelklick",
+    "description": ""
+  },
+  "app_selection": {
+    "message": "Auswahl",
+    "description": ""
+  },
+  "app_backward": {
+    "message": "Zurück",
+    "description": ""
+  },
+  "app_forward": {
+    "message": "Weiter",
+    "description": ""
+  },
+  "app_tr": {
+    "message": "Türkisch",
+    "description": ""
+  },
+  "app_ru": {
+    "message": "Russisch",
+    "description": ""
+  },
+  "app_en": {
+    "message": "Englisch",
+    "description": ""
+  },
+  "app_de": {
+    "message": "Deutsch",
+    "description": ""
+  },
+  "app_es": {
+    "message": "Spanisch",
+    "description": ""
+  },
+  "app_fr": {
+    "message": "Französisch",
+    "description": ""
+  },
+  "app_it": {
+    "message": "Italian",
+    "description": ""
+  },
+  "app_zhCn": {
+    "message": "Chinese Simplified",
+    "description": ""
+  },
+  "app_ptBr": {
+    "message": "Brazilian Portuguese",
+    "description": ""
+  },
+  "app_elGr": {
+    "message": "Greek",
+    "description": ""
+  },
+  "app_options1": {
+    "message": "Bitte wählen Sie Ihre Sprachgruppe.",
+    "description": ""
+  },
+  "app_options2": {
+    "message": "Funktionen der Erweiterung auf der Seite einblenden.",
+    "description": ""
+  },
+  "app_options3": {
+    "message": "Unterstützte Internetseiten auswählen.",
+    "description": ""
+  },
+  "app_notFound": {
+    "message": "Begriff nicht gefunden!",
+    "description": ""
+  },
+  "app_timeout": {
+    "message": "Verbindung unterbrochen!",
+    "description": ""
+  },
+  "app_swap": {
+    "message": "Sprachen umkehren",
+    "description": ""
+  },
+  "app_feedback": {
+    "message": "Feedback",
+    "description": ""
+  },
+  "app_type": {
+    "message": "Type a word...",
+    "description": ""
+  },
+  "app_fromLang": {
+    "message": "From Language",
+    "description": ""
+  },
+  "app_toLang": {
+    "message": "To Language",
+    "description": ""
+  },
+  "app_notSupported": {
+    "message": "Not Supported!",
+    "description": ""
+  },
+  "app_contribute": {
+    "message": "Contribute",
+    "description": ""
+  }
+}
