@@ -12,6 +12,7 @@
     var Gestures = {Left: "left", Right: "right", Middle: "middle"};
     var mouseEvt = { x: 0, y: 0, grab: false, sel: "", occured: false, gesture: Gestures.Right };
     var maxSelection = 2048;
+    var documentOndblclick, documentOnmousemove, documentOnmousedown, documentOnmouseup;
 
     console.log(lang("app_title"));
 
@@ -25,14 +26,10 @@
 
     function ready() {
         clearInterval(tId);
-        //document.body.addEventListener("dblclick", doubleClicked, false);
-        //document.body.addEventListener("mousedown", mouseDown, false);
-        //document.body.addEventListener("mouseup", mouseSelected, false);
-        //document.body.addEventListener("mousemove", mouseMoving, false);
-        document.onmousemove = mouseMoving;
-        document.onmousedown = mouseDown;
-        document.onmouseup = mouseSelected;
-        document.ondblclick = doubleClicked;
+        documentOndblclick = document.ondblclick;
+        documentOnmousemove = document.onmousemove;
+        documentOnmousedown = document.onmousedown;
+        documentOnmouseup = document.onmouseup;
 
         post("retrieveMessage", "I'm in!");
         chrome.storage.local.get(null, function(result) {
@@ -50,6 +47,11 @@
     function getSettings(obj) {
         doubleClickEnabled = obj["dblClick"];
         mouseSelectEnabled = obj["mouseSelect"];
+        
+        document.ondblclick = doubleClickEnabled ? doubleClicked : documentOndblclick;
+        document.onmousemove = mouseSelectEnabled ? mouseMoving : documentOnmousemove;
+        document.onmousedown = mouseSelectEnabled ? mouseDown : documentOnmousedown;
+        document.onmouseup = mouseSelectEnabled ? mouseSelected : documentOnmouseup;
     };
 
     var samples = [];

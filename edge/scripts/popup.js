@@ -632,14 +632,14 @@ function loadTurengSearchResults(data) {
             }
         });
         // remove table cells that are undesired.
-        $(".c0").remove();
-        $(".c4").remove();
-        $(".c5").remove();
-        $(".rc0").remove();
-        $(".rc4").remove();
+        $("#searchPage").find(".c0").remove();
+        $("#searchPage").find(".c4").remove();
+        $("#searchPage").find(".c5").remove();
+        $("#searchPage").find(".rc0").remove();
+        $("#searchPage").find(".rc4").remove();
         //$(".searchResultsTable").find("tr td:nth-child(2)").remove();
         // add white space for break-word in css.
-        $(".even, .odd").each(function(index) {
+        $("#searchPage").find(".even, .odd").each(function(index) {
             var $td = $(this).find("td:first");
             var text = $td.text();
             text = text.replace(/\//g, " / ");
