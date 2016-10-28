@@ -15,7 +15,7 @@ h1 {
     width: 190px;
     height: 55px;
     top: -55px;
-    right: 10px;
+    right: 0px;
     padding: 1px;
     margin: 0;
     background: #FFFFFF;
@@ -57,6 +57,9 @@ h1 {
     right: 15px;
     margin: 0;
     z-index: 1020;
+    user-select: none;
     -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
     list-style: none;
 }

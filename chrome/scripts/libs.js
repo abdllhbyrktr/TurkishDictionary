@@ -106,6 +106,7 @@ var BaseDictionary = {
     tabId: "",
     loadFunc: null,
     divContainer: "",
+    defaultAudioUrl: "",
     getUrl: function () {
         return this.baseUrl + this.langs[userConfig.fromLang][userConfig.toLang];
     },
@@ -385,6 +386,10 @@ function getDivContainer(tabName) {
 
 function getLoadFunc(tabName) {
     return _.findWhere(AllWebsites, {tabId: tabName}).loadFunc;
+}
+
+function getAudioSourceUrl(tabName) {
+    return _.findWhere(AllWebsites, {tabId: tabName}).defaultAudioUrl;
 }
 
 function clearSelection() {

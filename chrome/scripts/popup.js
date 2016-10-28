@@ -148,13 +148,8 @@ var navHistory = {
 function updateSwapLangs() {
     $("#fromLang").attr("data-value", userConfig.fromLang);
     $("#fromLang i").removeClass().addClass(userConfig.fromLang.getLanguageIcon());
-    $("input[type='radio'][name='toLang']").each(function(index, item) {
-        $(this).prop("checked", null);
-        $(this).parent("label").removeClass("active");
-    });
-    $("input[type='radio'][name='toLang'][value='" + userConfig.toLang + "']")
-        .prop("checked", "checked")
-        .parent("label").addClass("active");
+    $("#toLang").attr("data-value", userConfig.toLang);
+    $("#toLang i").removeClass().addClass(userConfig.toLang.getLanguageIcon());
 }
 
 function updateTabs() {
@@ -246,10 +241,21 @@ $(document).ready(function () {
         updateTabs();
     });
 
+    $(".toLang-dropdown a").click(function(e) {
+        var toLang = $(this).attr("data-value");
+        if (userConfig.toLang == toLang) {
+            return;
+        }
+
+        userConfig.toLang = toLang;
+        updateSwapLangs();
+        updateTabs();
+    });
+
     $("#swapFromTo").click(function(e) {
         e.stopPropagation();
         var fromLang = $("#fromLang").attr("data-value");
-        var toLang = $("input[type='radio'][name='toLang']:checked").val();
+        var toLang = $("#toLang").attr("data-value");
 
         if (fromLang == toLang) {
             return false;
@@ -258,13 +264,6 @@ $(document).ready(function () {
         userConfig.toLang = fromLang;
         userConfig.fromLang = toLang;
         updateSwapLangs();
-        updateTabs();
-    });
-
-    $("input[type='radio'][name='toLang']").on("change", function(e) {
-        e.stopPropagation();
-        var toLang = $(this).val();
-        userConfig.toLang = toLang;
         updateTabs();
     });
 
@@ -341,6 +340,14 @@ $(document).ready(function () {
         navHistory.next();
     });
 
+    $(".navigationSound").click(function () {
+        var audioSource = getAudioSourceUrl(panelTab.getCurrentTab());
+        if (audioSource) {
+            var audio = new Audio(audioSource);
+            audio.play();
+        }
+    });
+
     sendSettings();
     //panelTab.translate(userConfig.lastSearchTerm);
 });
@@ -379,8 +386,18 @@ function getHtmlData(url, notifyContainer, loadFunc) {
 
 function loadSozluknetSearchResults(data) {
     var selector = "#" + userConfig.fromLang + userConfig.toLang;
-    var $tables = $(data).find(selector);
+    var $data = $(data);
+    var $tables = $data.find(selector);
     if ($tables.length > 0) {
+        // set the first audio source url.
+        var audioSource = $data.find('img[src*="audio.gif"]').closest('a');
+        if (audioSource.length) {
+            var wordId = userConfig.lastSearchTerm.charAt(0);
+            var jsSource = audioSource.attr('href');
+            var wavId = jsSource.slice(jsSource.lastIndexOf(','), -3).slice(2);
+            SozlukNet.defaultAudioUrl = "http://www.sozluk.net/wavs/" + wordId + "/" + wavId + ".wav";
+        }
+
         $tables.find("td").prop("width", null);
         $tables.find("a img").each(function(index, item) {
             $(this).parent().remove();
@@ -397,7 +414,7 @@ function loadAbbyySearchResults(data) {
     var $abbyContainer = $(Abbyy.divContainer);
     var $article = $data.find('div[name*="dictionary"]');
     if ($article.length > 0) {
-        $article.find('a[href*="Sound"]').remove();
+        $article.find('a[href*="api.lingvolive.com/sounds"]').remove();
         $article.find('._1lsRx').remove();
         $article.find('h1').remove();
         $article.find('h4').remove();
@@ -553,7 +570,8 @@ function loadTurengSearchResults(data) {
         turkishResultIndex = -1,
         englishFullResultIndex = -1,
         turkishFullResultIndex = -1;
-    var $tables = $(data).find(".searchResultsTable");
+    var $data = $(data);
+    var $tables = $data.find(".searchResultsTable");
 
     if ($tables.length) {
         for (var i = 0; i < $tables.length; i++) {
@@ -584,6 +602,8 @@ function loadTurengSearchResults(data) {
                         (turkishResultIndex > -1 || turkishFullResultIndex > -1));
         var firstResults = twoSided ? 5 : 6;
         var fullResults = twoSided ? 4 : 5;
+        // set the first audio source url.
+        Tureng.defaultAudioUrl = $data.find('.tureng-voice:first source').attr('src');
         // add first side of results.
         if (englishResultIndex > -1) {
             addedEng = true;

@@ -64,7 +64,7 @@
                         <i class="famfamfam-flag-us"></i>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu fromLang-dropdown">
+                    <ul class="dropdown-menu fromLang-dropdown" style="right: 0; left: auto;">
                         <li>
                             <a href="javascript:;" id="enFrom" data-value="en">
                                 <i class="famfamfam-flag-us"></i>
@@ -106,41 +106,60 @@
                 <div class="btn-group btn-group-xs">
                     <a href="javascript:;" id="swapFromTo" class="btn btn-default" title="Swap Languages" data-lang-title="app.swap">&lt;&gt;</a>
                 </div>
-                <div class="btn-group btn-group-xs" data-toggle="buttons">
-                    <label class="btn btn-primary" title="English" data-lang-title="app.en">
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:;" id="toLang" data-value="en" class="btn btn-default dropdown-toggle" title="From Language" data-lang-title="app.fromLang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="famfamfam-flag-us"></i>
-                        <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
-                    </label>
-                    <label class="btn btn-primary" title="Turkish" data-lang-title="app.tr">
-                        <i class="famfamfam-flag-tr"></i>
-                        <input type="radio" name="toLang" id="trTo" value="tr" autocomplete="off">
-                    </label>
-                    <label class="btn btn-primary" title="Russian" data-lang-title="app.ru">
-                        <i class="famfamfam-flag-ru"></i>
-                        <input type="radio" name="toLang" id="ruTo" value="ru" autocomplete="off">
-                    </label>
-                    <label class="btn btn-primary" title="German" data-lang-title="app.de">
-                        <i class="famfamfam-flag-de"></i>
-                        <input type="radio" name="toLang" id="deTo" value="de" autocomplete="off">
-                    </label>
-                    <label class="btn btn-primary" title="Spanish" data-lang-title="app.es">
-                        <i class="famfamfam-flag-es"></i>
-                        <input type="radio" name="toLang" id="esTo" value="es" autocomplete="off">
-                    </label>
-                    <label class="btn btn-primary" title="French" data-lang-title="app.fr">
-                        <i class="famfamfam-flag-fr"></i>
-                        <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
-                    </label>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu toLang-dropdown" style="right: 0; left: auto;">
+                        <li>
+                            <a href="javascript:;" id="enTo" data-value="en">
+                                <i class="famfamfam-flag-us"></i>
+                                <span data-lang="app.en">English</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="trTo" data-value="tr">
+                                <i class="famfamfam-flag-tr"></i>
+                                <span data-lang="app.tr">Turkish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="ruTo" data-value="ru">
+                                <i class="famfamfam-flag-ru"></i>
+                                <span data-lang="app.ru">Russian</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="deTo" data-value="de">
+                                <i class="famfamfam-flag-de"></i>
+                                <span data-lang="app.de">German</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="esTo" data-value="es">
+                                <i class="famfamfam-flag-es"></i>
+                                <span data-lang="app.es">Spanish</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="frTo" data-value="fr">
+                                <i class="famfamfam-flag-fr"></i>
+                                <span data-lang="app.fr">French</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row lead">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-default navigationBack">&lt;</button>
-                        <button type="button" class="btn btn-default navigationForward">&gt;</button>
+                        <button type="button" class="btn btn-default navigationBack">&#x1f448;</button>
+                        <button type="button" class="btn btn-default navigationForward">&#x1f449;</button>
+                        <button type="button" class="btn btn-default navigationSound">&#x1f50a;</button>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                 </div>
             </div>
             <div class="row">
