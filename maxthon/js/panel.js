@@ -408,6 +408,8 @@ function loadSozluknetSearchResults(data) {
             var jsSource = audioSource.attr('href');
             var wavId = jsSource.slice(jsSource.lastIndexOf(','), -3).slice(2);
             SozlukNet.defaultAudioUrl = "http://www.sozluk.net/wavs/" + wordId + "/" + wavId + ".wav";
+        } else {
+            SozlukNet.defaultAudioUrl = "";
         }
 
         $tables.find("td").prop("width", null);
