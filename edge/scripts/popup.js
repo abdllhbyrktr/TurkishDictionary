@@ -471,6 +471,11 @@ function loadWordReferenceSearchResults(data) {
     if ($tables.length) {
         $("#articleWRD").html($tables[0].outerHTML);
 
+        // set the first audio source url.
+        var $listenWidget = $data.find('#listen_widget');
+        var audioSourceUrl = $listenWidget.length ?
+                Wordreference.baseUrl + $listenWidget.find('audio:first source').attr('src') : '';
+        Wordreference.defaultAudioUrl = audioSourceUrl;
         // remove un-desired sections.
         $(".wrtopsection").remove();
         $(".POS2").find("span").remove();
