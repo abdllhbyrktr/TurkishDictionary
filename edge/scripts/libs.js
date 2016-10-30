@@ -446,3 +446,13 @@ String.prototype.getLanguageIcon = function() {
 
     return prefix + this;
 };
+
+String.prototype.getOnlyWord = function() {
+    var word = this;
+    word = word.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
+    word = word.replace(/^\s+|\s+$/g, "");
+    word = word.replace(/\s{2,128}/g, " ");
+    word = word.replace("'", "\\'");
+
+    return word;
+};

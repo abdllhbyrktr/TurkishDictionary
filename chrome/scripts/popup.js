@@ -446,15 +446,48 @@ function loadTdkSearchResults(data) {
 }
 
 function loadDictionaryReferenceSearchResults(data) {
-    var $defList = $(data).find(".def-list");
+    var $data = $(data);
+    var $defList = $data.find(".def-list");
     if ($defList.length) {
+        // set the first audio source url.
+        DictionaryReference.defaultAudioUrl = $data.find('.source-box .audio-wrapper audio source:first').attr('src');
         $(".source-data").html($defList[0].outerHTML);
-        // remove links.
-        $(".def-content").find("a").each(function () {
-            var linkContent = "<span>" + $(this).html() + "</span>";
-            $(this).replaceWith(linkContent);
+        // remove somethings for clean result.
+        $('.source-data .def-pbk').each(function () {
+            $(this).find('.def-set').slice(5).remove();
         });
+        $('.source-data .def-number').remove();
+        $('.source-data .luna-data-header').children(':not(.dbox-pg)').remove();
+        // re-organize links.
+        $('.source-data .def-content').each(function () {
+            if ($(this).find('div').length <= 0) {
+                $(this).html($(this).text());
+            }
+            
+            // replace text content to a span
+            var html = $(this).html();
+            $(this).contents().filter(function () {
+                return this.nodeType == Node.TEXT_NODE;
+            }).each(function () {
+                if (this.textContent && this.textContent.getOnlyWord() != '') {
+                    html = html.replace(this.textContent, '<span class="replaced">' + this.textContent + '</span>');
+                }
+            });
 
+            $(this).html(html);
+            $(this).find('.replaced').each(function() {
+                addHighlights($(this), false);
+            });
+            
+            $(this).find('div span').each(function() {
+                addHighlights($(this), false);
+            });
+            
+            $(this).children('span:not(.replaced)').each(function() {
+                addHighlights($(this), false);
+            });
+        });
+        $(".source-data .def-content").find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
     } else {
         $(".source-data").html("<h1>" + ExtensionCore.i18n("app_notFound") + "</h1>");
     }
@@ -528,35 +561,27 @@ function addToSearchPage(html, results) {
     $(".searchResultsTable").find("tr").slice(results).remove();
 }
 
-function reOrganizeLinks(item) {
-    var text = $(this).text();
-
-    if (/\([^)]*\)/g.test(text)) {
-        return;
-    }
-
-    text = text.replace(/[0-9"`\/|&?!:;.,_-]/g, " ");
-    text = text.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
-    text = text.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
-    text = text.replace("'", "\\'");
-    $(this).on("click", function(e) {
-        panelTab.translate(text);
-    });
-
-    // add highlights.
-    var arr = $(this).text().split(" ");
+function addHighlights($elem, fireEvent) {
+    var arr = $elem.text().trim().split(' ');
     if (arr.length > 1) {
         for (var i = 0; i < arr.length; i++) {
-            arr[i] = arr[i].replace("/", "</span>/<span>");
+            arr[i] = arr[i].replace('/', '</span>/<span class="click-available">');
         }
 
-        var newText = arr.join("</span> <span>");
-        newText = "<span>" + newText + "</span>";
-        newText = newText.replace("<span>(", "(<span>");
-        newText = newText.replace(")</span>", "</span>)");
+        var newText = arr.join('</span> <span class="click-available">');
+        newText = '<span class="click-available">' + newText + "</span>";
+        newText = newText.replace('<span class="click-available">(', '(<span class="click-available">');
+        newText = newText.replace(')</span>', '</span>)');
+        $elem.html(newText);
+        
+        if (!fireEvent) {
+            $elem.find(".click-available").on("click", function(e) {
+                panelTab.translate($(this).text().getOnlyWord());
+            });
+            return;
+        }
 
-        $(this).html(newText).find("span").each(function (index) {
-            //console.log($(this).text());
+        $elem.find("span").each(function (index) {
             $(this).hover(function () { // mouseover.
                 if (highlighted) {
                     highlightedText = $(this).text();
@@ -570,6 +595,21 @@ function reOrganizeLinks(item) {
             });
         });
     }
+}
+
+function reOrganizeLinks(item) {
+    var text = $(this).text();
+
+    if (/\([^)]*\)/g.test(text)) {
+        return;
+    }
+
+    $(this).on("click", function(e) {
+        panelTab.translate(text.getOnlyWord());
+    });
+
+    // add highlights if this is a sentence.
+    addHighlights($(this), true);
 }
 
 function loadTurengSearchResults(data) {

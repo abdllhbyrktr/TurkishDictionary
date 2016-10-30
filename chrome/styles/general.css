@@ -63,3 +63,7 @@ h1 {
     -webkit-user-select: none;
     list-style: none;
 }
+
+.click-available {
+    cursor: pointer
+}
