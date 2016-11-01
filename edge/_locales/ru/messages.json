@@ -31,6 +31,10 @@
     "message": "Выделение",
     "description": ""
   },
+  "app_autoPlayAudio": {
+    "message": "Auto-Play Audio",
+    "description": ""
+  },
   "app_backward": {
     "message": "Назад",
     "description": ""

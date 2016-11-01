@@ -1,6 +1,7 @@
 var dblclicked = false;
 var mouseSelected = false;
 var highlighted = false;
+var tabClicked = false;
 var highlightedText = "";
 var $hoveredSpan;
 var handleTimeout = 8000;
@@ -8,8 +9,8 @@ var maxNavigationHistory = 10;
 var yandexApiKey = "trnsl.1.1.20150328T004518Z.482e8153ea2baa64.d0a5debb3b13637b9c6cd2b12a9398efb62fbd9b";
 
 ExtensionCore.addAppListener(ExtensionCore.AppEvents.appShow, function () {
-    updateSwapLangs();
-    updateTabs();
+    //updateSwapLangs();
+    //updateTabs();
 });
 
 ExtensionCore.addAppListener(ExtensionCore.AppEvents.appHide, function () {
@@ -196,10 +197,28 @@ function sendSettings() {
     ExtensionCore.post("getSettings", obj);
 }
 
+function playAudio() {
+    var audioSource = getAudioSourceUrl(panelTab.getCurrentTab());
+    if (audioSource) {
+        var audio = new Audio(audioSource);
+        audio.play();
+    }
+}
+
+EventBus.on('ContainerLoaded', function () {
+    if (userConfig.autoPlayAudio) {
+        playAudio();
+    }
+});
+
 $(document).ready(function () {
     localizeHtml();
     // prevent right click on panel.
     $(document).bind("contextmenu", function (e) { return false; });
+
+    $("a[data-toggle='tab']").on("click", function (e) {
+        tabClicked = true;
+    });
 
     $("a[data-toggle='tab']").on("shown.bs.tab", function (e) {
         e.target // newly activated tab
@@ -207,9 +226,11 @@ $(document).ready(function () {
         var tabId = $(e.target).attr("aria-controls");
         // set current tab index
         panelTab.setCurrentTab(tabId);
-        // translate
-        var currentWord = userConfig.lastSearchTerm;
-        panelTab.translate(currentWord);
+        // translate if clicked.
+        if (tabClicked) {
+            tabClicked = false;
+            panelTab.translate(userConfig.lastSearchTerm);
+        }
     });
 
     $("#searchInput").on("keypress", function(e) {
@@ -353,11 +374,7 @@ $(document).ready(function () {
     });
 
     $(".navigationSound").click(function () {
-        var audioSource = getAudioSourceUrl(panelTab.getCurrentTab());
-        if (audioSource) {
-            var audio = new Audio(audioSource);
-            audio.play();
-        }
+        playAudio();
     });
 
     sendSettings();
@@ -418,6 +435,7 @@ function loadSozluknetSearchResults(data) {
         });
         $tables.find("a").attr({ href: "javascript:;", target: null });
         $(SozlukNet.divContainer).html($tables.find("table")[0].outerHTML);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $(SozlukNet.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
@@ -435,6 +453,7 @@ function loadAbbyySearchResults(data) {
         $abbyContainer.html($article[0].outerHTML);
         $abbyContainer.find('._3zJig').each(reOrganizeLinks);
         $abbyContainer.find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $(Abbyy.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
@@ -452,6 +471,7 @@ function loadTdkSearchResults(data) {
 
         $(TdkSozluk.divContainer).html(html);
         $("#tdkContainer td a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $(TdkSozluk.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
@@ -500,6 +520,7 @@ function loadDictionaryReferenceSearchResults(data) {
             });
         });
         $(".source-data .def-content").find("a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $(".source-data").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
@@ -543,12 +564,14 @@ function loadWordReferenceSearchResults(data) {
         $("#articleWRD .even").removeClass("even").addClass("wrEven");
         $("#articleWRD .odd").removeClass("odd").addClass("wrOdd");
         $("#articleWRD a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $tables = $data.find("#article");
         if ($tables.length) {
             $("#articleWRD").html($tables[0].outerHTML);
             $("#articleWRD").find(".small1").remove();
             $("#articleWRD a").attr({ href: "javascript:;", target: null }).each(reOrganizeLinks);
+            EventBus.trigger('ContainerLoaded');
         } else {
             $("#articleWRD").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
         }
@@ -724,15 +747,16 @@ function loadTurengSearchResults(data) {
             text = text.replace(/\//g, " / ");
             $td.html(text);
         });
+        // add titles into the abbrevations.
+        $(".visible-xs-inline").each(function() {
+            $(this).attr("title", Tureng.abbrv[$(this).html()]);
+        });
+        // re-organize all results for panel application.
+        $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(reOrganizeLinks);
+        EventBus.trigger('ContainerLoaded');
     } else {
         $("#searchPage").html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
     }
-    // add titles into the abbrevations.
-    $(".visible-xs-inline").each(function() {
-        $(this).attr("title", Tureng.abbrv[$(this).html()]);
-    });
-    // re-organize all results for panel application.
-    $(".searchResultsTable td a").attr({href: "javascript:;", target: null}).each(reOrganizeLinks);
 }
 
 function yandexTranslate(word) {

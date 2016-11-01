@@ -45,6 +45,15 @@ function UserConfig() {
             return ExtensionCore.setSetting("mouseSelected", value);
         }
     });
+
+    Object.defineProperty(this, "autoPlayAudio", {
+        get: function() {
+            return (ExtensionCore.getSetting("autoPlayAudio") == "true");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("autoPlayAudio", value);
+        }
+    });
 };
 
 var userConfig = new UserConfig();
@@ -57,13 +66,16 @@ var AvailableLangs = {
     French: "fr"
 };
 
-// restore settings.
+// restore default settings.
 if (!userConfig.fromLang) {
     userConfig.fromLang = AvailableLangs.English;
     userConfig.toLang = AvailableLangs.Turkish;
     userConfig.lastSearchTerm = userConfig.lastSearchTerm || "gezi parkı";
     userConfig.doubleClicked = false;
     userConfig.mouseSelected = false;
+}
+if (!userConfig.autoPlayAudio) {
+    userConfig.autoPlayAudio = false;
 }
 
 var BaseDictionary = {
@@ -422,3 +434,55 @@ String.prototype.getOnlyWord = function() {
 
     return word;
 };
+
+EventBus = (function () {
+
+    var _callbacks = {};
+
+    var on = function (eventName, callback) {
+        if (!_callbacks[eventName]) {
+            _callbacks[eventName] = [];
+        }
+
+        _callbacks[eventName].push(callback);
+    };
+
+    var off = function (eventName, callback) {
+        var callbacks = _callbacks[eventName];
+        if (!callbacks) {
+            return;
+        }
+
+        var index = -1;
+        for (var i = 0; i < callbacks.length; i++) {
+            if (callbacks[i] === callback) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index < 0) {
+            return;
+        }
+
+        _callbacks[eventName].splice(index, 1);
+    };
+
+    var trigger = function (eventName) {
+        var callbacks = _callbacks[eventName];
+        if (!callbacks || !callbacks.length) {
+            return;
+        }
+
+        var args = Array.prototype.slice.call(arguments, 1);
+        for (var i = 0; i < callbacks.length; i++) {
+            callbacks[i].apply(this, args);
+        }
+    };
+
+    return {
+        on: on,
+        off: off,
+        trigger: trigger
+    };
+})();

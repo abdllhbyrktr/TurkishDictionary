@@ -31,6 +31,10 @@
     "message": "Elle Seçme",
     "description": ""
   },
+  "app_autoPlayAudio": {
+    "message": "Sesi Otomatik Çal",
+    "description": ""
+  },
   "app_backward": {
     "message": "Geri",
     "description": ""

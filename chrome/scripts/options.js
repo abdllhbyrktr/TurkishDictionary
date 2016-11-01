@@ -8,6 +8,7 @@ $(document).ready(function () {
     // restore settings from config.
     $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
     $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
+    $("#onOffAutoPlayAudio").prop("checked", userConfig.autoPlayAudio ? "checked" : null);
     $("input[type='radio'][name='fromLang'][value='" + userConfig.fromLang + "']")
         .prop("checked", "checked")
         .parent("label").addClass("active");
@@ -52,6 +53,10 @@ $(document).ready(function () {
     $("#onOffSelection").change(function () {
         userConfig.mouseSelected = $(this).is(":checked");
         ExtensionCore.post("toggleSettingsForSelection", userConfig.mouseSelected);
+    });
+
+    $("#onOffAutoPlayAudio").change(function () {
+        userConfig.autoPlayAudio = $(this).is(":checked");
     });
 
     showOrHideDicts(userConfig.fromLang, userConfig.toLang);

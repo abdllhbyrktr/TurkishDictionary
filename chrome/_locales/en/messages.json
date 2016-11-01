@@ -31,6 +31,10 @@
     "message": "Selection",
     "description": ""
   },
+  "app_autoPlayAudio": {
+    "message": "Auto-Play Audio",
+    "description": ""
+  },
   "app_backward": {
     "message": "Back",
     "description": ""

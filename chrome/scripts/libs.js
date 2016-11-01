@@ -16,6 +16,7 @@ var UserConfig = (function() {
         this._doubleClicked = false;
         this._mouseSelected = false;
         this._currentTab = "turengTab";
+        this._autoPlayAudio = false;
 
         // initialize.
         if (ExtensionCore.allStorage.hasOwnProperty("fromLang")) {
@@ -25,6 +26,7 @@ var UserConfig = (function() {
             this._doubleClicked = ExtensionCore.allStorage["doubleClicked"];
             this._mouseSelected = ExtensionCore.allStorage["mouseSelected"];
             this._currentTab = ExtensionCore.allStorage["currentTab"];
+            this._autoPlayAudio = ExtensionCore.allStorage["autoPlayAudio"];
         } else {
             ExtensionCore.setSetting("fromLang", this._fromLang);
             ExtensionCore.setSetting("toLang", this._toLang);
@@ -32,6 +34,7 @@ var UserConfig = (function() {
             ExtensionCore.setSetting("doubleClicked", this._doubleClicked);
             ExtensionCore.setSetting("mouseSelected", this._mouseSelected);
             ExtensionCore.setSetting("currentTab", this._currentTab);
+            ExtensionCore.setSetting("autoPlayAudio", this._autoPlayAudio);
         }
     }
     
@@ -92,6 +95,16 @@ var UserConfig = (function() {
         set: function(value) {
             this._currentTab = value;
             ExtensionCore.setSetting("currentTab", value);
+        }
+    });
+
+    Object.defineProperty(UserConfig.prototype, "autoPlayAudio", {
+        get: function() {
+            return this._autoPlayAudio;
+        },
+        set: function(value) {
+            this._autoPlayAudio = value;
+            return ExtensionCore.setSetting("autoPlayAudio", value);
         }
     });
 
@@ -456,3 +469,55 @@ String.prototype.getOnlyWord = function() {
 
     return word;
 };
+
+EventBus = (function () {
+
+    var _callbacks = {};
+
+    var on = function (eventName, callback) {
+        if (!_callbacks[eventName]) {
+            _callbacks[eventName] = [];
+        }
+
+        _callbacks[eventName].push(callback);
+    };
+
+    var off = function (eventName, callback) {
+        var callbacks = _callbacks[eventName];
+        if (!callbacks) {
+            return;
+        }
+
+        var index = -1;
+        for (var i = 0; i < callbacks.length; i++) {
+            if (callbacks[i] === callback) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index < 0) {
+            return;
+        }
+
+        _callbacks[eventName].splice(index, 1);
+    };
+
+    var trigger = function (eventName) {
+        var callbacks = _callbacks[eventName];
+        if (!callbacks || !callbacks.length) {
+            return;
+        }
+
+        var args = Array.prototype.slice.call(arguments, 1);
+        for (var i = 0; i < callbacks.length; i++) {
+            callbacks[i].apply(this, args);
+        }
+    };
+
+    return {
+        on: on,
+        off: off,
+        trigger: trigger
+    };
+})();
