@@ -114,6 +114,26 @@ var UserConfig = (function() {
         }
     });
 
+    Object.defineProperty(UserConfig.prototype, "autoDisplayImage", {
+        get: function() {
+            return this._autoDisplayImage;
+        },
+        set: function(value) {
+            this._autoDisplayImage = value;
+            return ExtensionCore.setSetting("autoDisplayImage", value);
+        }
+    });
+
+    Object.defineProperty(UserConfig.prototype, "lastImageSearchTerm", {
+        get: function() {
+            return this._lastImageSearchTerm;
+        },
+        set: function(value) {
+            this._lastImageSearchTerm = value;
+            return ExtensionCore.setSetting("lastImageSearched", value);
+        }
+    });
+
     return UserConfig;
 })();
 
