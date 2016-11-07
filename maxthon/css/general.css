@@ -67,3 +67,8 @@ h1 {
 .click-available {
     cursor: pointer
 }
+
+#imageResultModal img {
+    width: 300px;
+    height: auto;
+}

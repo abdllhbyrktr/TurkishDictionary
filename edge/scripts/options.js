@@ -9,6 +9,7 @@ $(document).ready(function () {
     $("#onOffDblClick").prop("checked", userConfig.doubleClicked ? "checked" : null);
     $("#onOffSelection").prop("checked", userConfig.mouseSelected ? "checked" : null);
     $("#onOffAutoPlayAudio").prop("checked", userConfig.autoPlayAudio ? "checked" : null);
+    $("#onOffAutoDisplayImage").prop("checked", userConfig.autoDisplayImage ? "checked" : null);
     $("input[type='radio'][name='fromLang'][value='" + userConfig.fromLang + "']")
         .prop("checked", "checked")
         .parent("label").addClass("active");
@@ -59,5 +60,7 @@ $(document).ready(function () {
         userConfig.autoPlayAudio = $(this).is(":checked");
     });
 
-    showOrHideDicts(userConfig.fromLang, userConfig.toLang);
+    $("#onOffAutoDisplayImage").change(function () {
+        userConfig.autoDisplayImage = $(this).is(":checked");
+    });
 });

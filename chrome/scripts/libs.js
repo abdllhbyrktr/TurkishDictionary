@@ -17,6 +17,8 @@ var UserConfig = (function() {
         this._mouseSelected = false;
         this._currentTab = "turengTab";
         this._autoPlayAudio = false;
+        this._autoDisplayImage = false;
+        this._lastImageSearchTerm = "gezi parkı";
 
         // initialize.
         if (ExtensionCore.allStorage.hasOwnProperty("fromLang")) {
@@ -27,6 +29,8 @@ var UserConfig = (function() {
             this._mouseSelected = ExtensionCore.allStorage["mouseSelected"];
             this._currentTab = ExtensionCore.allStorage["currentTab"];
             this._autoPlayAudio = ExtensionCore.allStorage["autoPlayAudio"];
+            this._autoDisplayImage = ExtensionCore.allStorage["autoDisplayImage"];
+            this._lastImageSearchTerm = ExtensionCore.allStorage["lastImageSearchTerm"];
         } else {
             ExtensionCore.setSetting("fromLang", this._fromLang);
             ExtensionCore.setSetting("toLang", this._toLang);
@@ -35,6 +39,8 @@ var UserConfig = (function() {
             ExtensionCore.setSetting("mouseSelected", this._mouseSelected);
             ExtensionCore.setSetting("currentTab", this._currentTab);
             ExtensionCore.setSetting("autoPlayAudio", this._autoPlayAudio);
+            ExtensionCore.setSetting("autoDisplayImage", this._autoDisplayImage);
+            ExtensionCore.setSetting("lastImageSearchTerm", this._lastImageSearchTerm);
         }
     }
     

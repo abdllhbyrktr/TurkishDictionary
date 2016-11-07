@@ -31,8 +31,24 @@
     "message": "Elle Seçme",
     "description": ""
   },
+  "app_playAudio": {
+    "message": "Sesi Çal",
+    "description": ""
+  },
+  "app_displayImage": {
+    "message": "Görsele Bak",
+    "description": ""
+  },
   "app_autoPlayAudio": {
     "message": "Sesi Otomatik Çal",
+    "description": ""
+  },
+  "app_autoDisplayImage": {
+    "message": "Görseli Otomatik Göster",
+    "description": ""
+  },
+  "app_close": {
+    "message": "Kapat",
     "description": ""
   },
   "app_backward": {

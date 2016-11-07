@@ -54,6 +54,24 @@ function UserConfig() {
             return ExtensionCore.setSetting("autoPlayAudio", value);
         }
     });
+
+    Object.defineProperty(this, "autoDisplayImage", {
+        get: function() {
+            return (ExtensionCore.getSetting("autoDisplayImage") == "true");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("autoDisplayImage", value);
+        }
+    });
+
+    Object.defineProperty(this, "lastImageSearchTerm", {
+        get: function() {
+            return ExtensionCore.getSetting("lastImageSearched");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("lastImageSearched", value);
+        }
+    });
 };
 
 var userConfig = new UserConfig();
@@ -76,6 +94,10 @@ if (!userConfig.fromLang) {
 }
 if (!userConfig.autoPlayAudio) {
     userConfig.autoPlayAudio = false;
+}
+if (!userConfig.autoDisplayImage) {
+    userConfig.autoDisplayImage = false;
+    userConfig.lastImageSearchTerm = userConfig.lastImageSearchTerm || "gezi parkı";
 }
 
 var BaseDictionary = {

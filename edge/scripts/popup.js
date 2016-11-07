@@ -79,6 +79,7 @@ var PanelTab = (function () {
             $("#mainPageBottom").show();
         }
 
+        $('#imageResultModal').modal('hide');
         $("#searchInput").val(word.toLowerCase());
         $("#searchInput").focus();
         userConfig.lastSearchTerm = word;
@@ -191,11 +192,52 @@ function playAudio() {
         var audio = new Audio(audioSource);
         audio.play();
     }
+    
+    $(".navigationSound").button('reset');
+}
+
+function displayImageResult(clicked) {
+    if (!clicked && userConfig.lastImageSearchTerm == userConfig.lastSearchTerm) {
+        return;
+    }
+
+    // load image from google images.
+    var url = 'https://www.google.com/search?q=' + userConfig.lastSearchTerm + '&tbm=isch';
+    var $modalImgDiv = $('#imageResultModal .modal-body div:first');
+    getHtmlData(url, $modalImgDiv, function (data) {
+        var firstMetaData = $(data).find('#rg_s > div:nth-child(1) > .rg_meta');
+        if (firstMetaData.length) {
+            var src = '';
+            var firstMetaObj = JSON.parse(firstMetaData.text());
+            if (firstMetaObj.hasOwnProperty('tu')) {
+                src = firstMetaObj.tu;
+            } else if (firstMetaObj.hasOwnProperty('ou')) {
+                src = firstMetaObj.ou;
+            }
+
+            if (src.length) {
+                $('#imageResultModal .modal-title').html(userConfig.lastSearchTerm.substring(0, 32));
+                $modalImgDiv.html('<img src="' + src + '" alt="">');
+                $('#imageResultModal').modal({ keyboard: false });
+            }
+
+            userConfig.lastImageSearchTerm = userConfig.lastSearchTerm;
+            $(".navigationImageResult").button('reset');
+        }
+    });
+
+    setTimeout(function() {
+        $(".navigationImageResult").button('reset');
+    }, 3000);
 }
 
 EventBus.on('ContainerLoaded', function () {
     if (userConfig.autoPlayAudio) {
         playAudio();
+    }
+
+    if (userConfig.autoDisplayImage) {
+        displayImageResult(false);
     }
 });
 
@@ -362,7 +404,13 @@ $(document).ready(function () {
     });
 
     $(".navigationSound").click(function () {
+        $(this).button('loading');
         playAudio();
+    });
+
+    $(".navigationImageResult").click(function () {
+        $(this).button('loading');
+        displayImageResult(true);
     });
 
     sendSettings();

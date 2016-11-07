@@ -156,7 +156,8 @@
                     <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-default navigationBack">&#x1f448;</button>
                         <button type="button" class="btn btn-default navigationForward">&#x1f449;</button>
-                        <button type="button" class="btn btn-default navigationSound">&#x1f50a;</button>
+                        <button type="button" data-lang-title="app_playAudio" title="Play Audio" data-loading-text="..." class="btn btn-default navigationSound">&#x1f50a;</button>
+                        <button type="button" data-lang-title="app_displayImage" title="Display Image" data-loading-text="..." class="btn btn-default navigationImageResult">&#x1f4f0;</button>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -261,6 +262,24 @@
             <footer id="mainPageBottom" class="footer page-header">
                 <a href="javascript:;" id="clickMore" style="color: darkcyan" data-lang="app_more">Click More...</a>
             </footer>
+        </div>
+        <div id="imageResultModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row text-center">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" data-lang="app_close">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
     <script src="scripts/jquery.min.js"></script>
