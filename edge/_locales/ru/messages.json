@@ -87,8 +87,8 @@
     "message": "Итальянский",
     "description": ""
   },
-  "app_zhCn": {
-    "message": "Китайский (упрощённый)",
+  "app_cn": {
+    "message": "Китайский",
     "description": ""
   },
   "app_ptBr": {
@@ -97,18 +97,6 @@
   },
   "app_elGr": {
     "message": "Греческий",
-    "description": ""
-  },
-  "app_options1": {
-    "message": "Выберите языки, с которыми хотите работать.",
-    "description": ""
-  },
-  "app_options2": {
-    "message": "Выберите подходящие варианты работы расширения.",
-    "description": ""
-  },
-  "app_options3": {
-    "message": "Выберите сайты, с которыми хотите работать (сайты, которые нельзя выбрать, не поддерживают выбранный вами язык).",
     "description": ""
   },
   "app_notFound": {

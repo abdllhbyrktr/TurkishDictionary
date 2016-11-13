@@ -23,17 +23,48 @@
                 <div class="col-md-12">
                     <h3 data-lang="app.settings">Settings</h3>
                     <hr/>
-                    <h3 data-lang="app.options1">
-                        Choose language group which you want.
-                    </h3>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <span data-lang="app.dblclick">x2 Click:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffDblClick"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-lang="app.selection">Selection:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffSelection"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-lang="app.autoPlayAudio">Auto-Play Audio:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffAutoPlayAudio" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffAutoPlayAudio"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-lang="app.autoDisplayImage">Auto-Display Image:</span>
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" id="onOffAutoDisplayImage" name="onoffswitch" class="onoffswitch-checkbox" />
+                                        <label class="onoffswitch-label" for="onOffAutoDisplayImage"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-11">
                             <h3>
-                                <span class="label label-default">
+                                <span class="label label-default" data-lang="app.fromLang">
                                     From Language:
                                 </span>
                             </h3>
-                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                            <div class="btn-group btn-group-sm" data-toggle="buttons">
                                 <label class="btn btn-primary">
                                     <i class="famfamfam-flag-us"></i>
                                     <input type="radio" name="fromLang" id="enFrom" value="en" autocomplete="off">
@@ -64,17 +95,22 @@
                                     <input type="radio" name="fromLang" id="frFrom" value="fr" autocomplete="off">
                                     &nbsp;<span data-lang="app.fr">French</span>
                                 </label>
+                                <label class="btn btn-primary">
+                                    <i class="famfamfam-flag-cn"></i>
+                                    <input type="radio" name="fromLang" id="cnFrom" value="cn" autocomplete="off">
+                                    &nbsp;<span data-lang="app.cn">Chinese</span>
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-11">
                             <h3>
-                                <span class="label label-default">
+                                <span class="label label-default" data-lang="app.toLang">
                                     To Language:
                                 </span>
                             </h3>
-                            <div class="btn-group btn-group-lg" data-toggle="buttons">
+                            <div class="btn-group btn-group-sm" data-toggle="buttons">
                                 <label class="btn btn-success">
                                     <i class="famfamfam-flag-us"></i>
                                     <input type="radio" name="toLang" id="enTo" value="en" autocomplete="off">
@@ -105,14 +141,16 @@
                                     <input type="radio" name="toLang" id="frTo" value="fr" autocomplete="off">
                                     &nbsp;<span data-lang="app.fr">French</span>
                                 </label>
+                                <label class="btn btn-success">
+                                    <i class="famfamfam-flag-cn"></i>
+                                    <input type="radio" name="toLang" id="cnTo" value="cn" autocomplete="off">
+                                    &nbsp;<span data-lang="app.cn">French</span>
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row page-header">
                         <div class="col-md-11">
-                            <h3 data-lang="app.options3">
-                                Choose supported web sites.
-                            </h3>
                             <div class="btn-group btn-group-lg" data-toggle="buttons">
                                 <label class="btn btn-default active">
                                     <img src="css/tureng32.png" class="img-rounded" alt="Tureng"/>
@@ -145,47 +183,15 @@
                                     &nbsp;<span>Abbyy</span>
                                 </label>
                                 <label class="btn btn-default">
-                                    <img src="css/sozlukNet32.png" class="img-rounded" alt="Sozluk.net"/>
+                                    <img src="css/sozluknet32.png" class="img-rounded" alt="Sozluk.net"/>
                                     <input type="checkbox" name="dict" id="cSozluknet" value="Sozluk.net" autocomplete="off">
                                     &nbsp;<span>Sozluk.net</span>
                                 </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-11">
-                            <h3 data-lang="app.options2">
-                                Set the features of the extension on pages.
-                            </h3>
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <span data-lang="app.dblclick">x2 Click:</span>
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" id="onOffDblClick" name="onoffswitch" class="onoffswitch-checkbox" />
-                                        <label class="onoffswitch-label" for="onOffDblClick"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <span data-lang="app.selection">Selection:</span>
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" id="onOffSelection" name="onoffswitch" class="onoffswitch-checkbox" />
-                                        <label class="onoffswitch-label" for="onOffSelection"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <span data-lang="app.autoPlayAudio">Auto-Play Audio:</span>
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" id="onOffAutoPlayAudio" name="onoffswitch" class="onoffswitch-checkbox" />
-                                        <label class="onoffswitch-label" for="onOffAutoPlayAudio"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <span data-lang="app.autoDisplayImage">Auto-Display Image:</span>
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" id="onOffAutoDisplayImage" name="onoffswitch" class="onoffswitch-checkbox" />
-                                        <label class="onoffswitch-label" for="onOffAutoDisplayImage"></label>
-                                    </div>
-                                </div>
+                                <label class="btn btn-default">
+                                    <img src="css/dictcn32.png" class="img-rounded" alt="Dict.cn"/>
+                                    <input type="checkbox" name="dict" id="cDictcn" value="Dict.cn" autocomplete="off">
+                                    &nbsp;<span>Dict.cn</span>
+                                </label>
                             </div>
                         </div>
                     </div>

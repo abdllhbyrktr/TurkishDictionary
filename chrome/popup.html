@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="styles/yandex.css">
     <link rel="stylesheet" href="styles/tdk.css">
     <link rel="stylesheet" href="styles/abbyy.css">
-    <link rel="stylesheet" href="styles/sozlukNet.css">
+    <link rel="stylesheet" href="styles/sozluknet.css">
+    <link rel="stylesheet" href="styles/dictcn.css">
     <link rel="stylesheet" href="styles/onoff.css">
     <title data-lang="app_title">Dictionary</title>
 </head>
@@ -101,6 +102,12 @@
                                 <span data-lang="app_fr">French</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="javascript:;" id="cnFrom" data-value="cn">
+                                <i class="famfamfam-flag-cn"></i>
+                                <span data-lang="app_cn">Chinese</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="btn-group btn-group-xs">
@@ -146,6 +153,12 @@
                             <a href="javascript:;" id="frTo" data-value="fr">
                                 <i class="famfamfam-flag-fr"></i>
                                 <span data-lang="app_fr">French</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="cnTo" data-value="cn">
+                                <i class="famfamfam-flag-cn"></i>
+                                <span data-lang="app_cn">Chinese</span>
                             </a>
                         </li>
                     </ul>
@@ -197,6 +210,11 @@
                             </a>
                         </li>
                         <li role="presentation">
+                            <a href="#dictCnTab" aria-controls="dictCnTab" role="tab" data-toggle="tab" title="Dict.cn">
+                                <img src="images/dictcn32.png" alt="Dict.cn">
+                            </a>
+                        </li>
+                        <li role="presentation">
                             <a href="#yandexTab" aria-controls="yandexTab" role="tab" data-toggle="tab" title="Yandex.Translate">
                                 <img src="images/yandex32.png" alt="Yandex.Translate">
                             </a>
@@ -236,6 +254,11 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="sozlukNetTab">
                             <div id="sozlukNetContainer">
+                                <h1 data-lang="app_loading">Loading...</h1>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="dictCnTab">
+                            <div id="dictCnContainer">
                                 <h1 data-lang="app_loading">Loading...</h1>
                             </div>
                         </div>

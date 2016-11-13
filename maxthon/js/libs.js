@@ -81,7 +81,8 @@ var AvailableLangs = {
     Russian: "ru",
     German: "de",
     Spanish: "es",
-    French: "fr"
+    French: "fr",
+    Chinese: "cn"
 };
 
 // restore default settings.
@@ -217,42 +218,56 @@ var YandexTranslate = {
             de: "&lang=en-de&text=",
             es: "&lang=en-es&text=",
             fr: "&lang=en-fr&text=",
-            ru: "&lang=en-ru&text="
+            ru: "&lang=en-ru&text=",
+            cn: "&lang=en-zh&text="
         },
         tr: {
             en: "&lang=tr-en&text=",
             de: "&lang=tr-de&text=",
             es: "&lang=tr-es&text=",
             fr: "&lang=tr-fr&text=",
-            ru: "&lang=tr-ru&text="
+            ru: "&lang=tr-ru&text=",
+            cn: "&lang=tr-zh&text="
         },
         de: {
             tr: "&lang=de-tr&text=",
             en: "&lang=de-en&text=",
             es: "&lang=de-es&text=",
             fr: "&lang=de-fr&text=",
-            ru: "&lang=de-ru&text="
+            ru: "&lang=de-ru&text=",
+            cn: "&lang=de-zh&text="
         },
         es: {
             tr: "&lang=es-tr&text=",
             en: "&lang=es-en&text=",
             de: "&lang=es-de&text=",
             fr: "&lang=es-fr&text=",
-            ru: "&lang=es-ru&text="
+            ru: "&lang=es-ru&text=",
+            cn: "&lang=es-zh&text="
         },
         fr: {
             tr: "&lang=fr-tr&text=",
             en: "&lang=fr-en&text=",
             de: "&lang=fr-de&text=",
             es: "&lang=fr-es&text=",
-            ru: "&lang=fr-ru&text="
+            ru: "&lang=fr-ru&text=",
+            cn: "&lang=fr-zh&text="
         },
         ru: {
             tr: "&lang=ru-tr&text=",
             en: "&lang=ru-en&text=",
             de: "&lang=ru-de&text=",
             es: "&lang=ru-es&text=",
-            fr: "&lang=ru-fr&text="
+            fr: "&lang=ru-fr&text=",
+            cn: "&lang=ru-zh&text="
+        },
+        cn: {
+            tr: "&lang=zh-tr&text=",
+            en: "&lang=zh-en&text=",
+            de: "&lang=zh-de&text=",
+            es: "&lang=zh-es&text=",
+            fr: "&lang=zh-fr&text=",
+            ru: "&lang=zh-ru&text="
         }
     }
 };
@@ -299,6 +314,7 @@ var SozlukNet = {
         },
         tr: {
             en: "?sozluk=ingilizce&word=",
+            tr: "?sozluk=turkce&word=",
             de: "?sozluk=almanca&word=",
             es: "?sozluk=ispanyolca&word=",
             fr: "?sozluk=fransizca&word=",
@@ -318,6 +334,25 @@ var SozlukNet = {
         }
     }
 };
+var DictCn = {
+    langs: {
+        en: {
+            cn: ""
+        },
+        es: {
+            cn: ""
+        },
+        de: {
+            cn: ""
+        },
+        fr: {
+            cn: ""
+        },
+        ru: {
+            cn: ""
+        }
+    }
+};
 var NotSupported = {
     langs: {
         de: {
@@ -328,6 +363,9 @@ var NotSupported = {
         },
         fr: {
             fr: ""
+        },
+        cn: {
+            cn: ""
         }
     }
 };
@@ -339,6 +377,7 @@ _.extend(YandexTranslate, BaseDictionary);
 _.extend(TdkSozluk, BaseDictionary);
 _.extend(Abbyy, BaseDictionary);
 _.extend(SozlukNet, BaseDictionary);
+_.extend(DictCn, BaseDictionary);
 _.extend(NotSupported, BaseDictionary);
 
 Tureng.name = "Tureng";
@@ -369,12 +408,16 @@ SozlukNet.name = "Sozluk.net";
 SozlukNet.baseUrl = "http://sozluk.net/index.php";
 SozlukNet.tabId = "sozlukNetTab";
 SozlukNet.divContainer = "#sozlukNetContainer";
+DictCn.name = "Dict.cn";
+DictCn.baseUrl = "http://dict.cn/";
+DictCn.tabId = "dictCnTab";
+DictCn.divContainer = "#dictCnContainer";
 NotSupported.name = "Not Supported";
 NotSupported.baseUrl = "#";
 NotSupported.tabId = "notSupportedTab";
 NotSupported.divContainer = "#notSupportedContainer";
 
-var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet, NotSupported];
+var AllWebsites = [Tureng, Wordreference, DictionaryReference, YandexTranslate, TdkSozluk, Abbyy, SozlukNet, DictCn, NotSupported];
 
 function getUrl(tabName) {
     return _.findWhere(AllWebsites, {tabId: tabName}).getUrl();

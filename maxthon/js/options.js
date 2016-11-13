@@ -15,10 +15,10 @@ $(document).ready(function () {
         .prop("checked", "checked")
         .parent("label").addClass("active");
 
-    var showOrHideDicts = function(fromLang, toLang) {
+    var showOrHideDicts = function(fromLang, toLang, updatePanel) {
         userConfig.fromLang = fromLang;
         userConfig.toLang = toLang;
-        ExtensionCore.post("updateTabs", fromLang);
+        updatePanel && ExtensionCore.post("updateTabs", fromLang);
         AllWebsites.forEach(function(element, index, array) {
             var $el = $("input[type='checkbox'][value='" + element.name + "']");
             if (!element.isSupported(fromLang, toLang)) {
@@ -35,13 +35,13 @@ $(document).ready(function () {
     $("input[type='radio'][name='fromLang']").on("change", function() {
         var fromLang = $(this).val();
         var toLang = $("input[type='radio'][name='toLang']:checked").val();
-        showOrHideDicts(fromLang, toLang);
+        showOrHideDicts(fromLang, toLang, true);
     });
 
     $("input[type='radio'][name='toLang']").on("change", function() {
         var toLang = $(this).val();
         var fromLang = $("input[type='radio'][name='fromLang']:checked").val();
-        showOrHideDicts(fromLang, toLang);
+        showOrHideDicts(fromLang, toLang, true);
     });
 
     $("#onOffDblClick").change(function () {
@@ -61,4 +61,6 @@ $(document).ready(function () {
     $("#onOffAutoDisplayImage").change(function () {
         userConfig.autoDisplayImage = $(this).is(":checked");
     });
+    
+    showOrHideDicts(userConfig.fromLang, userConfig.toLang, false);
 });

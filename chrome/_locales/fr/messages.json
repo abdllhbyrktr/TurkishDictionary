@@ -87,8 +87,8 @@
     "message": "Italian",
     "description": ""
   },
-  "app_zhCn": {
-    "message": "Chinese Simplified",
+  "app_cn": {
+    "message": "Chinese",
     "description": ""
   },
   "app_ptBr": {
@@ -97,18 +97,6 @@
   },
   "app_elGr": {
     "message": "Greek",
-    "description": ""
-  },
-  "app_options1": {
-    "message": "Choisir la langue.",
-    "description": ""
-  },
-  "app_options2": {
-    "message": "Paramétrer les extensions.",
-    "description": ""
-  },
-  "app_options3": {
-    "message": "Choisir les sites supportés.",
     "description": ""
   },
   "app_notFound": {

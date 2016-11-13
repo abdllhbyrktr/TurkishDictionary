@@ -87,7 +87,7 @@
     "message": "İtalyanca",
     "description": ""
   },
-  "app_zhCn": {
+  "app_cn": {
     "message": "Çince",
     "description": ""
   },
@@ -97,18 +97,6 @@
   },
   "app_elGr": {
     "message": "Yunanca",
-    "description": ""
-  },
-  "app_options1": {
-    "message": "İstediğiniz bir dili seçiniz.",
-    "description": ""
-  },
-  "app_options2": {
-    "message": "Diğer sayfa özelliklerini ayarlayın.",
-    "description": ""
-  },
-  "app_options3": {
-    "message": "Aşağıdaki uzantının desteklediği siteler seçili haldedir (Seçilemeyen sözlükler desteklemediği anlamındadır).",
     "description": ""
   },
   "app_notFound": {

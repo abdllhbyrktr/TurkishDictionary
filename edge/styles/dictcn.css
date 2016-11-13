@@ -1,0 +1,72 @@
+#dictCnContainer {
+  font: 10pt/1.75 Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+.word {
+  padding-top: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.word-cont {
+  overflow: hidden;
+}
+
+.word h1 {
+  line-height: 1.25em;
+  padding-right: 20px;
+  font-size: 30px;
+  color: #094;
+  font-family: Verdana, Geneva, sans-serif;
+  word-wrap: break-word;
+}
+
+.word h1,
+.wordbook {
+  float: left;
+}
+
+.phonetic {
+  padding-top: 6px;
+  clear: left;
+  height: 28px;
+}
+
+.phonetic bdo {
+  font-family: 'lucida sans unicode', arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.basic {
+  margin-top: 15px;
+}
+
+.dict-basic-ul {
+  float: left;
+  overflow: hidden;
+  list-style: none;
+  margin-left: -40px;
+}
+
+.basic ul {
+  float: left;
+  overflow: hidden;
+  list-style: none;
+  margin-left: -40px;
+}
+
+.basic li {
+  line-height: 30px;
+}
+
+.basic span {
+  min-width: 2em;
+  display: inline-block;
+  padding-right: .5em;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #094;
+}

@@ -449,6 +449,29 @@ function getHtmlData(url, notifyContainer, loadFunc) {
     });
 }
 
+function loadDictCnSearchResults(data) {
+    var $data = $(data);
+    var $word = $data.find('.word');
+    if ($word.length > 0) {
+        // set the first audio source url.
+        DictCn.defaultAudioUrl = 'http://audio.dict.cn/' + $word.find('.sound:first').attr('naudio');
+
+        $word.find('.sound').remove();
+        $word.find('.word-cont a').remove();
+        $word.find('.wordbook').remove();
+        $word.find('.level-title').remove();
+        $word.find('.basic ul li:last').remove();
+        $word.find('.dict-basic-ul li:last').remove();
+        $word.find('.shape').remove();
+        $word.find('.dict-chart').remove();
+        $word.find("a").attr({ href: "javascript:;", target: null });
+        $(DictCn.divContainer).html($word[0].outerHTML);
+        EventBus.trigger('ContainerLoaded');
+    } else {
+        $(DictCn.divContainer).html("<h1>" + ExtensionCore.i18n("app.notFound") + "</h1>");
+    }
+}
+
 function loadSozluknetSearchResults(data) {
     var selector = "#" + userConfig.fromLang + userConfig.toLang;
     var $data = $(data);
@@ -817,3 +840,4 @@ DictionaryReference.loadFunc = loadDictionaryReferenceSearchResults;
 TdkSozluk.loadFunc = loadTdkSearchResults;
 Abbyy.loadFunc = loadAbbyySearchResults;
 SozlukNet.loadFunc = loadSozluknetSearchResults;
+DictCn.loadFunc = loadDictCnSearchResults;
