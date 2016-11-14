@@ -183,7 +183,8 @@ var Wordreference = {
             de: "ende/",
             es: "es/translation.asp?tranword=",
             fr: "enfr/",
-            ru: "enru/"
+            ru: "enru/",
+            cn: "enzh/"
         },
         tr: {
             en: "tren/"
@@ -201,6 +202,9 @@ var Wordreference = {
         },
         ru: {
             en: "ruen/"
+        },
+        cn: {
+            en: "zhen/"
         }
     }
 };
