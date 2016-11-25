@@ -14,3 +14,7 @@ test
 *.crx
 *.mxaddon
 *.zip
+chrome/_locales/*
+!chrome/_locales/.gitkeep
+edge/_locales/*
+!edge/_locales/.gitkeep

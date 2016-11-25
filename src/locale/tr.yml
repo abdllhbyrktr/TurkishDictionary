@@ -1,0 +1,102 @@
+app_title:
+ message: Sözlük
+ description: The name of the application.
+app_description:
+ message: Web sayfalarında çift tıklama ya da elle seçilen kelimeleri, desteklediği sözlük sitelerinden aldığı sonuçlarla kendi paneli üzerinde gösteren bir uzantıdır.
+ description: Description of this extension.
+app_settings:
+ message: Ayarlar
+ description: Settings of this extension.
+app_translate:
+ message: Çevir
+ description: Translate caption of button.
+app_more:
+ message: Daha Fazlası için Tıklayın...
+ description: Go to website for details.
+app_loading:
+ message: Yükleniyor...
+ description: Loading message when getting data from website.
+app_dblclick:
+ message: Çift Tıklama
+ description: Double click feature on web page.
+app_selection:
+ message: Elle Seçme
+ description: Mouse selection feature on web page.
+app_playAudio:
+ message: Sesi Çal
+ description: Button caption for playing audio if exists.
+app_displayImage:
+ message: Görsele Bak
+ description: Button caption for displaying fist image for related search from Google Images.
+app_autoPlayAudio:
+ message: Sesi Otomatik Çal
+ description: Playing an audio automatically if exists.
+app_autoDisplayImage:
+ message: Görseli Otomatik Göster
+ description: Displaying first image for related search from Google Images.
+app_close:
+ message: Kapat
+ description: Button caption to close a modal dialog.
+app_backward:
+ message: Geri
+ description: Highlight message in navigation buttons.
+app_forward:
+ message: İleri
+ description: Highlight message in navigation buttons.
+app_tr:
+ message: Türkçe
+ description: Language name for hihglighting message, button caption etc.
+app_ru:
+ message: Rusça
+ description: Language name for hihglighting message, button caption etc.
+app_en:
+ message: İngilizce
+ description: Language name for hihglighting message, button caption etc.
+app_de:
+ message: Almanca
+ description: Language name for hihglighting message, button caption etc.
+app_es:
+ message: İspanyolca
+ description: Language name for hihglighting message, button caption etc.
+app_fr:
+ message: Fransızca
+ description: Language name for hihglighting message, button caption etc.
+app_it:
+ message: İtalyanca
+ description: Language name for hihglighting message, button caption etc.
+app_cn:
+ message: Çince
+ description: Language name for hihglighting message, button caption etc.
+app_ptBr:
+ message: Portekizce
+ description: Language name for hihglighting message, button caption etc.
+app_elGr:
+ message: Yunanca
+ description: Language name for hihglighting message, button caption etc.
+app_notFound:
+ message: Aradığınız terimin karşılığı bulunamadı!
+ description: If search term was not found and then display it.
+app_timeout:
+ message: Bağlantı zaman aşımına uğradı!
+ description: If the connection exceeds the limit of seconds then display it.
+app_swap:
+ message: Dillerin Yönünü Değiştir
+ description: Button highlight message for swapping languages.
+app_feedback:
+ message: Geri Bildirim
+ description: Hyperlink for feedback.
+app_type:
+ message: Bir sözcük girin...
+ description: Input placeholder for writing a search term.
+app_fromLang:
+ message: Birinci Dilden
+ description: Primary languge for searching.
+app_toLang:
+ message: İkinci Dile
+ description: Secondary language for searching.
+app_notSupported:
+ message: Desteklenmiyor!
+ description: If the from and to language combination has not a supported web site then display it.
+app_contribute:
+ message: Katkıda Bulunun
+ description: Hyperlink for github source code page for development.

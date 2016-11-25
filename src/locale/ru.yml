@@ -1,0 +1,102 @@
+app_title:
+ message: Cловарь
+ description: The name of the application.
+app_description:
+ message: Мгновенный перевод выделенного текста прямо в боковой панели.
+ description: Description of this extension.
+app_settings:
+ message: Настройки
+ description: Settings of this extension.
+app_translate:
+ message: Перевести
+ description: Translate caption of button.
+app_more:
+ message: Подробнее...
+ description: Go to website for details.
+app_loading:
+ message: Загрузка...
+ description: Loading message when getting data from website.
+app_dblclick:
+ message: Двойной клик
+ description: Double click feature on web page.
+app_selection:
+ message: Выделение
+ description: Mouse selection feature on web page.
+app_playAudio:
+ message: Play Audio
+ description: Button caption for playing audio if exists.
+app_displayImage:
+ message: Display Image
+ description: Button caption for displaying fist image for related search from Google Images.
+app_autoPlayAudio:
+ message: Auto-Play Audio
+ description: Playing an audio automatically if exists.
+app_autoDisplayImage:
+ message: Auto-Display Image
+ description: Displaying first image for related search from Google Images.
+app_close:
+ message: Close
+ description: Button caption to close a modal dialog.
+app_backward:
+ message: Назад
+ description: Highlight message in navigation buttons.
+app_forward:
+ message: Вперед
+ description: Highlight message in navigation buttons.
+app_tr:
+ message: Турецкий
+ description: Language name for hihglighting message, button caption etc.
+app_ru:
+ message: Pусский
+ description: Language name for hihglighting message, button caption etc.
+app_en:
+ message: Английский
+ description: Language name for hihglighting message, button caption etc.
+app_de:
+ message: Немецкий
+ description: Language name for hihglighting message, button caption etc.
+app_es:
+ message: Испанский
+ description: Language name for hihglighting message, button caption etc.
+app_fr:
+ message: Французский
+ description: Language name for hihglighting message, button caption etc.
+app_it:
+ message: Итальянский
+ description: Language name for hihglighting message, button caption etc.
+app_cn:
+ message: Китайский
+ description: Language name for hihglighting message, button caption etc.
+app_ptBr:
+ message: Португальский
+ description: Language name for hihglighting message, button caption etc.
+app_elGr:
+ message: Греческий
+ description: Language name for hihglighting message, button caption etc.
+app_notFound:
+ message: Термин не найден!
+ description: If search term was not found and then display it.
+app_timeout:
+ message: Время соединения истекло!
+ description: If the connection exceeds the limit of seconds then display it.
+app_swap:
+ message: Поменять местами
+ description: Button highlight message for swapping languages.
+app_feedback:
+ message: Обратная связь
+ description: Hyperlink for feedback.
+app_type:
+ message: Введите слово...
+ description: Input placeholder for writing a search term.
+app_fromLang:
+ message: Перевести с
+ description: Primary languge for searching.
+app_toLang:
+ message: Перевести на
+ description: Secondary language for searching.
+app_notSupported:
+ message: Не поддерживается!
+ description: If the from and to language combination has not a supported web site then display it.
+app_contribute:
+ message: Помощь в разработке
+ description: Hyperlink for github source code page for development.

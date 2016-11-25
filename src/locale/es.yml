@@ -1,0 +1,102 @@
+app_title:
+ message: Diccionario
+ description: The name of the application.
+app_description:
+ message: It's an extension that shows only related places on its own panel with the results that get from the suppported sites.
+ description: Description of this extension.
+app_settings:
+ message: Ajustes
+ description: Settings of this extension.
+app_translate:
+ message: Traducir
+ description: Translate caption of button.
+app_more:
+ message: Haga clic para ver más...
+ description: Go to website for details.
+app_loading:
+ message: Cargando...
+ description: Loading message when getting data from website.
+app_dblclick:
+ message: Doble Clic
+ description: Double click feature on web page.
+app_selection:
+ message: Selección
+ description: Mouse selection feature on web page.
+app_playAudio:
+ message: Play Audio
+ description: Button caption for playing audio if exists.
+app_displayImage:
+ message: Display Image
+ description: Button caption for displaying fist image for related search from Google Images.
+app_autoPlayAudio:
+ message: Auto-Play Audio
+ description: Playing an audio automatically if exists.
+app_autoDisplayImage:
+ message: Auto-Display Image
+ description: Displaying first image for related search from Google Images.
+app_close:
+ message: Close
+ description: Button caption to close a modal dialog.
+app_backward:
+ message: Atrás
+ description: Highlight message in navigation buttons.
+app_forward:
+ message: Adelante
+ description: Highlight message in navigation buttons.
+app_tr:
+ message: Turco
+ description: Language name for hihglighting message, button caption etc.
+app_ru:
+ message: Ruso
+ description: Language name for hihglighting message, button caption etc.
+app_en:
+ message: Inglés
+ description: Language name for hihglighting message, button caption etc.
+app_de:
+ message: Alemán
+ description: Language name for hihglighting message, button caption etc.
+app_es:
+ message: Español
+ description: Language name for hihglighting message, button caption etc.
+app_fr:
+ message: Francés
+ description: Language name for hihglighting message, button caption etc.
+app_it:
+ message: Italian
+ description: Language name for hihglighting message, button caption etc.
+app_cn:
+ message: Chinese
+ description: Language name for hihglighting message, button caption etc.
+app_ptBr:
+ message: Portuguese
+ description: Language name for hihglighting message, button caption etc.
+app_elGr:
+ message: Greek
+ description: Language name for hihglighting message, button caption etc.
+app_notFound:
+ message: Término no encontrado!
+ description: If search term was not found and then display it.
+app_timeout:
+ message: ¡Tiempo de conexión agotado!
+ description: If the connection exceeds the limit of seconds then display it.
+app_swap:
+ message: Intercambio de idiomas
+ description: Button highlight message for swapping languages.
+app_feedback:
+ message: Comentarios
+ description: Hyperlink for feedback.
+app_type:
+ message: Type a word...
+ description: Input placeholder for writing a search term.
+app_fromLang:
+ message: From Language
+ description: Primary languge for searching.
+app_toLang:
+ message: To Language
+ description: Secondary language for searching.
+app_notSupported:
+ message: Not Supported!
+ description: If the from and to language combination has not a supported web site then display it.
+app_contribute:
+ message: Contribute
+ description: Hyperlink for github source code page for development.

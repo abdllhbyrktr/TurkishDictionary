@@ -1,0 +1,36 @@
+{
+  "name": "dictionary",
+  "version": "3.3.0",
+  "description": "It's an extension that shows only related places on its own panel with the results that get from the suppported sites.",
+  "author": "abdllhbyrktr",
+  "license": "MIT",
+  "scripts": {
+    "clean": "gulp clean",
+    "i18n": "gulp i18n",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^3.0.0",
+    "gulp-json-format": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-yaml": "^1.0.1",
+    "underscore": "^1.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abdllhbyrktr/TurkishDictionary.git"
+  },
+  "keywords": [
+    "extension",
+    "dictionary",
+    "chrome",
+    "maxthon",
+    "opera"
+  ],
+  "bugs": {
+    "url": "https://github.com/abdllhbyrktr/TurkishDictionary/issues"
+  },
+  "homepage": "https://github.com/abdllhbyrktr/TurkishDictionary#readme"
+}
