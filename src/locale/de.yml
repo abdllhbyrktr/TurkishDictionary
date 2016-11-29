@@ -2,7 +2,7 @@ app_title:
  message: Wörterbuch
  description: The name of the application.
 app_description:
- message: It's an extension that shows only related places on its own panel with the results that get from the suppported sites.
+ message: It is an extension that shows only related places on its own panel with the results that get from the suppported sites.
  description: Description of this extension.
 app_settings:
  message: Einstellungen
@@ -37,6 +37,12 @@ app_autoDisplayImage:
 app_close:
  message: Close
  description: Button caption to close a modal dialog.
+app_on:
+ message: An
+ description: Label caption to activate a feature.
+app_off:
+ message: Aus
+ description: Label caption to deactivate a feature.
 app_backward:
  message: Zurück
  description: Highlight message in navigation buttons.

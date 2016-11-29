@@ -1,6 +1,6 @@
 {
   "name": "dictionary",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "It's an extension that shows only related places on its own panel with the results that get from the suppported sites.",
   "author": "abdllhbyrktr",
   "license": "MIT",
@@ -12,10 +12,12 @@
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-bom": "^1.0.0",
     "gulp-debug": "^3.0.0",
     "gulp-json-format": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-yaml": "^1.0.1",
+    "through2": "^2.0.3",
     "underscore": "^1.8.3"
   },
   "repository": {

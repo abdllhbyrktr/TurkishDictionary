@@ -1,3 +1,5 @@
+.vscode/
+npm-debug.log*
 assets
 node_modules
 temp
@@ -18,3 +20,5 @@ chrome/_locales/*
 !chrome/_locales/.gitkeep
 edge/_locales/*
 !edge/_locales/.gitkeep
+maxthon/locale/*
+!maxthon/locale/.gitkeep

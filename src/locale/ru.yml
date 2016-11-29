@@ -2,7 +2,7 @@ app_title:
  message: Cловарь
  description: The name of the application.
 app_description:
- message: Мгновенный перевод выделенного текста прямо в боковой панели.
+ message: Мгновенный перевод выделенного текста прямо в боковой панели. Поддерживаются русский, английский, немецкий, французский, испанский, итальянский и турекций языки.
  description: Description of this extension.
 app_settings:
  message: Настройки
@@ -23,20 +23,26 @@ app_selection:
  message: Выделение
  description: Mouse selection feature on web page.
 app_playAudio:
- message: Play Audio
+ message: Проигрывать аудио
  description: Button caption for playing audio if exists.
 app_displayImage:
- message: Display Image
+ message: Показывать картинки
  description: Button caption for displaying fist image for related search from Google Images.
 app_autoPlayAudio:
- message: Auto-Play Audio
+ message: Автоматически проигрывать аудио
  description: Playing an audio automatically if exists.
 app_autoDisplayImage:
- message: Auto-Display Image
+ message: Автоматически показывать картинки
  description: Displaying first image for related search from Google Images.
 app_close:
- message: Close
+ message: Закрыть
  description: Button caption to close a modal dialog.
+app_on:
+ message: Вкл
+ description: Label caption to activate a feature.
+app_off:
+ message: Выкл
+ description: Label caption to deactivate a feature.
 app_backward:
  message: Назад
  description: Highlight message in navigation buttons.

@@ -1,108 +1,108 @@
 app_title:
- message: Diccionario
+ message: Словник
  description: The name of the application.
 app_description:
- message: It is an extension that shows only related places on its own panel with the results that get from the suppported sites.
+ message: Миттєвий переклад виділеного тексту прямо в бічній панелі. Підтримується російська, англійська, німецька, французька, іспанська, італійська та турецька мови.
  description: Description of this extension.
 app_settings:
- message: Ajustes
+ message: Налаштування
  description: Settings of this extension.
 app_translate:
- message: Traducir
+ message: Перекласти
  description: Translate caption of button.
 app_more:
- message: Haga clic para ver más...
+ message: Дізнатись більше
  description: Go to website for details.
 app_loading:
- message: Cargando...
+ message: Завантаження...
  description: Loading message when getting data from website.
 app_dblclick:
- message: Doble Clic
+ message: Подвійний притиск
  description: Double click feature on web page.
 app_selection:
- message: Selección
+ message: Вибір
  description: Mouse selection feature on web page.
 app_playAudio:
- message: Play Audio
+ message: Відтворення аудіо
  description: Button caption for playing audio if exists.
 app_displayImage:
- message: Display Image
+ message: Показати зображення
  description: Button caption for displaying fist image for related search from Google Images.
 app_autoPlayAudio:
- message: Auto-Play Audio
+ message: Автовідтворення аудіо
  description: Playing an audio automatically if exists.
 app_autoDisplayImage:
- message: Auto-Display Image
+ message: Автопоказ зображення
  description: Displaying first image for related search from Google Images.
 app_close:
- message: Close
+ message: Зачинити
  description: Button caption to close a modal dialog.
 app_on:
- message: On
+ message: Ввімк
  description: Label caption to activate a feature.
 app_off:
- message: Off
+ message: Вимк
  description: Label caption to deactivate a feature.
 app_backward:
- message: Atrás
+ message: Назад
  description: Highlight message in navigation buttons.
 app_forward:
- message: Adelante
+ message: Вперед
  description: Highlight message in navigation buttons.
 app_tr:
- message: Turco
+ message: Турецька
  description: Language name for hihglighting message, button caption etc.
 app_ru:
- message: Ruso
+ message: Російська
  description: Language name for hihglighting message, button caption etc.
 app_en:
- message: Inglés
+ message: Англійська
  description: Language name for hihglighting message, button caption etc.
 app_de:
- message: Alemán
+ message: Німецька
  description: Language name for hihglighting message, button caption etc.
 app_es:
- message: Español
+ message: Іспанська
  description: Language name for hihglighting message, button caption etc.
 app_fr:
- message: Francés
+ message: Французька
  description: Language name for hihglighting message, button caption etc.
 app_it:
- message: Italian
+ message: Італійська
  description: Language name for hihglighting message, button caption etc.
 app_cn:
- message: Chinese
+ message: Китайська
  description: Language name for hihglighting message, button caption etc.
 app_ptBr:
- message: Portuguese
+ message: Португальська
  description: Language name for hihglighting message, button caption etc.
 app_elGr:
- message: Greek
+ message: Грецька
  description: Language name for hihglighting message, button caption etc.
 app_notFound:
- message: Término no encontrado!
+ message: Термін не знайдено!
  description: If search term was not found and then display it.
 app_timeout:
- message: ¡Tiempo de conexión agotado!
+ message: Час з'єднання вичерпано!
  description: If the connection exceeds the limit of seconds then display it.
 app_swap:
- message: Intercambio de idiomas
+ message: Поміняти місцями
  description: Button highlight message for swapping languages.
 app_feedback:
- message: Comentarios
+ message: Зворотний зв'язок
  description: Hyperlink for feedback.
 app_type:
- message: Type a word...
+ message: Введіть слово...
  description: Input placeholder for writing a search term.
 app_fromLang:
- message: From Language
+ message: Перекласти з
  description: Primary languge for searching.
 app_toLang:
- message: To Language
+ message: Перекладасти на
  description: Secondary language for searching.
 app_notSupported:
- message: Not Supported!
+ message: Не підтримується!
  description: If the from and to language combination has not a supported web site then display it.
 app_contribute:
- message: Contribute
+ message: Допомога розробнику
  description: Hyperlink for github source code page for development.

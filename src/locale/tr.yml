@@ -37,6 +37,12 @@ app_autoDisplayImage:
 app_close:
  message: Kapat
  description: Button caption to close a modal dialog.
+app_on:
+ message: On
+ description: Label caption to activate a feature.
+app_off:
+ message: Off
+ description: Label caption to deactivate a feature.
 app_backward:
  message: Geri
  description: Highlight message in navigation buttons.
