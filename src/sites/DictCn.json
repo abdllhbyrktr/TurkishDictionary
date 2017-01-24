@@ -1,0 +1,46 @@
+{
+  "name": "Dict.cn",
+  "baseUrl": "http://dict.cn/",
+  "tabIndex": 6,
+  "baseSelectors": [".word"],
+  "conditionSelector": "",
+  "multipleResults": false,
+  "removeElements": [
+    ".sound",
+    ".word-cont a",
+    ".wordbook",
+    ".level-title",
+    ".basic ul li:last",
+    ".dict-basic-ul li:last",
+    ".shape",
+    ".dict-chart"
+  ],
+  "attributes": [],
+  "classes": [],
+  "slices": {
+    "maxResults": 5,
+    "unique": [],
+    "each": []
+  },
+  "organizeLinks": [
+    "a"
+  ],
+  "audioUrlStatement": "'http://audio.dict.cn/' + $word.find('.sound:first').attr('naudio')",
+  "langUrls": {
+    "en": {
+      "cn": ""
+    },
+    "es": {
+      "cn": ""
+    },
+    "de": {
+      "cn": ""
+    },
+    "fr": {
+      "cn": ""
+    },
+    "ru": {
+      "cn": ""
+    }
+  }
+}

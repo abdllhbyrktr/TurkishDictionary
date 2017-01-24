@@ -134,27 +134,6 @@ var Tureng = {
         "": null,
         "undefined": null
     },
-    containsTerm: function() {
-        if (userConfig.fromLang == AvailableLangs.Turkish || userConfig.toLang == AvailableLangs.Turkish) {
-            return "rk";
-        }
-        
-        if (userConfig.fromLang == AvailableLangs.Spanish || userConfig.toLang == AvailableLangs.Spanish) {
-            return "pa";
-        }
-        
-        if (userConfig.fromLang == AvailableLangs.French || userConfig.toLang == AvailableLangs.French) {
-            return "nc";
-        }
-        
-        if (userConfig.fromLang == AvailableLangs.English || userConfig.toLang == AvailableLangs.German) {
-            return "rm";
-        } else if (userConfig.fromLang == AvailableLangs.German || userConfig.toLang == AvailableLangs.English) {
-            return "tsc";
-        }
-        
-        return "ng";
-    },
     langs: {
         en: {
             tr: "en/turkish-english/",

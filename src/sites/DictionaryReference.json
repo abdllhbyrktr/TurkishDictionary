@@ -1,0 +1,36 @@
+{
+  "name": "Dictionary.com",
+  "baseUrl": "http://dictionary.reference.com/",
+  "tabIndex": 2,
+  "baseSelectors": [".def-list"],
+  "conditionSelector": "",
+  "multipleResults": true,
+  "removeElements": [
+    ".visible-xs",
+    ".c0",
+    ".c4",
+    ".c5",
+    ".rc0",
+    ".rc4"
+  ],
+  "attributes": [],
+  "classes": [],
+  "slices": {
+    "maxResults": 5,
+    "unique": [".luna-data-header > span:not(.dbox-pg)"],
+    "each": [{
+      "maxResults": 5,
+      "eachSelector": ".def-pbk",
+      "childSelector": ".def-set"
+    }]
+  },
+  "organizeLinks": [
+    ".source-data .def-content a"
+  ],
+  "audioUrlStatement": "$data.find('.source-box .audio-wrapper audio source:first').attr('src')",
+  "langUrls": {
+    "en": {
+      "en": "browse/"
+    }
+  }
+}

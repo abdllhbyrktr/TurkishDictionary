@@ -650,24 +650,6 @@ function loadWordReferenceSearchResults(data) {
     }
 }
 
-function replaceTurEng($trs) {
-    for (var i = 0; i < $trs.length; i++) {
-        var tr = $trs[i];
-        $("#englishResultsTable tbody").append("<tr>" +
-        tr.children[0].outerHTML +
-        tr.children[1].outerHTML +
-        tr.children[3].outerHTML +
-        tr.children[2].outerHTML +
-        tr.children[4].outerHTML +
-        "</tr>");
-    }
-}
-
-function addToSearchPage(html, results) {
-    $("#searchPage").html(html);
-    $(".searchResultsTable").find("tr").slice(results).remove();
-}
-
 function addHighlights($elem, fireEvent) {
     var arr = $elem.text().trim().split(' ');
     if (arr.length > 1) {
@@ -720,91 +702,24 @@ function reOrganizeLinks(item) {
 }
 
 function loadTurengSearchResults(data) {
-    var englishResultIndex = -1,
-        turkishResultIndex = -1,
-        englishFullResultIndex = -1,
-        turkishFullResultIndex = -1;
     var $data = $(data);
     var $tables = $data.find(".searchResultsTable");
 
-    if ($tables.length) {
-        for (var i = 0; i < $tables.length; i++) {
-            if ($($tables[i]).find(".c2:contains('ng')").length > 0) {
-                if (englishResultIndex == -1) {
-                    englishResultIndex = i;
-                    continue;
-                }
-                englishFullResultIndex = i;
-            }
-            else if ($($tables[i]).find(".c2:contains('" + Tureng.containsTerm() + "')").length > 0) {
-                if (turkishResultIndex == -1) {
-                    turkishResultIndex = i;
-                    continue;
-                }
-                turkishFullResultIndex = i;
-            }
-        }
-
+    if ($tables.length > 0) {
         // remove un-desired tr-columns.
         $tables.find(".visible-xs").each(function (index) {
             $($(this)[0].nextElementSibling).remove();
             $(this).remove();
         });
-
-        var addedEng = false, addedTur = false;
-        var twoSided = ((englishResultIndex > -1 || englishFullResultIndex > -1) &&
-                        (turkishResultIndex > -1 || turkishFullResultIndex > -1));
-        var firstResults = twoSided ? 5 : 6;
-        var fullResults = twoSided ? 4 : 5;
         // set the first audio source url.
         Tureng.defaultAudioUrl = $data.find('.tureng-voice:first source').attr('src');
-        // add first side of results.
-        if (englishResultIndex > -1) {
-            addedEng = true;
-            addToSearchPage($tables[englishResultIndex].outerHTML, firstResults);
+        // add results.
+        var results = 5;
+        $("#searchPage").empty();
+        for (var i = 0; i < $tables.length; i++) {
+            $("#searchPage").append($tables[i].outerHTML);
+            $(".searchResultsTable:eq(" + i + ")").find("tr").slice(results).remove();
         }
-        if (turkishResultIndex > -1) {
-            if (addedEng && twoSided) {
-                replaceTurEng($($tables[turkishResultIndex]).find("tr").slice(1, firstResults));
-            } else {
-                addedTur = true;
-                addToSearchPage($tables[turkishResultIndex].outerHTML, firstResults);
-            }
-        }
-        if (englishFullResultIndex > -1) {
-            if (addedTur && twoSided) {
-                replaceTurEng($($tables[englishFullResultIndex]).find("tr").slice(1, fullResults));
-            } else if (addedEng) {
-                var slices = $($tables[englishFullResultIndex]).find("tr").slice(1, fullResults);
-                $("#englishResultsTable tbody").append(slices);
-            } else {
-                addedEng = true;
-                addToSearchPage($tables[englishFullResultIndex].outerHTML, fullResults);
-            }
-        }
-        // then, append second results.
-        if (turkishFullResultIndex > -1) {
-            if (addedEng && twoSided) {
-                replaceTurEng($($tables[turkishFullResultIndex]).find("tr").slice(1, fullResults));
-            } else if (addedTur) {
-                var slices = $($tables[turkishFullResultIndex]).find("tr").slice(1, fullResults);
-                $("#englishResultsTable tbody").append(slices);
-            } else {
-                addedTur = true;
-                addToSearchPage($tables[turkishFullResultIndex].outerHTML, fullResults);
-            }
-        }
-        // change class name properly.
-        $(".searchResultsTable tr:not(:first-child)").each(function(index) {
-            //var tr = $(this)[0];
-            //tr.children[1].title = turengAbbrv[tr.children[2].innerHTML];
-
-            if (index % 2 == 0) {
-                $(this).attr("class", "odd");
-            } else {
-                $(this).attr("class", "even");
-            }
-        });
         // remove table cells that are undesired.
         $("#searchPage").find(".c0").remove();
         $("#searchPage").find(".c4").remove();

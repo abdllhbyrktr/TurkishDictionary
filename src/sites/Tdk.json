@@ -1,0 +1,25 @@
+{
+  "name": "Tdk",
+  "baseUrl": "http://tdk.gov.tr/index.php",
+  "tabIndex": 3,
+  "baseSelectors": ["table[id*='hor-minimalist']"],
+  "conditionSelector": "",
+  "multipleResults": true,
+  "removeElements": [],
+  "attributes": [],
+  "classes": [],
+  "slices": {
+    "maxResults": 5,
+    "unique": [],
+    "each": []
+  },
+  "organizeLinks": [
+    "td a"
+  ],
+  "audioUrlStatement": "",
+  "langUrls": {
+    "tr": {
+      "tr": "?option=com_gts&arama=gts&kelime="
+    }
+  }
+}

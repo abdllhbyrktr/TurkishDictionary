@@ -1,0 +1,47 @@
+{
+  "name": "Tureng",
+  "baseUrl": "http://tureng.com/",
+  "tabIndex": 0,
+  "baseSelectors": [".searchResultsTable"],
+  "conditionSelector": "",
+  "multipleResults": true,
+  "removeElements": [
+    ".visible-xs",
+    ".c0",
+    ".c4",
+    ".c5",
+    ".rc0",
+    ".rc4"
+  ],
+  "attributes": [],
+  "classes": [],
+  "slices": {
+    "maxResults": 5,
+    "unique": [],
+    "each": []
+  },
+  "organizeLinks": [
+    ".searchResultsTable td a"
+  ],
+  "audioUrlStatement": "$data.find('.tureng-voice:first source').attr('src')",
+  "langUrls": {
+    "en": {
+      "tr": "en/turkish-english/",
+      "de": "en/german-english/",
+      "es": "en/spanish-english/",
+      "fr": "en/french-english/"
+    },
+    "tr": {
+      "en": "tr/turkce-ingilizce/"
+    },
+    "de": {
+      "en": "de/deutsch-englisch/"
+    },
+    "es": {
+      "en": "es/espanol-ingles/"
+    },
+    "fr": {
+      "en": "fr/francais-anglais/"
+    }
+  }
+}

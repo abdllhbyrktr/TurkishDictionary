@@ -1,0 +1,67 @@
+{
+  "name": "Sozluk.net",
+  "baseUrl": "http://sozluk.net/index.php",
+  "tabIndex": 5,
+  "baseSelectors": ["#body_content table:first table:eq(0)"],
+  "conditionSelector": "",
+  "multipleResults": false,
+  "removeElements": [
+    ".mini"
+  ],
+  "attributes": [{
+      "selector": "td",
+      "props": {
+        "width": null
+      },
+      "attrs": {}
+    },
+    {
+      "selector": "a",
+      "props": {},
+      "attrs": {
+        "href": "javascript:;",
+        "target": null
+      }
+    }
+  ],
+  "classes": [],
+  "organizeLinks": [
+    "a"
+  ],
+  "slices": {
+    "maxResults": 5,
+    "uniques": [],
+    "eaches": []
+  },
+  "audioUrlStatement": "var audioSource = $data.find('img[src*=\"audio.gif\"]').closest('a');if (audioSource.length) {var wordId = userConfig.lastSearchTerm.charAt(0),jsSource = audioSource.attr('href'),wavId = jsSource.slice(jsSource.lastIndexOf(','), -3).slice(2);'http://www.sozluk.net/wavs/' + wordId + '/' + wavId + '.wav';} else {'';}",
+  "langUrls": {
+    "en": {
+      "en": "?sozluk=english&word=",
+      "tr": "?sozluk=ingilizce&word=",
+      "de": "?sozluk=german&word=",
+      "es": "?sozluk=spanish&word=",
+      "fr": "?sozluk=french&word=",
+      "ru": "?sozluk=russian&word="
+    },
+    "tr": {
+      "en": "?sozluk=ingilizce&word=",
+      "tr": "?sozluk=turkce&word=",
+      "de": "?sozluk=almanca&word=",
+      "es": "?sozluk=ispanyolca&word=",
+      "fr": "?sozluk=fransizca&word=",
+      "ru": "?sozluk=rusca&word="
+    },
+    "de": {
+      "tr": "?sozluk=almanca&word="
+    },
+    "es": {
+      "tr": "?sozluk=ispanyolca&word="
+    },
+    "fr": {
+      "tr": "?sozluk=fransizca&word="
+    },
+    "ru": {
+      "tr": "?sozluk=rusca&word="
+    }
+  }
+}

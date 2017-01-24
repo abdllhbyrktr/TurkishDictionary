@@ -1,0 +1,48 @@
+{
+  "name": "Abbyy Lingvoo",
+  "baseUrl": "https://www.lingvolive.com/",
+  "tabIndex": 4,
+  "baseSelectors": ["div[name*='dictionary']"],
+  "conditionSelector": "",
+  "multipleResults": false,
+  "removeElements": [
+    "a[href*='api.lingvolive.com/sounds']",
+    "._1lsRx",
+    "h1",
+    "h4"
+  ],
+  "attributes": [],
+  "classes": [],
+  "slices": {
+    "maxResults": 5,
+    "unique": [],
+    "each": []
+  },
+  "organizeLinks": [
+    "a",
+    "._3zJig"
+  ],
+  "audioUrlStatement": "",
+  "langUrls": {
+    "en": {
+      "ru": "en-us/translate/en-ru/"
+    },
+    "es": {
+      "en": "es-mx/translate/es-en/",
+      "ru": "es-mx/translate/es-ru/"
+    },
+    "de": {
+      "ru": "en-us/translate/de-ru/"
+    },
+    "fr": {
+      "ru": "en-us/translate/fr-ru/"
+    },
+    "ru": {
+      "en": "ru-ru/translate/ru-en/",
+      "ru": "ru-ru/translate/ru-ru/",
+      "de": "ru-ru/translate/ru-de/",
+      "es": "ru-ru/translate/ru-es/",
+      "fr": "ru-ru/translate/ru-fr/"
+    }
+  }
+}
