@@ -1,5 +1,6 @@
 {
   "name": "Wordreference.com",
+  "version": "1.0.0",
   "baseUrl": "http://www.wordreference.com/",
   "tabIndex": 1,
   "baseSelectors": [".WRD", "#article"],

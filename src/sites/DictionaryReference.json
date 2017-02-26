@@ -1,5 +1,6 @@
 {
   "name": "Dictionary.com",
+  "version": "1.0.0",
   "baseUrl": "http://dictionary.reference.com/",
   "tabIndex": 2,
   "baseSelectors": [".def-list"],

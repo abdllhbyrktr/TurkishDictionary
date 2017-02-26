@@ -1,5 +1,6 @@
 {
   "name": "Tdk",
+  "version": "1.0.0",
   "baseUrl": "http://tdk.gov.tr/index.php",
   "tabIndex": 3,
   "baseSelectors": ["table[id*='hor-minimalist']"],

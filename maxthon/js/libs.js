@@ -72,6 +72,15 @@ function UserConfig() {
             return ExtensionCore.setSetting("lastImageSearched", value);
         }
     });
+
+    Object.defineProperty(this, "websites", {
+        get: function() {
+            return ExtensionCore.getSetting("websites");
+        },
+        set: function(value) {
+            return ExtensionCore.setSetting("websites", JSON.stringify(value));
+        }
+    });
 };
 
 var userConfig = new UserConfig();
@@ -83,6 +92,20 @@ var AvailableLangs = {
     Spanish: "es",
     French: "fr",
     Chinese: "cn"
+};
+var BaseDictionary = {
+    name: "",
+    baseUrl: "",
+    tabId: "",
+    loadFunc: null,
+    divContainer: "",
+    defaultAudioUrl: "",
+    getUrl: function () {
+        return this.baseUrl + this.langs[userConfig.fromLang][userConfig.toLang];
+    },
+    isSupported: function(fromLang, toLang) {
+        return this.langs.hasOwnProperty(fromLang) && this.langs[fromLang].hasOwnProperty(toLang);
+    }
 };
 
 // restore default settings.
@@ -100,21 +123,24 @@ if (!userConfig.autoDisplayImage) {
     userConfig.autoDisplayImage = false;
     userConfig.lastImageSearchTerm = userConfig.lastImageSearchTerm || "gezi parkı";
 }
+if (!userConfig.websites) {
+    jQuery.getJSON('https://api.github.com/repos/abdllhbyrktr/TurkishDictionary/git/trees/master?recursive=1', function(data) {
+        var websites = [];
+        var sites = _.filter(data.tree, function (item) {
+            return item.path.indexOf('src/sites/') > -1;
+        });
 
-var BaseDictionary = {
-    name: "",
-    baseUrl: "",
-    tabId: "",
-    loadFunc: null,
-    divContainer: "",
-    defaultAudioUrl: "",
-    getUrl: function () {
-        return this.baseUrl + this.langs[userConfig.fromLang][userConfig.toLang];
-    },
-    isSupported: function(fromLang, toLang) {
-        return this.langs.hasOwnProperty(fromLang) && this.langs[fromLang].hasOwnProperty(toLang);
-    }
-};
+        for (var i = 0; i < sites.length; i++) {
+            setTimeout(function(url) {
+                jQuery.getJSON(url, function(obj) {
+                    websites.push(obj);
+                    userConfig.websites = websites;
+                });
+            }, 10 * i, 'https://raw.githubusercontent.com/abdllhbyrktr/TurkishDictionary/master/' + sites[i].path);
+        }
+    });
+}
+
 var Tureng = {
     abbrv: {
         "v.": "verb",
@@ -427,10 +453,10 @@ function clearSelection() {
 }
 
 function localizeHtml() {
-    //$("head title").text(ExtensionCore.i18n("app.settings"));
-    $("[data-lang]").each(function () {
+    //jQuery("head title").text(ExtensionCore.i18n("app.settings"));
+    jQuery("[data-lang]").each(function () {
         var text = "";
-        var keys = $(this).attr("data-lang");
+        var keys = jQuery(this).attr("data-lang");
         keys.split(/\|/g).forEach(function (element, index, array) {
             if (text == "") {
                 text = ExtensionCore.i18n(element);
@@ -439,24 +465,24 @@ function localizeHtml() {
             }
         });
 
-        $(this).text(text);
+        jQuery(this).text(text);
     });
-    $("[data-lang-value]").each(function () {
-        var key = $(this).attr("data-lang-value");
-        $(this).attr("value", ExtensionCore.i18n(key));
+    jQuery("[data-lang-value]").each(function () {
+        var key = jQuery(this).attr("data-lang-value");
+        jQuery(this).attr("value", ExtensionCore.i18n(key));
     });
-    $("[data-lang-placeholder]").each(function () {
-        var key = $(this).attr("data-lang-placeholder");
-        $(this).attr("placeholder", ExtensionCore.i18n(key));
+    jQuery("[data-lang-placeholder]").each(function () {
+        var key = jQuery(this).attr("data-lang-placeholder");
+        jQuery(this).attr("placeholder", ExtensionCore.i18n(key));
     });
-    $("[data-lang-alt]").each(function () {
-        var alt = $(this).attr("alt");
-        var key = $(this).attr("data-lang-alt");
-        $(this).attr("alt", alt + ExtensionCore.i18n(key));
+    jQuery("[data-lang-alt]").each(function () {
+        var alt = jQuery(this).attr("alt");
+        var key = jQuery(this).attr("data-lang-alt");
+        jQuery(this).attr("alt", alt + ExtensionCore.i18n(key));
     });
-    $("[data-lang-title]").each(function () {
-        var key = $(this).attr("data-lang-title");
-        $(this).attr("title", ExtensionCore.i18n(key));
+    jQuery("[data-lang-title]").each(function () {
+        var key = jQuery(this).attr("data-lang-title");
+        jQuery(this).attr("title", ExtensionCore.i18n(key));
     });
 }
 

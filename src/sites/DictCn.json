@@ -1,5 +1,6 @@
 {
   "name": "Dict.cn",
+  "version": "1.0.0",
   "baseUrl": "http://dict.cn/",
   "tabIndex": 6,
   "baseSelectors": [".word"],

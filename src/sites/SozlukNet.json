@@ -1,5 +1,6 @@
 {
   "name": "Sozluk.net",
+  "version": "1.0.0",
   "baseUrl": "http://sozluk.net/index.php",
   "tabIndex": 5,
   "baseSelectors": ["#body_content table:first table:eq(0)"],

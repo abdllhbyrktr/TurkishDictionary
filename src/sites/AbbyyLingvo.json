@@ -1,5 +1,6 @@
 {
   "name": "Abbyy Lingvoo",
+  "version": "1.0.0",
   "baseUrl": "https://www.lingvolive.com/",
   "tabIndex": 4,
   "baseSelectors": ["div[name*='dictionary']"],

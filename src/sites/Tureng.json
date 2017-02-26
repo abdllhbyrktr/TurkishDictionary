@@ -1,5 +1,6 @@
 {
   "name": "Tureng",
+  "version": "1.0.0",
   "baseUrl": "http://tureng.com/",
   "tabIndex": 0,
   "baseSelectors": [".searchResultsTable"],
