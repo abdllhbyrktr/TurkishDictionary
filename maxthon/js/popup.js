@@ -56,6 +56,16 @@
         document.onmousemove = mouseSelectEnabled ? mouseMoving : documentOnmousemove;
         document.onmousedown = mouseSelectEnabled ? mouseDown : documentOnmousedown;
         document.onmouseup = mouseSelectEnabled ? mouseSelected : documentOnmouseup;
+        document.onkeydown = function (evt) {
+            if (evt.altKey && evt.ctrlKey && evt.shiftKey && evt.keyCode == 84) {
+                var sel = getSelected();
+                if (sel == "") { return; }
+                rt.post("translateWithGoogle", sel);
+            }
+        };
+        rt.listen("sendTranslateResults", function (data) {
+            console.log(data);
+        });
     };
 
     var panelIsStopped = function() {

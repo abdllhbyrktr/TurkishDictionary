@@ -39,6 +39,12 @@ ExtensionCore.listen("translate", function (searchKey) {
     //setTimeout(sendResults, 100);
 });
 
+ExtensionCore.listen("translateWithGoogle", function (searchKey) {
+    GoogleTranslate.translate(searchKey, function (data) {
+        ExtensionCore.post("sendTranslateResults", data);
+    });
+});
+
 ExtensionCore.listen("updateTabs", function (isChecked) {
     updateSwapLangs();
     updateTabs();
@@ -257,7 +263,7 @@ EventBus.on('ContainerLoaded', function () {
 $(document).ready(function () {
     localizeHtml();
     // prevent right click on panel.
-    $(document).bind("contextmenu", function (e) { return false; });
+    //$(document).bind("contextmenu", function (e) { return false; });
 
     $("a[data-toggle='tab']").on("click", function (e) {
         tabClicked = true;
@@ -428,6 +434,7 @@ $(document).ready(function () {
 
     sendSettings();
     //panelTab.translate(userConfig.lastSearchTerm);
+    GoogleTranslate.init();
 });
 
 function getHtmlData(url, notifyContainer, loadFunc) {
@@ -760,6 +767,141 @@ function yandexTranslate(word) {
         $("#DictionaryOutput").html("<span>" + data.text.join(" ") + "</span>");
     }, "json");
 }
+
+var GoogleTranslate = (function () {
+
+    var tkk;
+
+    function complete(a){var gf=function(a){return function(){return a}},hf=function(a,b){for(var c=0;c<b.length-2;c+=3){var d=b.charAt(c+2),d="a"<=d?d.charCodeAt(0)-87:Number(d),d="+"==b.charAt(c+1)?a>>>d:a<<d;a="+"==b.charAt(c)?a+d&4294967295:a^d}return a},jf=tkk,b=null;if(null!==jf)b=jf;else{b=gf(String.fromCharCode(84));var c=gf(String.fromCharCode(75));b=[b(),b()];b[1]=c();b=(jf=window[b.join(c())]||"")||""}var d=gf(String.fromCharCode(116)),c=gf(String.fromCharCode(107)),d=[d(),d()];d[1]=c();c="&"+d.join("")+"=";d=b.split(".");b=Number(d[0])||0;for(var e=[],f=0,g=0;g<a.length;g++){var k=a.charCodeAt(g);128>k?e[f++]=k:(2048>k?e[f++]=k>>6|192:(55296==(k&64512)&&g+1<a.length&&56320==(a.charCodeAt(g+1)&64512)?(k=65536+((k&1023)<<10)+(a.charCodeAt(++g)&1023),e[f++]=k>>18|240,e[f++]=k>>12&63|128):e[f++]=k>>12|224,e[f++]=k>>6&63|128),e[f++]=k&63|128)}a=b;for(f=0;f<e.length;f++)a+=e[f],a=hf(a,"+-a^+6");a=hf(a,"+-3^+b+-f");a^=Number(d[1])||0;0>a&&(a=(a&2147483647)+2147483648);a%=1E6;return c+(a.toString()+"."+(a^b))}
+
+    function between(str, start, end) {
+        var _start = str.indexOf(start);
+
+        if(_start === -1) {
+            return false;
+        }
+
+        _start = _start + start.length;
+
+        var _end = str.slice(_start).indexOf(end);
+
+        if(_end === -1) {
+            return false;
+        }
+
+        return str.slice(_start, _start + _end);
+    }
+    
+    function getTKK(callback) {
+        $.get({
+            url: 'https://translate.google.com/m/translate'
+        }, function(data, status, xhr) {
+            if (status !== 'success') {
+                console.error('#getTKK error', status);
+                return callback(false);
+            }
+
+            if (xhr.status != 200) {
+                console.warn('#getTKK status code != 200', xhr);
+                return callback(false);
+            }
+
+            var tkkFuncStr = between(data, "tkk:'", "',")
+                .replace(/\\x3d/g, '=')
+                .replace(/\\x27/g, "'");
+
+            // global
+            tkk = eval(tkkFuncStr);
+
+            return callback(true)
+        });
+    }
+
+    function handleData(res) {
+        var data = {};
+
+        data.from = res.src;
+        data.translit = res.sentences[1] && res.sentences[1].src_translit;
+        data.spell = res.spell && res.spell.spell_res;
+
+        if (res.dict) {
+            data.dict = res.dict.map(function(dict) {
+                dict.terms = dict.terms.join(', ');
+                return dict;
+            });
+        }
+
+        if (res.sentences) {
+            data.sentence = res.sentences.map(function(sentence) {
+                return sentence.trans;
+            }).join('').split('\n');
+        }
+
+        return data;
+    }
+
+    function getAudioUrl(text, src) {
+        if (text.length > 100) {
+            return false;
+        }
+
+        var query = {
+            ie: 'UTF-8',
+            client: 'webapp',
+            q: text,
+            tl: src
+        };
+
+        return 'https://translate.google.com/translate_tts?' + $.param(query) + complete(text);
+    }
+
+    function translate(word, callback) {
+        var query = {
+            client: 'webapp',
+            sl: userConfig.fromLang,
+            tl: userConfig.toLang,
+            hl: userConfig.toLang,
+            dj: 1,
+            ie: 'UTF-8',
+            oe: 'UTF-8',
+            q: word
+        };
+
+        query = $.param(query);
+        query = '?' + query + '&dt=bd&dt=ld&dt=qc&dt=rm&dt=t';
+        query += complete(word);
+        var translateUrl = 'https://translate.google.com/translate_a/single' + query;
+
+        $.get(translateUrl, function (body, status, xhr) {
+            data = handleData(body);
+            data.audio = getAudioUrl(word, body.src);
+            data.to = userConfig.toLang;
+            data.src = 'google';
+            data.from_word = word;
+
+            //from word = to word
+            if (word !== word.toLowerCase() && data.sentence) {
+                if (data.sentence[0] === word) {
+                    return translate(word.toLowerCase(), callback);
+                }
+            }
+
+            return callback(data);
+        }, "json");
+    }
+
+    function init() {
+        getTKK(function (ok) {
+            console.log('Google Translate token got.')
+        });
+    }
+
+    return {
+        translate: translate,
+        init: init
+    };
+
+})();
 
 NotSupported.loadFunc = function(data) {}
 Tureng.loadFunc = loadTurengSearchResults;
