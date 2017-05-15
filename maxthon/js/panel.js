@@ -100,7 +100,8 @@ var PanelTab = (function () {
 
         $('#imageResultModal').modal('hide');
         $("#searchInput").val(word.toLowerCase());
-        $("#searchInput").focus();
+        $("#searchInput").blur();
+        setTimeout(function() { $("#searchInput").focus(); }, 1000);
         userConfig.lastSearchTerm = word;
     };
 

@@ -15,13 +15,20 @@
     var lang = rt.locale.t;
     var doubleClickEnabled = false;
     var mouseSelectEnabled = false;
+    var keyEventsEnabled = true;
     var iconInterval = 0;
     var iconViewed = false;
     var iconHovered = false;
     var Gestures = {Left: "left", Right: "right", Middle: "middle"};
     var mouseEvt = { x: 0, y: 0, grab: false, sel: "", occured: false, gesture: Gestures.Right };
+    var keyEvt = {
+        activeKeys: [],
+        get key1() { return this.activeKeys.indexOf(49) !== -1; },
+        get key2() { return this.activeKeys.indexOf(50) !== -1; },
+        get key3() { return this.activeKeys.indexOf(51) !== -1; }
+    };
     var maxSelection = 2048;
-    var documentOndblclick, documentOnmousemove, documentOnmousedown, documentOnmouseup;
+    var documentOndblclick, documentOnmousemove, documentOnmousedown, documentOnmouseup, documentOnkeydown, documentOnkeyup;
 
     console.log(lang("app.title"));
 
@@ -31,6 +38,8 @@
         documentOnmousemove = document.onmousemove;
         documentOnmousedown = document.onmousedown;
         documentOnmouseup = document.onmouseup;
+        documentOnkeydown = document.onkeydown;
+        documentOnkeyup = document.onkeyup;
         // check panel application.
         var panelApp = rt.getActionByName("dict-panel");
         if (panelApp.state != "running") {
@@ -56,13 +65,8 @@
         document.onmousemove = mouseSelectEnabled ? mouseMoving : documentOnmousemove;
         document.onmousedown = mouseSelectEnabled ? mouseDown : documentOnmousedown;
         document.onmouseup = mouseSelectEnabled ? mouseSelected : documentOnmouseup;
-        document.onkeydown = function (evt) {
-            if (evt.altKey && evt.ctrlKey && evt.shiftKey && evt.keyCode == 84) {
-                var sel = getSelected();
-                if (sel == "") { return; }
-                rt.post("translateWithGoogle", sel);
-            }
-        };
+        document.onkeydown = keyEventsEnabled ? keyDown : documentOnkeydown;
+        document.onkeyup = keyEventsEnabled ? keyUp : documentOnkeyup;
         rt.listen("sendTranslateResults", function (data) {
             console.log(data);
         });
@@ -109,7 +113,7 @@
         if (samples.length >= maxSamples) {            
             mouseEvt.occured = true;
         }
-    };
+    }
 
     function mouseSelected() {
         if (!mouseEvt.occured) {
@@ -133,12 +137,29 @@
         addIcon();
         mouseEvt.sel = sel;
         showIcon();
-    };
+    }
 
     function mouseDown() {
         mouseEvt.grab = true;
         if (iconViewed && !iconHovered) { hideIcon(); }
-    };
+    }
+
+    function keyDown(evt) {
+        if (evt.altKey && evt.ctrlKey && evt.shiftKey && evt.keyCode == 84) {
+            var sel = getSelected();
+            if (sel == "") { return; }
+            rt.post("translateWithGoogle", sel);
+        }
+        if (keyEvt.activeKeys.indexOf(evt.which) === -1)
+            keyEvt.activeKeys.push(evt.which);
+    }
+
+    function keyUp(evt) {
+        var index = keyEvt.activeKeys.indexOf(evt.which);
+        if (index > -1) {
+            keyEvt.activeKeys.splice(index, 1);
+        }
+    }
 
     function doubleClicked() {
         var sel = getSelected();
@@ -154,7 +175,7 @@
         var app = rt.getActionByName("dict-panel");
         panelIsActive() || app.activate();
         //showDialog(sel);
-    };
+    }
 
     function grabGesture() {
         // get last five delta x replacements.
@@ -177,38 +198,36 @@
             mouseEvt.gesture = Gestures.Middle;
         }
         //console.log("gesture: ", mouseEvt.gesture);
-    };
+    }
 
     function getSelected() {
-        var s = "";
-        if (typeof window.getSelection != "undefined") {
-            var sel = window.getSelection();
-            if (sel.rangeCount) {
-                var container = document.createElement("div");
-                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                    container.appendChild(sel.getRangeAt(i).cloneContents());
+        var sel = window.getSelection();
+        var range = sel.getRangeAt(0);
+        var s = range.toString();
+        if (keyEvt.key1 || keyEvt.key2 || keyEvt.key3) {
+            var keyNums = keyEvt.key1 ? 1 : (keyEvt.key2 ? 2 : 3);
+            if (!range.collapsed && range.endContainer.textContent === range.startContainer.textContent) {
+                var words = [s.trim()];
+                var availableWords = range.startContainer.textContent.substring(range.endOffset).trim().split(' ');
+                if (keyNums <= availableWords.length) {
+                    for (var i = 0; i < keyNums; i++) {
+                        words.push(availableWords[i]);
+                    }
                 }
-
-                s = container.innerHTML;
-            }
-        } else if (typeof document.selection != "undefined") {
-            if (document.selection.type == "Text") {
-                s = document.selection.createRange().htmlText;
+                s = words.join(' ');
             }
         }
 
-        //console.log("selected: ", s);
+        keyEvt.activeKeys = [];
         // check and remove undesired chars.
-        s = s.replace(/<\/?[^>]+(>|$)/g, ""); // remove html tags.
         if (s.match(/[#$%*+=^{}<>~]/g)) { return ""; }
         if (s.length > maxSelection) { return ""; }
-        s = s.replace(/&\w+;/g, ""); // remove html codes like &nbsp;
         s = s.replace(/[0-9"`\/\(\)\[\]|&?!:;.,_-]/g, " "); // convert some chars to whitespace.
         s = s.replace(/^\s+|\s+$/g, ""); // trim whitespaces.
         s = s.replace(/\s{2,128}/g, " "); // replace 2 or more white spaces into the one.
 
         return s;
-    };
+    }
 
     function addIcon() {
         var turengIcon = document.getElementById("turengWebIcon");
@@ -244,7 +263,7 @@
             iconHovered = false;
             iconInterval = setInterval(hideIcon, 2000);
         });
-    };
+    }
 
     function addOverlay() {
         if (parent.document.getElementById("unVisibleOverlay")) {
@@ -273,7 +292,7 @@
                 heads[0].appendChild(node);
             }
         }
-    };
+    }
 
     function showIcon() {
         var x = 2;
@@ -295,14 +314,14 @@
         turengIcon.style.display = "block";
         iconViewed = true;
         iconInterval = setInterval(hideIcon, 2000);
-    };
+    }
 
     function hideIcon() {
         var turengIcon = document.getElementById("turengWebIcon");
         turengIcon.style.display = "none";
         iconViewed = false;
         clearInterval(iconInterval);
-    };
+    }
 
     function showDialog(sel) {
         var overlay = document.getElementById("unVisibleOverlay");
@@ -319,15 +338,15 @@
 
         overlay.onclick = function () {
             hideDialog();
-        }
-    };
+        };
+    }
 
     function hideDialog() {
         //$("#overlay").hide();
         document.getElementById("unVisibleOverlay").style["display"] = "none";
         //$("#dialog").fadeOut(300);
         fadeEffect.init("tureng_web_dialog", 1); // fade out the "fade" element
-    };
+    }
 
     // http://www.scriptiny.com/2011/01/javascript-fade-in-out/
     var fadeEffect = function () {
@@ -352,9 +371,9 @@
                     this.alpha = value
                 }
             }
-        }
+        };
     } ();
 
-})()
+})();
 
 
